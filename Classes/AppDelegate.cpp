@@ -4,7 +4,7 @@
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
-
+	// Praise Bob Hobbs!
 }
 
 AppDelegate::~AppDelegate() 
