@@ -5,6 +5,15 @@
       <RootFolder Name=".">
         <Project Name="MainScene.csd" Type="Scene" />
         <Image Name="HelloWorld.png" />
+        <Folder Name="Resources">
+          <Folder Name="Backgrounds">
+            <Image Name="TrackBackground.png" />
+          </Folder>
+          <Folder Name="ClourBlocks">
+            <Image Name="Black Screen.png" />
+          </Folder>
+        </Folder>
+        <Project Name="MainMenu.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>
