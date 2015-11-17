@@ -1,0 +1,23 @@
+﻿Build started 17/11/2015 16:53:39.
+     1>Project "D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\proj.win32\BaseLandscapeProject.vcxproj" on node 2 (Build target(s)).
+     1>PreLinkEvent:
+         if not exist "D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\proj.win32\Debug.win32\" mkdir "D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\proj.win32\Debug.win32\"
+         xcopy /Y /Q "C:\Cocos\frameworks\cocos2d-x-3.8\prebuilt\win32\*.*" "D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\proj.win32\Debug.win32\"
+         
+         :VCEnd
+         60 File(s) copied
+       Link:
+         BaseLandscapeProject.vcxproj -> D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\proj.win32\Debug.win32\Puppy-Backlogue-Slaughter.exe
+       CustomBuildStep:
+         if not exist "D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\proj.win32\Debug.win32\" mkdir "D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\proj.win32\Debug.win32\"
+         xcopy "D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\proj.win32\..\Resources" "D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\proj.win32\Debug.win32\" /D /E /I /F /Y
+               
+         :VCEnd
+         D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\Resources\res\MainScene.csb -> D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\proj.win32\Debug.win32\res\MainScene.csb
+         D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\Resources\res\Menu.csb -> D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\proj.win32\Debug.win32\res\Menu.csb
+         2 File(s) copied
+     1>Done Building Project "D:\Users\David\Dropbox\Dropbox\Staffordshire University\Year 2\Technical Games Production\Puppy Backlogue Slaughter\Projects\BaseLandscapeProject\proj.win32\BaseLandscapeProject.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.86

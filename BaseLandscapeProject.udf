@@ -15,11 +15,11 @@
         <Android_PackageName Value="org.cocos.BaseLandscapeProject" />
         <AndroidkeyStore Value="" />
         <AndroidVersion Value="android-20" />
-        <iOS_Target Value="BaseLandscapeProject-mobile" />
+        <iOS_Target Value="BaseLandscapeProject iOS" />
         <iOS_BundleID Value="" />
         <Platform Value="None" />
         <RunPlatform Value="None" />
-        <FrameworkVersion Value="cocos2d-x-3.8" />
+        <FrameworkVersion Value="" />
         <IsDebugKeystore Value="True" />
         <EnableSourceMap Value="False" />
         <EnableHTML5Advanced Value="False" />
