@@ -2,9 +2,20 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "ui/CocosGUI.h"
 
 class HelloWorld : public cocos2d::Layer
 {
+private:
+	// Menu Buttons
+	cocos2d::ui::Button*    Start_Button;
+	cocos2d::ui::Button*	Credits_Button;
+
+	// Backgrounds
+	cocos2d::Image*			Track_Background;	// TEMPLATE BACKGROUND - NEEDS REMOVING	
+
+	// Translucent Colour Blocks
+	cocos2d::Image*			Black_50;	// 50% Opacity
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
@@ -13,7 +24,22 @@ public:
     virtual bool init();
 
     // implement the "static create()" method manually
-    CREATE_FUNC(HelloWorld);
+	CREATE_FUNC(HelloWorld);
+
+	void update(float);
+
+	// Deal with touches.
+	//virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
+	//virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
+	//virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
+	//virtual void onTouchCancelled(cocos2d::Touch*, cocos2d::Event*);
+
+	// Button event
+	void StartButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type);
+	void CreditsButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type);
+
+	// Deal with scene change
+	void StartGame();
 };
 
 #endif // __HELLOWORLD_SCENE_H__
