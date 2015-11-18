@@ -61,6 +61,8 @@ bool HelloWorld::init()
 
 void HelloWorld::update(float delta)
 {
+	auto winSize = Director::getInstance()->getVisibleSize();
+
 	// Check what scene player is on
 	if (scene == 1) {		// scene 1 == menu
 
@@ -69,23 +71,30 @@ void HelloWorld::update(float delta)
 
 	}
 	else if (scene == 3) {	// scene 3 == credits
-		int currOpac = Black_Filter->getOpacity();
-
-		// If scenes have just switched, the black filter's opacity needs to slowly increase for a smooth fade transition
-		if (currOpac <= 255) {	// 255 because opacity is stored as an unsigned char
-			int nextOpac = currOpac + 5;
-
-			// Check that currOpac will not exeed 255 next update
-			if (nextOpac <= 255) {
-				Black_Filter->setOpacity(nextOpac);
-			}
-			else {
-				Black_Filter->setOpacity(255);
-			}
+		// Check if credits have exited the screen
+		// REMEMBER - Anchor point is taken at (0, 1) [Normalized coords]
+		if ((Credit_Text->getPositionY() - Credit_Text->getSize().height) > winSize.height) {
+			EndCredits();
 		}
+		else {
+			int currOpac = Black_Filter->getOpacity();
 
-		Credit_Text->setPosition(Vec2(Credit_Text->getPositionX() + (delta * 0.0f),
-										Credit_Text->getPositionY() + (delta * 50.0f)));
+			// If scenes have just switched, the black filter's opacity needs to slowly increase for a smooth fade transition
+			if (currOpac <= 255) {	// 255 because opacity is stored as an unsigned char
+				int nextOpac = currOpac + 5;
+
+				// Check that currOpac will not exeed 255 next update
+				if (nextOpac <= 255) {
+					Black_Filter->setOpacity(nextOpac);
+				}
+				else {
+					Black_Filter->setOpacity(255);
+				}
+			}
+
+			Credit_Text->setPosition(Vec2(Credit_Text->getPositionX() + (delta * 0.0f),
+				Credit_Text->getPositionY() + (delta * 150.0f)));
+		}
 	}
 }
 
@@ -109,6 +118,17 @@ void HelloWorld::CreditsButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEve
 		this->StartCredits();
 	}
 	this->StartCredits();
+}
+
+void HelloWorld::StartMainMenu()
+{
+	scene = 1;
+
+	auto startMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 471.0f)); // Take half a second to move off screen.
+	Start_Button->runAction(startMoveTo);
+
+	auto creditsMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 249.0f)); // Take half a second to move off screen.
+	Credits_Button->runAction(creditsMoveTo);
 }
 
 void HelloWorld::StartGame()
@@ -148,5 +168,22 @@ void HelloWorld::StartCredits()
 
 void HelloWorld::EndCredits()
 {
+	// Start smoothly fading the filter back to menu opacity (50% - 127 unsigned char)
+	int currOpac = Black_Filter->getOpacity();
 
+	if (currOpac >= 127) {	// 255 because opacity is stored as an unsigned char
+		int nextOpac = currOpac - 5;
+
+		// Check that currOpac will not fall below 127 next update
+		if (nextOpac > 127) {
+			Black_Filter->setOpacity(nextOpac);
+		}
+		else {
+			Black_Filter->setOpacity(127);
+
+			// Transition complete, remove stray elements and start menu scene
+			Credit_Text->setVisible(false);
+			StartMainMenu();
+		}
+	}
 }

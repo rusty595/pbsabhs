@@ -47,6 +47,7 @@ public:
 	void CreditsButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type);
 
 	// Deal with scene change
+	void StartMainMenu();
 	void StartGame();
 	void PauseGame();
 	void EndGame();
