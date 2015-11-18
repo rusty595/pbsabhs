@@ -35,6 +35,9 @@ bool HelloWorld::init()
     {
         return false;
     }
+
+	// First, lets create our seed for the random number generator
+	srand(time(NULL));
     
     auto rootNode = CSLoader::createNode("MainScene.csb");
 
@@ -62,8 +65,7 @@ bool HelloWorld::init()
 	// Finally, lets add the label to the layer (HelloWorld is a layer, NOT a scene)
 	this->addChild(labelTouchInfo);
 
-	// Finally, lets create our seed for the random number generator
-	srand(time(NULL));
+	
 
     return true;
 }
