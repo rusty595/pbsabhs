@@ -30,28 +30,68 @@ bool HelloWorld::init()
     {
         return false;
     }
-    
-    auto rootNode = CSLoader::createNode("MainMenu.csb");
 
+	auto rootNode = CSLoader::createNode("MainMenu.csb");
 	addChild(rootNode);
+	auto creditNode = CSLoader::createNode("CreditScene.csb");
+	addChild(creditNode);
+
+	this->scheduleUpdate();
+
+	// Initialise Scene
+	scene = 1;
 
 	// Initialise all images/sprites/buttons/ect...
+	Black_Filter = (Sprite*)rootNode->getChildByName("Black_Filter");
+
 	Start_Button = static_cast<ui::Button*>(rootNode->getChildByName("Start_Button"));
 	Start_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::StartButtonPressed, this));
+
 	Credits_Button = static_cast<ui::Button*>(rootNode->getChildByName("Credits_Button"));
 	Credits_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::CreditsButtonPressed, this));
+
+	Credit_Text = (ui::Text*)creditNode->getChildByName("Credit_Text");
+	Credit_Text->setFontSize(30);
+	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nArtwork:\n Sam Head\n\nDocumentation:\n David Smith\n");
+	Credit_Text->setAnchorPoint(Vec2(0.0f, 1.0f));
+	Credit_Text->setVisible(false);
 
     return true;
 }
 
-void HelloWorld::update(float a)
+void HelloWorld::update(float delta)
 {
-	// Fuck off cocos
+	// Check what scene player is on
+	if (scene == 1) {		// scene 1 == menu
+
+	}
+	else if (scene == 2) {	// scene 2 == game
+
+	}
+	else if (scene == 3) {	// scene 3 == credits
+		int currOpac = Black_Filter->getOpacity();
+
+		// If scenes have just switched, the black filter's opacity needs to slowly increase for a smooth fade transition
+		if (currOpac <= 255) {	// 255 because opacity is stored as an unsigned char
+			int nextOpac = currOpac + 5;
+
+			// Check that currOpac will not exeed 255 next update
+			if (nextOpac <= 255) {
+				Black_Filter->setOpacity(nextOpac);
+			}
+			else {
+				Black_Filter->setOpacity(255);
+			}
+		}
+
+		Credit_Text->setPosition(Vec2(Credit_Text->getPositionX() + (delta * 0.0f),
+										Credit_Text->getPositionY() + (delta * 50.0f)));
+	}
 }
 
 void HelloWorld::StartButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
 {
-	CCLOG("In touch! %d", type);
+	CCLOG("I touched the start, and I liked it! %d", type);
 
 	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
 	{
@@ -62,7 +102,13 @@ void HelloWorld::StartButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEvent
 
 void HelloWorld::CreditsButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
 {
+	CCLOG("I touched the credits, and I liked it! %d", type);
 
+	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
+	{
+		this->StartCredits();
+	}
+	this->StartCredits();
 }
 
 void HelloWorld::StartGame()
@@ -71,4 +117,36 @@ void HelloWorld::StartGame()
 
 	auto moveTo = MoveTo::create(0.5, Vec2(-winSize.width*0.5f, winSize.height*0.5f)); // Take half a second to move off screen.
 	Start_Button->runAction(moveTo);
+}
+
+void HelloWorld::PauseGame()
+{
+
+}
+
+void HelloWorld::EndGame()
+{
+
+}
+
+void HelloWorld::StartCredits()
+{
+	auto winSize = Director::getInstance()->getVisibleSize();
+	scene = 3;
+
+	//Set up credit text
+	Credit_Text->setPosition(Vec2(888.0f, 0.0f));
+	Credit_Text->setVisible(true);
+
+	// Move buttons
+	auto startMoveTo = MoveTo::create(0.5, Vec2(winSize.width, Start_Button->getPositionY())); // Take half a second to move off screen.
+	Start_Button->runAction(startMoveTo);
+
+	auto creditsMoveTo = MoveTo::create(0.5, Vec2(winSize.width, Credits_Button->getPositionY())); // Take half a second to move off screen.
+	Credits_Button->runAction(creditsMoveTo);
+}
+
+void HelloWorld::EndCredits()
+{
+
 }

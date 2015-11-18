@@ -7,6 +7,11 @@
 class HelloWorld : public cocos2d::Layer
 {
 private:
+	// Scenes
+	int scene;
+	cocos2d::Scene* menuScene;
+	cocos2d::Scene* creditsScene;
+
 	// Menu Buttons
 	cocos2d::ui::Button*    Start_Button;
 	cocos2d::ui::Button*	Credits_Button;
@@ -15,7 +20,10 @@ private:
 	cocos2d::Image*			Track_Background;	// TEMPLATE BACKGROUND - NEEDS REMOVING	
 
 	// Translucent Colour Blocks
-	cocos2d::Image*			Black_50;	// 50% Opacity
+	cocos2d::Sprite*		Black_Filter;	// 50% Opacity
+
+	// Text
+	cocos2d::ui::Text*		Credit_Text;
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
@@ -40,6 +48,10 @@ public:
 
 	// Deal with scene change
 	void StartGame();
+	void PauseGame();
+	void EndGame();
+	void StartCredits();
+	void EndCredits();
 };
 
 #endif // __HELLOWORLD_SCENE_H__
