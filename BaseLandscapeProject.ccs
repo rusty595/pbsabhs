@@ -9,11 +9,12 @@
           <Folder Name="Backgrounds">
             <Image Name="TrackBackground.png" />
           </Folder>
-          <Folder Name="ClourBlocks">
+          <Folder Name="ColourBlocks">
             <Image Name="Black Screen.png" />
           </Folder>
         </Folder>
         <Project Name="MainMenu.csd" Type="Scene" />
+        <Project Name="CreditScene.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>
