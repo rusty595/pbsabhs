@@ -12,9 +12,17 @@
           <Folder Name="ColourBlocks">
             <Image Name="Black Screen.png" />
           </Folder>
+          <Folder Name="Audio">
+            <Audio Name="Steve_Combs_-_05_-_Dog.mp3" />
+          </Folder>
+          <Folder Name="Sprites">
+            <Image Name="Bob.png" />
+          </Folder>
         </Folder>
         <Project Name="MainMenu.csd" Type="Scene" />
         <Project Name="CreditScene.csd" Type="Scene" />
+        <Project Name="GameScene.csd" Type="Scene" />
+        <Project Name="Player.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>

@@ -56,6 +56,12 @@ bool HelloWorld::init()
 	Credit_Text->setAnchorPoint(Vec2(0.0f, 1.0f));
 	Credit_Text->setVisible(false);
 
+	// Initialise Audio
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Steve_Combs_-_05_-_Dog.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Steve_Combs_-_05_-_Dog.mp3", true);
+	//audio->preloadBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3");
+	//CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("res/Resources/Audio/Steve_Combs_-_05_-_Dog.mp3", true);
+	//audio->playBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3", true);
     return true;
 }
 
@@ -134,9 +140,13 @@ void HelloWorld::StartMainMenu()
 void HelloWorld::StartGame()
 {
 	auto winSize = Director::getInstance()->getVisibleSize();
+	scene = 2;
 
-	auto moveTo = MoveTo::create(0.5, Vec2(-winSize.width*0.5f, winSize.height*0.5f)); // Take half a second to move off screen.
-	Start_Button->runAction(moveTo);
+	auto startMoveTo = MoveTo::create(0.5, Vec2(winSize.width, Start_Button->getPositionY())); // Take half a second to move off screen.
+	Start_Button->runAction(startMoveTo);
+
+	auto creditsMoveTo = MoveTo::create(0.5, Vec2(winSize.width, Credits_Button->getPositionY())); // Take half a second to move off screen.
+	Credits_Button->runAction(creditsMoveTo);
 }
 
 void HelloWorld::PauseGame()

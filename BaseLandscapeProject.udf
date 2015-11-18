@@ -30,8 +30,10 @@
         <OpenedDocuments>
           <FilePathData Path="MainMenu.csd" />
           <FilePathData Path="CreditScene.csd" />
+          <FilePathData Path="GameScene.csd" />
+          <FilePathData Path="Player.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="MainMenu.csd" />
+        <ActiveDocument Path="Player.csd" />
       </Value>
     </Item>
   </Properties>

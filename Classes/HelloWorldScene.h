@@ -3,14 +3,13 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include  <SimpleAudioEngine.h>
 
 class HelloWorld : public cocos2d::Layer
 {
 private:
 	// Scenes
 	int scene;
-	cocos2d::Scene* menuScene;
-	cocos2d::Scene* creditsScene;
 
 	// Menu Buttons
 	cocos2d::ui::Button*    Start_Button;
@@ -24,6 +23,8 @@ private:
 
 	// Text
 	cocos2d::ui::Text*		Credit_Text;
+
+	CocosDenshion::SimpleAudioEngine*	audio;
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
