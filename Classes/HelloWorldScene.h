@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include  <SimpleAudioEngine.h>
+#include "Player.h"
 
 class HelloWorld : public cocos2d::Layer
 {
