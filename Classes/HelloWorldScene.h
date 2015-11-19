@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include  <SimpleAudioEngine.h>
+#include "editor-support/cocostudio/cccomaudio.h"
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -25,7 +25,7 @@ private:
 	cocos2d::ui::Text*		Credit_Text;
 
 	// Audio
-	CocosDenshion::SimpleAudioEngine*	audio;
+	cocostudio::ComAudio*	audio;
 
 	// Classes
 	Player*					player;
