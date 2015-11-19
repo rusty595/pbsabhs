@@ -147,6 +147,9 @@ void HelloWorld::StartGame()
 
 	auto creditsMoveTo = MoveTo::create(0.5, Vec2(winSize.width, Credits_Button->getPositionY())); // Take half a second to move off screen.
 	Credits_Button->runAction(creditsMoveTo);
+
+	// Unleash Bob Hobbs
+
 }
 
 void HelloWorld::PauseGame()
