@@ -5,6 +5,7 @@
 #include "ui/CocosGUI.h"
 #include "Player.h"
 #include "editor-support/cocostudio/cccomaudio.h"
+#include "Player.h"
 
 class HelloWorld : public cocos2d::Layer
 {
