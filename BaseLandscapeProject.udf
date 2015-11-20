@@ -27,6 +27,9 @@
     </Item>
     <Item Key="TabsParamsKey">
       <Value ctype="TabsInfo">
+<<<<<<< HEAD
+        <ActiveDocument />
+=======
         <OpenedDocuments>
           <FilePathData Path="MainMenu.csd" />
           <FilePathData Path="CreditScene.csd" />
@@ -34,6 +37,7 @@
           <FilePathData Path="Player.csd" />
         </OpenedDocuments>
         <ActiveDocument Path="MainMenu.csd" />
+>>>>>>> upstream/master
       </Value>
     </Item>
   </Properties>

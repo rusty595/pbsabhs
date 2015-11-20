@@ -149,7 +149,7 @@ void HelloWorld::StartGame()
 	Credits_Button->runAction(creditsMoveTo);
 
 	// Unleash Bob Hobbs
-
+	//player->create
 }
 
 void HelloWorld::PauseGame()

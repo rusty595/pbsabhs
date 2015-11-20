@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "Player.h"
 #include "editor-support/cocostudio/cccomaudio.h"
 #include "Player.h"
 
