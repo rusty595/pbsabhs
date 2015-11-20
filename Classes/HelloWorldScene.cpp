@@ -2,7 +2,6 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-
 USING_NS_CC;
 
 using namespace cocostudio::timeline;
@@ -118,7 +117,7 @@ void HelloWorld::StartButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEvent
 
 void HelloWorld::CreditsButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
 {
-	CCLOG("I touched the credits, and I liked it! %d", type);
+	CCLOG("But what if there's an after-credits sequence? %d", type);
 
 	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
 	{
@@ -169,7 +168,7 @@ void HelloWorld::StartCredits()
 	scene = 3;
 
 	//Set up credit text
-	Credit_Text->setPosition(Vec2(888.0f, 0.0f));
+	Credit_Text->setPosition(Vec2(840.0f, 0.0f));
 	Credit_Text->setVisible(true);
 
 	// Move buttons
