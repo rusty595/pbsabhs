@@ -10,10 +10,13 @@ private:
 	float laneOneY;
 	float laneTwoY;
 	float laneThreeY;
+	int fixedX;
 
 	// Player Data
 	cocos2d::Vec2		pos;
-	cocos2d::Sprite*	player_skin;
+
+	// Game data
+	bool gameStarting;
 public:
 	Player();
 	~Player();
@@ -22,6 +25,10 @@ public:
 	static Player* create();
 
 	void update(float);
+
+	void setOffscreenPos(cocos2d::Sprite* player);
+	void moveIntoStartPos(cocos2d::Sprite* player);
+	bool isReady(cocos2d::Sprite* player);
 
 	void moveUpLane();
 	void moveDownLane();

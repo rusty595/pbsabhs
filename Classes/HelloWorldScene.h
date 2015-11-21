@@ -3,9 +3,9 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "Player.h"
 #include "editor-support/cocostudio/cccomaudio.h"
 #include "Player.h"
+#include "GameManager.h"
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -31,6 +31,7 @@ private:
 
 	// Classes
 	Player*					player;
+	cocos2d::Sprite*					player_sprite;
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
