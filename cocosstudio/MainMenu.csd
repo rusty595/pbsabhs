@@ -57,13 +57,13 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Audio_1" ActionTag="1470097341" Tag="8" IconVisible="True" LeftMargin="484.0000" RightMargin="1292.0000" TopMargin="638.0000" BottomMargin="442.0000" Volume="1.0000" ctype="SimpleAudioObjectData">
+          <AbstractNodeData Name="Menu_Background_Music" ActionTag="1470097341" Tag="8" IconVisible="True" LeftMargin="-189.3843" RightMargin="1965.3843" TopMargin="384.1818" BottomMargin="695.8182" Volume="1.0000" Loop="True" ctype="SimpleAudioObjectData">
             <Size X="0.0000" Y="0.0000" />
             <AnchorPoint />
-            <Position X="484.0000" Y="442.0000" />
+            <Position X="-189.3843" Y="695.8182" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.2725" Y="0.4093" />
+            <PrePosition X="-0.1066" Y="0.6443" />
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="Resources/Audio/Steve_Combs_-_05_-_Dog.mp3" Plist="" />
           </AbstractNodeData>

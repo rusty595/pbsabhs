@@ -5,9 +5,15 @@
 class GameManager
 {
 private:
-
-public:
 	GameManager();
+	static GameManager* instance;
+
+	bool isGameLive;
+public:
 	~GameManager();
+	static GameManager* sharedGameManager();
+
+	void setIsGameLive(bool);
+	bool getIsGameLive();
 };
 

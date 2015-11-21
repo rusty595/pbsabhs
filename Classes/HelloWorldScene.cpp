@@ -35,6 +35,8 @@ bool HelloWorld::init()
 	addChild(rootNode);
 	auto creditNode = CSLoader::createNode("CreditScene.csb");
 	addChild(creditNode);
+	auto playerNode = CSLoader::createNode("Player.csb");
+	addChild(playerNode);
 
 	this->scheduleUpdate();
 
@@ -56,12 +58,22 @@ bool HelloWorld::init()
 	Credit_Text->setAnchorPoint(Vec2(0.0f, 1.0f));
 	Credit_Text->setVisible(false);
 
+	player->create();
+	player = Player::create();
+	this->addChild(player);
+
+	player_sprite = (Sprite*)playerNode->getChildByName("Player_Skin_1");
+	player->setOffscreenPos(player_sprite);
+	player_sprite->setVisible(false);
+
 	// Initialise Audio
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Steve_Combs_-_05_-_Dog.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Steve_Combs_-_05_-_Dog.mp3", true);
-	//audio->preloadBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3");
-	//CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("res/Resources/Audio/Steve_Combs_-_05_-_Dog.mp3", true);
-	//audio->playBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3", true);
+	audio = dynamic_cast<cocostudio::ComAudio*>(rootNode->getChildByName("Menu_Background_Music")->getComponent("Menu_Background_Music"));
+	audio->playEffect();
+	//audio = (cocostudio::ComAudio*)rootNode->getComponent("Menu_Background_Music");
+	//while (audio->isBackgroundMusicPlaying() == false) {
+	//	audio->playBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3");
+	//}
+
     return true;
 }
 
@@ -74,7 +86,35 @@ void HelloWorld::update(float delta)
 
 	}
 	else if (scene == 2) {	// scene 2 == game
+		if (GameManager::sharedGameManager()->getIsGameLive() == false) {
+			if (Black_Filter->getOpacity() != 0) {
+				// Start smoothly fading the filter to 0 opacity
+				int currOpac = Black_Filter->getOpacity();
 
+				if (currOpac >= 0) {
+					int nextOpac = currOpac - 5;
+
+					// Check that currOpac will not fall below 0 next update
+					if (nextOpac > 0) {
+						Black_Filter->setOpacity(nextOpac);
+					}
+					else {
+						Black_Filter->setOpacity(0);
+					}
+				}
+			}
+			else {
+				if (player->isReady(player_sprite) == true) {
+					GameManager::sharedGameManager()->setIsGameLive(true);
+				}
+				else {
+					player->moveIntoStartPos(player_sprite);
+				}
+			}
+		}
+		else {
+			// Updates for when game is live
+		}
 	}
 	else if (scene == 3) {	// scene 3 == credits
 		// Check if credits have exited the screen
@@ -147,9 +187,6 @@ void HelloWorld::StartGame()
 
 	auto creditsMoveTo = MoveTo::create(0.5, Vec2(winSize.width, Credits_Button->getPositionY())); // Take half a second to move off screen.
 	Credits_Button->runAction(creditsMoveTo);
-
-	// Unleash Bob Hobbs
-	//player->create
 }
 
 void HelloWorld::PauseGame()
