@@ -28,12 +28,12 @@ bool Player::init()
 	}
 
 	// Set lane Y values
-	laneOneY = 10.8f;
+	laneOneY = 108.0f;
 	laneTwoY = laneOneY + (laneOneY * 2);
 	laneThreeY = laneOneY + (laneOneY * 4);
 
 	// Set the x coords that Bob can never run past
-	fixedX = 20.0f;
+	fixedX = 217.0f;
 
 	// Start in center lane
 	currentLane = 2;
@@ -53,17 +53,22 @@ void Player::setOffscreenPos(Sprite* player)
 	laneTwoY = laneTwoY;
 	int boundingBoxWidth = player->boundingBox().size.width;
 	float x = 0.0f - (0.5f * boundingBoxWidth);
+	//float x = 200.0f;
 	float y = laneTwoY;
 	player->setPosition(Vec2(x, y));
 }
 
 void Player::moveIntoStartPos(Sprite* player)
 {
+	int currX = player->getPositionX();
 	if (gameStarting == false) {
-		auto moveTo = MoveTo::create(1.0, Vec2(fixedX, laneTwoY)); // Take a second to move into position.
-		player->runAction(moveTo);
+		if (currX < fixedX) {
+			//player->setPositionX(currX + 0.5f);
+			auto moveTo = MoveTo::create(1.0f, Vec2(fixedX, laneTwoY)); // Take a second to move into position.
+			player->runAction(moveTo);
 
-		gameStarting = true;
+			gameStarting = true;
+		}
 	}
 }
 
@@ -71,7 +76,7 @@ bool Player::isReady(Sprite* player)
 {
 	int currX = player->getPositionX();
 	if (currX == fixedX) {
-		gameStarting == false;
+		gameStarting = false;
 
 		return true;
 	}

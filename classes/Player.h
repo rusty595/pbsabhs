@@ -10,7 +10,7 @@ private:
 	float laneOneY;
 	float laneTwoY;
 	float laneThreeY;
-	int fixedX;
+	float fixedX;
 
 	// Player Data
 	cocos2d::Vec2		pos;

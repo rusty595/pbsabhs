@@ -64,7 +64,7 @@ bool HelloWorld::init()
 
 	player_sprite = (Sprite*)playerNode->getChildByName("Player_Skin_1");
 	player->setOffscreenPos(player_sprite);
-	player_sprite->setVisible(false);
+	player_sprite->setVisible(true);
 
 	// Initialise Audio
 	audio = dynamic_cast<cocostudio::ComAudio*>(rootNode->getChildByName("Menu_Background_Music")->getComponent("Menu_Background_Music"));
@@ -108,6 +108,7 @@ void HelloWorld::update(float delta)
 					GameManager::sharedGameManager()->setIsGameLive(true);
 				}
 				else {
+					player->setVisible(true);
 					player->moveIntoStartPos(player_sprite);
 				}
 			}
