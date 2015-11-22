@@ -40,6 +40,19 @@ bool HelloWorld::init()
 
 	this->scheduleUpdate();
 
+	//TOUCHES
+	//Set up a touch listener.
+	auto touchListener = EventListenerTouchOneByOne::create();
+
+	//Set callbacks for our touch functions.
+	touchListener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
+	touchListener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
+	touchListener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
+	touchListener->onTouchCancelled = CC_CALLBACK_2(HelloWorld::onTouchCancelled, this);
+
+	//Add our touch listener to event listener list.
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+
 	// Initialise Scene
 	scene = 1;
 
@@ -73,6 +86,9 @@ bool HelloWorld::init()
 	//while (audio->isBackgroundMusicPlaying() == false) {
 	//	audio->playBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3");
 	//}
+
+	// Game is not live until the start button is pressed.
+	GameManager::sharedGameManager()->setIsGameLive(false);
 
     return true;
 }
@@ -115,6 +131,8 @@ void HelloWorld::update(float delta)
 		}
 		else {
 			// Updates for when game is live
+			// Start listening for touch events
+
 		}
 	}
 	else if (scene == 3) {	// scene 3 == credits
@@ -237,4 +255,55 @@ void HelloWorld::EndCredits()
 			StartMainMenu();
 		}
 	}
+}
+
+bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+	//Store the coordinates of where this touch began.
+	CCPoint touchPos = touch->getLocationInView();
+	touchPos = CCDirector::sharedDirector()->convertToGL(touchPos);
+	touchPos = convertToNodeSpace(touchPos);
+
+	initialTouchPos = touchPos;
+	return true;
+}
+
+void HelloWorld::onTouchEnded(cocos2d::Touch*, cocos2d::Event*)
+{
+	if (touchMoved == true)	// Deal with a touch-slide
+	{
+		int minimumMoved = 200;	// 200px must have been moved across to make Bob change lanes
+		float diffX = finalTouchPos.x - initialTouchPos.x;
+		float diffY = finalTouchPos.y - initialTouchPos.y;
+
+		if (diffY > minimumMoved) {
+			player->moveUpLane(player_sprite);
+		}
+		else if (diffY < (-1 * minimumMoved)) {
+			player->moveDownLane(player_sprite);
+		}
+		else {
+			// Nothing happens, player did not slide enough
+		}
+
+		// Reset touch
+		touchMoved = false;
+	}
+}
+
+void HelloWorld::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+	touchMoved = true;
+
+	// Keep updating the final coords until this method is no longer called
+	CCPoint touchPos = touch->getLocationInView();
+	touchPos = CCDirector::sharedDirector()->convertToGL(touchPos);
+	touchPos = convertToNodeSpace(touchPos);
+
+	finalTouchPos = touchPos;
+}
+
+void HelloWorld::onTouchCancelled(cocos2d::Touch*, cocos2d::Event*)
+{
+
 }

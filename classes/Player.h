@@ -30,7 +30,7 @@ public:
 	void moveIntoStartPos(cocos2d::Sprite* player);
 	bool isReady(cocos2d::Sprite* player);
 
-	void moveUpLane();
-	void moveDownLane();
+	void moveUpLane(cocos2d::Sprite* player);
+	void moveDownLane(cocos2d::Sprite* player);
 };
 
