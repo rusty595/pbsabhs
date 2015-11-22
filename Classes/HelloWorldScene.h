@@ -32,6 +32,11 @@ private:
 	// Classes
 	Player*					player;
 	cocos2d::Sprite*					player_sprite;
+
+	// Touch Events
+	bool touchMoved;
+	cocos2d::Vec2 initialTouchPos;
+	cocos2d::Vec2 finalTouchPos;
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
@@ -45,10 +50,10 @@ public:
 	void update(float);
 
 	// Deal with touches.
-	//virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
-	//virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
-	//virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
-	//virtual void onTouchCancelled(cocos2d::Touch*, cocos2d::Event*);
+	virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
+	virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
+	virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
+	virtual void onTouchCancelled(cocos2d::Touch*, cocos2d::Event*);
 
 	// Button event
 	void StartButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type);
