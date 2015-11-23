@@ -27,7 +27,13 @@
     </Item>
     <Item Key="TabsParamsKey">
       <Value ctype="TabsInfo">
-        <ActiveDocument />
+        <OpenedDocuments>
+          <FilePathData Path="Track.csd" />
+          <FilePathData Path="Player.csd" />
+          <FilePathData Path="ScottishTerrier.csd" />
+          <FilePathData Path="KillableDog.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="Track.csd" />
       </Value>
     </Item>
   </Properties>

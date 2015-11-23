@@ -8,6 +8,7 @@
         <Folder Name="Resources">
           <Folder Name="Backgrounds">
             <Image Name="TrackBackground.png" />
+            <Image Name="Track.png" />
           </Folder>
           <Folder Name="ColourBlocks">
             <Image Name="Black Screen.png" />
@@ -17,12 +18,31 @@
           </Folder>
           <Folder Name="Sprites">
             <Image Name="Bob.png" />
+            <Folder Name="Dogs">
+              <Folder Name="heads">
+                <Image Name="abyssinianwirehairedtripe.png" />
+                <Image Name="beagle.png" />
+                <Image Name="dachs.png" />
+                <Image Name="scot.png" />
+                <Image Name="skye.png" />
+              </Folder>
+              <Folder Name="bodies">
+                <Image Name="abyssinianwirehairedtripe.png" />
+                <Image Name="beagle.png" />
+                <Image Name="dachs.png" />
+                <Image Name="scot.png" />
+                <Image Name="skye.png" />
+              </Folder>
+            </Folder>
           </Folder>
         </Folder>
         <Project Name="MainMenu.csd" Type="Scene" />
         <Project Name="CreditScene.csd" Type="Scene" />
         <Project Name="GameScene.csd" Type="Scene" />
         <Project Name="Player.csd" Type="Layer" />
+        <Project Name="Track.csd" Type="Layer" />
+        <Project Name="ScottishTerrier.csd" Type="Layer" />
+        <Project Name="KillableDog.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>
