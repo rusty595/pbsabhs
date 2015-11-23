@@ -32,8 +32,9 @@
           <FilePathData Path="Player.csd" />
           <FilePathData Path="ScottishTerrier.csd" />
           <FilePathData Path="KillableDog.csd" />
+          <FilePathData Path="MainMenu.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="Track.csd" />
+        <ActiveDocument Path="MainMenu.csd" />
       </Value>
     </Item>
   </Properties>

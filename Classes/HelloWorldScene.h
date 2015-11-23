@@ -19,6 +19,9 @@ private:
 
 	// Backgrounds
 	cocos2d::Image*			Track_Background;	// TEMPLATE BACKGROUND - NEEDS REMOVING	
+	cocos2d::Sprite*		track1;
+	cocos2d::Sprite*		track2;
+	cocos2d::Sprite*		track3;
 
 	// Translucent Colour Blocks
 	cocos2d::Sprite*		Black_Filter;	// 50% Opacity
@@ -31,7 +34,7 @@ private:
 
 	// Classes
 	Player*					player;
-	cocos2d::Sprite*					player_sprite;
+	cocos2d::Sprite*		player_sprite;
 
 	// Touch Events
 	bool touchMoved;

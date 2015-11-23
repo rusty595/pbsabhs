@@ -6,7 +6,7 @@
       <ObjectData Name="Layer" ctype="GameLayerObjectData">
         <Size X="3600.0000" Y="216.0000" />
         <Children>
-          <AbstractNodeData Name="Track_2" ActionTag="786069922" Tag="4" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Track" ActionTag="786069922" Tag="4" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" ctype="SpriteObjectData">
             <Size X="3600.0000" Y="216.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1800.0000" Y="108.0000" />
