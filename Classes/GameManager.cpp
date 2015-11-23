@@ -74,6 +74,8 @@ void GameManager::storeHighscoreToFile(int highScore)
 int GameManager::getHighscoreFromFile()
 {
 	// Insert code to get highscore from file
+
+	return highScore;
 }
 
 GameManager::~GameManager()
