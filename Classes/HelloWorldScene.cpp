@@ -31,6 +31,12 @@ bool HelloWorld::init()
         return false;
     }
 
+	auto trackNode1 = CSLoader::createNode("Track.csb");
+	addChild(trackNode1);
+	auto trackNode2 = CSLoader::createNode("Track.csb");
+	addChild(trackNode2);
+	auto trackNode3 = CSLoader::createNode("Track.csb");
+	addChild(trackNode3);
 	auto rootNode = CSLoader::createNode("MainMenu.csb");
 	addChild(rootNode);
 	auto creditNode = CSLoader::createNode("CreditScene.csb");
@@ -57,6 +63,14 @@ bool HelloWorld::init()
 	scene = 1;
 
 	// Initialise all images/sprites/buttons/ect...
+	track1 = (Sprite*)trackNode1->getChildByName("Track");
+	track2 = (Sprite*)trackNode2->getChildByName("Track");
+	track3 = (Sprite*)trackNode3->getChildByName("Track");
+
+	track1->setPosition(Vec2(888.0f, 108.0f));
+	track2->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 2)));
+	track3->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 4)));
+
 	Black_Filter = (Sprite*)rootNode->getChildByName("Black_Filter");
 
 	Start_Button = static_cast<ui::Button*>(rootNode->getChildByName("Start_Button"));
