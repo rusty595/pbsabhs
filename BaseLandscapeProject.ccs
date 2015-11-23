@@ -35,6 +35,12 @@
               </Folder>
             </Folder>
           </Folder>
+          <Folder Name="Buttons">
+            <Image Name="kuredito.png" />
+            <Image Name="sutaato1.png" />
+            <Image Name="sutaato.png" />
+            <Image Name="kuredito1.png" />
+          </Folder>
         </Folder>
         <Project Name="MainMenu.csd" Type="Scene" />
         <Project Name="CreditScene.csd" Type="Scene" />
