@@ -29,8 +29,11 @@ bool HelloWorld::init()
     if ( !Layer::init() )
     {
         return false;
-    }
+	}
+	auto winSize = Director::getInstance()->getVisibleSize();
 
+	auto parallaxBackground = CSLoader::createNode("ParallaxBackground.csb");
+	addChild(parallaxBackground);
 	auto trackNode1 = CSLoader::createNode("Track.csb");
 	addChild(trackNode1);
 	auto trackNode2 = CSLoader::createNode("Track.csb");
@@ -63,13 +66,40 @@ bool HelloWorld::init()
 	scene = 1;
 
 	// Initialise all images/sprites/buttons/ect...
+	sky = (Sprite*)parallaxBackground->getChildByName("Sky");
+	mountain1 = (Sprite*)parallaxBackground->getChildByName("Mountain_1");
+	mountain2 = (Sprite*)parallaxBackground->getChildByName("Mountain_2");
+	mountain3 = (Sprite*)parallaxBackground->getChildByName("Mountain_3");
+	tree1 = (Sprite*)parallaxBackground->getChildByName("Tree_1");
+	tree2 = (Sprite*)parallaxBackground->getChildByName("Tree_2");
+	tree3 = (Sprite*)parallaxBackground->getChildByName("Tree_3");
+	tree4 = (Sprite*)parallaxBackground->getChildByName("Tree_4");
 	track1 = (Sprite*)trackNode1->getChildByName("Track");
 	track2 = (Sprite*)trackNode2->getChildByName("Track");
 	track3 = (Sprite*)trackNode3->getChildByName("Track");
 
+	sky->setPosition(Vec2(888.0f, 864.0f));
+
+	int random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
+	mountain1->setPosition(Vec2(random, 864.0f));
+	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
+	mountain2->setPosition(Vec2(random, 864.0f));
+	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
+	mountain3->setPosition(Vec2(random, 864.0f));
+
+	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
+	tree1->setPosition(Vec2(random, 812.0f));
+	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
+	tree2->setPosition(Vec2(random, 812.0f));
+	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
+	tree3->setPosition(Vec2(random, 812.0f));
+	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
+	tree4->setPosition(Vec2(random, 812.0f));
+
 	track1->setPosition(Vec2(888.0f, 108.0f));
 	track2->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 2)));
 	track3->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 4)));
+	
 
 	Black_Filter = (Sprite*)rootNode->getChildByName("Black_Filter");
 
@@ -179,24 +209,22 @@ void HelloWorld::update(float delta)
 
 void HelloWorld::StartButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
 {
-	CCLOG("I touched the start, and I liked it! %d", type);
+		CCLOG("I touched the start, and I liked it! %d", type);
 
-	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
-	{
-		this->StartGame();
-	}
-	this->StartGame();
+		if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
+		{
+			this->StartGame();
+		}
 }
 
 void HelloWorld::CreditsButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
 {
-	CCLOG("But what if there's an after-credits sequence? %d", type);
+		CCLOG("But what if there's an after-credits sequence? %d", type);
 
-	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
-	{
-		this->StartCredits();
-	}
-	this->StartCredits();
+		if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
+		{
+			this->StartCredits();
+		}
 }
 
 void HelloWorld::StartMainMenu()
@@ -215,10 +243,10 @@ void HelloWorld::StartGame()
 	auto winSize = Director::getInstance()->getVisibleSize();
 	scene = 2;
 
-	auto startMoveTo = MoveTo::create(0.5, Vec2(winSize.width, Start_Button->getPositionY())); // Take half a second to move off screen.
+	auto startMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Start_Button->getBoundingBox().getMaxX(), Start_Button->getPositionY())); // Take half a second to move off screen.
 	Start_Button->runAction(startMoveTo);
 
-	auto creditsMoveTo = MoveTo::create(0.5, Vec2(winSize.width, Credits_Button->getPositionY())); // Take half a second to move off screen.
+	auto creditsMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Credits_Button->getBoundingBox().getMaxX(), Credits_Button->getPositionY())); // Take half a second to move off screen.
 	Credits_Button->runAction(creditsMoveTo);
 }
 
@@ -242,10 +270,10 @@ void HelloWorld::StartCredits()
 	Credit_Text->setVisible(true);
 
 	// Move buttons
-	auto startMoveTo = MoveTo::create(0.5, Vec2(winSize.width, Start_Button->getPositionY())); // Take half a second to move off screen.
+	auto startMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Start_Button->getBoundingBox().getMaxX(), Start_Button->getPositionY())); // Take half a second to move off screen.
 	Start_Button->runAction(startMoveTo);
 
-	auto creditsMoveTo = MoveTo::create(0.5, Vec2(winSize.width, Credits_Button->getPositionY())); // Take half a second to move off screen.
+	auto creditsMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Credits_Button->getBoundingBox().getMaxX(), Credits_Button->getPositionY())); // Take half a second to move off screen.
 	Credits_Button->runAction(creditsMoveTo);
 }
 

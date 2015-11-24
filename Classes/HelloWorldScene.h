@@ -22,6 +22,14 @@ private:
 	cocos2d::Sprite*		track1;
 	cocos2d::Sprite*		track2;
 	cocos2d::Sprite*		track3;
+	cocos2d::Sprite*		sky;
+	cocos2d::Sprite*		mountain1;
+	cocos2d::Sprite*		mountain2;
+	cocos2d::Sprite*		mountain3;
+	cocos2d::Sprite*		tree1;
+	cocos2d::Sprite*		tree2;
+	cocos2d::Sprite*		tree3;
+	cocos2d::Sprite*		tree4;
 
 	// Translucent Colour Blocks
 	cocos2d::Sprite*		Black_Filter;	// 50% Opacity

@@ -28,11 +28,6 @@
     <Item Key="TabsParamsKey">
       <Value ctype="TabsInfo">
         <OpenedDocuments>
-          <FilePathData Path="Track.csd" />
-          <FilePathData Path="Player.csd" />
-          <FilePathData Path="ScottishTerrier.csd" />
-          <FilePathData Path="KillableDog.csd" />
-          <FilePathData Path="MainMenu.csd" />
           <FilePathData Path="ParallaxBackground.csd" />
         </OpenedDocuments>
         <ActiveDocument Path="ParallaxBackground.csd" />
