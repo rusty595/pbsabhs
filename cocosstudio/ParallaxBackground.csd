@@ -94,6 +94,61 @@
             <FileData Type="Normal" Path="Resources/Backgrounds/Tree.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
+          <AbstractNodeData Name="Sky_2" ActionTag="-635514502" Tag="10" IconVisible="False" LeftMargin="964.2271" RightMargin="-964.2271" TopMargin="528.7022" BottomMargin="-528.7022" ctype="SpriteObjectData">
+            <Size X="3552.0000" Y="432.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="2740.2271" Y="-312.7022" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.7715" Y="-0.7238" />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="Resources/Backgrounds/Sky_Layer.png" Plist="" />
+            <BlendFunc Src="770" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Tree_5" ActionTag="-1851614247" Tag="11" IconVisible="False" LeftMargin="-716.3024" RightMargin="3260.3022" TopMargin="1290.1431" BottomMargin="-1290.1431" ctype="SpriteObjectData">
+            <Size X="1008.0000" Y="432.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="-212.3024" Y="-1074.1431" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="-0.0598" Y="-2.4864" />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="Resources/Backgrounds/Tree.png" Plist="" />
+            <BlendFunc Src="770" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Tree_6" ActionTag="1028353183" Tag="12" IconVisible="False" LeftMargin="350.7513" RightMargin="2193.2485" TopMargin="1429.9998" BottomMargin="-1429.9998" ctype="SpriteObjectData">
+            <Size X="1008.0000" Y="432.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="854.7513" Y="-1213.9998" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.2406" Y="-2.8102" />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="Resources/Backgrounds/Tree.png" Plist="" />
+            <BlendFunc Src="770" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Tree_7" ActionTag="1753344449" Tag="13" IconVisible="False" LeftMargin="1257.2289" RightMargin="1286.7710" TopMargin="1341.9419" BottomMargin="-1341.9419" ctype="SpriteObjectData">
+            <Size X="1008.0000" Y="432.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1761.2289" Y="-1125.9419" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.4958" Y="-2.6063" />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="Resources/Backgrounds/Tree.png" Plist="" />
+            <BlendFunc Src="770" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Tree_8" ActionTag="1989395917" Tag="14" IconVisible="False" LeftMargin="2184.4258" RightMargin="359.5742" TopMargin="1450.7192" BottomMargin="-1450.7192" ctype="SpriteObjectData">
+            <Size X="1008.0000" Y="432.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="2688.4258" Y="-1234.7192" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.7569" Y="-2.8581" />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="Resources/Backgrounds/Tree.png" Plist="" />
+            <BlendFunc Src="770" Dst="771" />
+          </AbstractNodeData>
         </Children>
       </ObjectData>
     </Content>
