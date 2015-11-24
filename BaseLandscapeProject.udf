@@ -33,8 +33,9 @@
           <FilePathData Path="ScottishTerrier.csd" />
           <FilePathData Path="KillableDog.csd" />
           <FilePathData Path="MainMenu.csd" />
+          <FilePathData Path="ParallaxBackground.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="MainMenu.csd" />
+        <ActiveDocument Path="ParallaxBackground.csd" />
       </Value>
     </Item>
   </Properties>

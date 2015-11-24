@@ -91,14 +91,14 @@ void Player::moveUpLane(Sprite* player)
 		// Bottom Lane
 		currentLane = 2;
 
-		auto moveTo = MoveTo::create(0.5f, Vec2(fixedX, laneTwoY)); // Take half a second to move into position.
+		auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, laneTwoY)); // Take half a second to move into position.
 		player->runAction(moveTo);
 	}
 	else if (currentLane == 2) {
 		// Middle lane
 		currentLane = 3;
 
-		auto moveTo = MoveTo::create(0.5f, Vec2(fixedX, laneThreeY)); // Take half a second to move into position.
+		auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, laneThreeY)); // Take half a second to move into position.
 		player->runAction(moveTo);
 	}
 }
@@ -109,14 +109,14 @@ void Player::moveDownLane(Sprite* player)
 		// Middle Lane
 		currentLane = 1;
 
-		auto moveTo = MoveTo::create(0.5f, Vec2(fixedX, laneOneY)); // Take half a second to move into position.
+		auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, laneOneY)); // Take half a second to move into position.
 		player->runAction(moveTo);
 	}
 	else if (currentLane == 3) {
 		// Top Lane
 		currentLane = 2;
 
-		auto moveTo = MoveTo::create(0.5f, Vec2(fixedX, laneTwoY)); // Take half a second to move into position.
+		auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, laneTwoY)); // Take half a second to move into position.
 		player->runAction(moveTo);
 	}
 }

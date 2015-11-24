@@ -9,6 +9,9 @@
           <Folder Name="Backgrounds">
             <Image Name="TrackBackground.png" />
             <Image Name="Track.png" />
+            <Image Name="Mountain.png" />
+            <Image Name="Sky_Layer.png" />
+            <Image Name="Tree.png" />
           </Folder>
           <Folder Name="ColourBlocks">
             <Image Name="Black Screen.png" />
@@ -49,6 +52,7 @@
         <Project Name="Track.csd" Type="Layer" />
         <Project Name="ScottishTerrier.csd" Type="Layer" />
         <Project Name="KillableDog.csd" Type="Layer" />
+        <Project Name="ParallaxBackground.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>
