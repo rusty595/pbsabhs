@@ -66,7 +66,8 @@ bool HelloWorld::init()
 	scene = 1;
 
 	// Initialise all images/sprites/buttons/ect...
-	sky = (Sprite*)parallaxBackground->getChildByName("Sky");
+	sky1 = (Sprite*)parallaxBackground->getChildByName("Sky");
+	sky2 = (Sprite*)parallaxBackground->getChildByName("Sky_2");
 	mountain1 = (Sprite*)parallaxBackground->getChildByName("Mountain_1");
 	mountain2 = (Sprite*)parallaxBackground->getChildByName("Mountain_2");
 	mountain3 = (Sprite*)parallaxBackground->getChildByName("Mountain_3");
@@ -74,32 +75,46 @@ bool HelloWorld::init()
 	tree2 = (Sprite*)parallaxBackground->getChildByName("Tree_2");
 	tree3 = (Sprite*)parallaxBackground->getChildByName("Tree_3");
 	tree4 = (Sprite*)parallaxBackground->getChildByName("Tree_4");
+	tree5 = (Sprite*)parallaxBackground->getChildByName("Tree_5");
+	tree6 = (Sprite*)parallaxBackground->getChildByName("Tree_6");
+	tree7 = (Sprite*)parallaxBackground->getChildByName("Tree_7");
+	tree8 = (Sprite*)parallaxBackground->getChildByName("Tree_8");
 	track1 = (Sprite*)trackNode1->getChildByName("Track");
 	track2 = (Sprite*)trackNode2->getChildByName("Track");
 	track3 = (Sprite*)trackNode3->getChildByName("Track");
 
-	sky->setPosition(Vec2(888.0f, 864.0f));
+	sky1->setPosition(Vec2(888.0f, 864.0f));
+	sky2->setPosition(Vec2(888.0f, sky1->getTextureRect().getMaxX() + (sky1->getTextureRect().getMaxX() / 2)));
 
-	int random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
+	int limiter = (int)winSize.width + mountain1->getBoundingBox().getMaxX();
+	int random = cocos2d::RandomHelper::random_int(1, limiter);
 	mountain1->setPosition(Vec2(random, 864.0f));
 	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
 	mountain2->setPosition(Vec2(random, 864.0f));
 	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
 	mountain3->setPosition(Vec2(random, 864.0f));
 
-	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
+	limiter = (int)winSize.width + tree1->getTextureRect().getMaxX();
+	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
 	tree1->setPosition(Vec2(random, 812.0f));
-	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
+	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
 	tree2->setPosition(Vec2(random, 812.0f));
-	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
+	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
 	tree3->setPosition(Vec2(random, 812.0f));
-	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
+	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
 	tree4->setPosition(Vec2(random, 812.0f));
+	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
+	tree5->setPosition(Vec2(random, 812.0f));
+	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
+	tree6->setPosition(Vec2(random, 812.0f));
+	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
+	tree7->setPosition(Vec2(random, 812.0f));
+	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
+	tree8->setPosition(Vec2(random, 812.0f));
 
 	track1->setPosition(Vec2(888.0f, 108.0f));
 	track2->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 2)));
 	track3->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 4)));
-	
 
 	Black_Filter = (Sprite*)rootNode->getChildByName("Black_Filter");
 
@@ -176,7 +191,12 @@ void HelloWorld::update(float delta)
 		else {
 			// Updates for when game is live
 			// Start listening for touch events
-
+			if (GameManager::sharedGameManager()->getPlayerRunning() == true) {
+				GameManager::sharedGameManager()->incrementSpeed(delta);
+			}
+			else {
+				GameManager::sharedGameManager()->setPlayerRunning(true);
+			}
 		}
 	}
 	else if (scene == 3) {	// scene 3 == credits
@@ -204,6 +224,119 @@ void HelloWorld::update(float delta)
 			Credit_Text->setPosition(Vec2(Credit_Text->getPositionX() + (delta * 0.0f),
 				Credit_Text->getPositionY() + (delta * 150.0f)));
 		}
+	}
+
+	// Parallax Background
+	// Sky
+	float skySpeed = GameManager::sharedGameManager()->getSkySpeed() * delta;
+	sky1->setPositionX(sky1->getPositionX() + skySpeed);
+	sky2->setPositionX(sky2->getPositionX() + skySpeed);
+	// Check if sky is offscreen, if so, move sky image to the end of second sky image
+	if (sky1->getPositionX() + sky1->getTextureRect().getMaxX() < 0) {
+		sky1->setPositionX(sky2->getTextureRect().getMaxX() + (sky2->getTextureRect().getMaxX() / 2));
+	}
+	else if (sky2->getPositionX() + sky2->getTextureRect().getMaxX() < 0) {
+		sky2->setPositionX(sky1->getTextureRect().getMaxX() + (sky1->getTextureRect().getMaxX() / 2));
+	}
+
+	// Mountain
+	int randomMountain = cocos2d::RandomHelper::random_int(1, 300);
+	float mountainSpeed = GameManager::sharedGameManager()->getMountainSpeed() * delta;
+	mountain1->setPositionX(mountain1->getPositionX() + mountainSpeed);
+	mountain2->setPositionX(mountain2->getPositionX() + mountainSpeed);
+	mountain3->setPositionX(mountain3->getPositionX() + mountainSpeed);
+	// If mountain is offscreen, give it a CHANCE to come back onscreen to stop same Mountain pattern emerging
+	if (mountain1->getPositionX() + mountain1->getTextureRect().getMaxX() < 0) {
+		int limiter = (int)winSize.width + mountain1->getTextureRect().getMaxX();
+		int randomMountain = cocos2d::RandomHelper::random_int(limiter, (int)(limiter * 1.5));
+		mountain1->setPositionX(randomMountain);
+	}
+	else {
+		mountain1->setPositionX(mountain1->getPositionX() + mountainSpeed);
+	}
+	if (mountain2->getPositionX() + mountain2->getTextureRect().getMaxX() < 0) {
+		int limiter = (int)winSize.width + mountain2->getTextureRect().getMaxX();
+		int randomMountain = cocos2d::RandomHelper::random_int(limiter, (int)(limiter * 1.5));
+		mountain2->setPositionX(randomMountain);
+	}
+	else {
+		mountain2->setPositionX(mountain2->getPositionX() + mountainSpeed);
+	}
+	if (mountain3->getPositionX() + mountain3->getTextureRect().getMaxX() < 0) {
+		int limiter = (int)winSize.width + mountain3->getTextureRect().getMaxX();
+		int randomMountain = cocos2d::RandomHelper::random_int(limiter, (int)(limiter * 1.5));
+		mountain3->setPositionX(randomMountain);
+	}
+	else {
+		mountain3->setPositionX(mountain3->getPositionX() + mountainSpeed);
+	}
+
+	// Tree
+	float treeSpeed = GameManager::sharedGameManager()->getTreeSpeed() * delta;
+	// If tree is offscreen, give it a CHANCE to come back onscreen to stop same tree pattern emerging
+	if (tree1->getPositionX() + tree1->getTextureRect().getMaxX() < 0) {
+		int limiter = (int)winSize.width + tree1->getTextureRect().getMaxX();
+		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
+		tree1->setPositionX(randomTree);
+	}
+	else {
+		tree1->setPositionX(tree1->getPositionX() + treeSpeed);
+	}
+	if (tree2->getPositionX() + tree2->getTextureRect().getMaxX() < 0) {
+		int limiter = (int)winSize.width + tree2->getTextureRect().getMaxX();
+		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
+		tree2->setPositionX(randomTree);
+	}
+	else {
+		tree2->setPositionX(tree2->getPositionX() + treeSpeed);
+	}
+	if (tree3->getPositionX() + tree3->getTextureRect().getMaxX() < 0) {
+		int limiter = (int)winSize.width + tree3->getTextureRect().getMaxX();
+		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
+		tree3->setPositionX(randomTree);
+	}
+	else {
+		tree3->setPositionX(tree3->getPositionX() + treeSpeed);
+	}
+	if (tree4->getPositionX() + tree4->getTextureRect().getMaxX() < 0) {
+		int limiter = (int)winSize.width + tree4->getTextureRect().getMaxX();
+		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
+		tree4->setPositionX(randomTree);
+	}
+	else {
+		tree4->setPositionX(tree4->getPositionX() + treeSpeed);
+	}
+	if (tree5->getPositionX() + tree5->getTextureRect().getMaxX() < 0) {
+		int limiter = (int)winSize.width + tree5->getTextureRect().getMaxX();
+		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
+		tree5->setPositionX(randomTree);
+	}
+	else {
+		tree5->setPositionX(tree5->getPositionX() + treeSpeed);
+	}
+	if (tree6->getPositionX() + tree6->getTextureRect().getMaxX() < 0) {
+		int limiter = (int)winSize.width + tree6->getTextureRect().getMaxX();
+		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
+		tree6->setPositionX(randomTree);
+	}
+	else {
+		tree6->setPositionX(tree6->getPositionX() + treeSpeed);
+	}
+	if (tree7->getPositionX() + tree7->getTextureRect().getMaxX() < 0) {
+		int limiter = (int)winSize.width + tree7->getTextureRect().getMaxX();
+		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
+		tree7->setPositionX(randomTree);
+	}
+	else {
+		tree7->setPositionX(tree7->getPositionX() + treeSpeed);
+	}
+	if (tree8->getPositionX() + tree8->getTextureRect().getMaxX() < 0) {
+		int limiter = (int)winSize.width + tree8->getTextureRect().getMaxX();
+		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
+		tree8->setPositionX(randomTree);
+	}
+	else {
+		tree8->setPositionX(tree8->getPositionX() + treeSpeed);
 	}
 }
 
