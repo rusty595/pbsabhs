@@ -30,8 +30,60 @@ bool HelloWorld::init()
     {
         return false;
 	}
-	auto winSize = Director::getInstance()->getVisibleSize();
 
+	// Initialise Scene
+	scene = 1;
+
+	//TOUCHES
+	initTouchListeners();
+
+	//NODES
+	initNodes();
+
+	//COCOS ELEMENTS
+	initCocosElements();
+
+	// Initialise player class
+	player->create();
+	player = Player::create();
+	this->addChild(player);
+	player->setOffscreenPos(player_sprite);
+	player_sprite->setVisible(true);
+
+	// Initialise Audio
+	//audio = dynamic_cast<cocostudio::ComAudio*>(rootNode->getChildByName("Menu_Background_Music")->getComponent("Menu_Background_Music"));
+	//audio->playEffect();
+	//audio = (cocostudio::ComAudio*)rootNode->getComponent("Menu_Background_Music");
+	//while (audio->isBackgroundMusicPlaying() == false) {
+	//	audio->playBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3");
+	//}
+
+	this->scheduleUpdate();
+
+	// Game is not live until the start button is pressed.
+	GameManager::sharedGameManager()->setIsGameLive(false);
+
+    return true;
+}
+
+void HelloWorld::initTouchListeners()
+{
+	//Set up a touch listener.
+	auto touchListener = EventListenerTouchOneByOne::create();
+
+	//Set callbacks for our touch functions.
+	touchListener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
+	touchListener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
+	touchListener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
+	touchListener->onTouchCancelled = CC_CALLBACK_2(HelloWorld::onTouchCancelled, this);
+
+	//Add our touch listener to event listener list.
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+}
+
+void HelloWorld::initNodes()
+{
+	// Create nodes
 	auto parallaxBackground = CSLoader::createNode("ParallaxBackground.csb");
 	addChild(parallaxBackground);
 	auto trackNode1 = CSLoader::createNode("Track.csb");
@@ -47,25 +99,7 @@ bool HelloWorld::init()
 	auto playerNode = CSLoader::createNode("Player.csb");
 	addChild(playerNode);
 
-	this->scheduleUpdate();
-
-	//TOUCHES
-	//Set up a touch listener.
-	auto touchListener = EventListenerTouchOneByOne::create();
-
-	//Set callbacks for our touch functions.
-	touchListener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
-	touchListener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
-	touchListener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
-	touchListener->onTouchCancelled = CC_CALLBACK_2(HelloWorld::onTouchCancelled, this);
-
-	//Add our touch listener to event listener list.
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
-
-	// Initialise Scene
-	scene = 1;
-
-	// Initialise all images/sprites/buttons/ect...
+	// Set up references
 	sky1 = (Sprite*)parallaxBackground->getChildByName("Sky");
 	sky2 = (Sprite*)parallaxBackground->getChildByName("Sky_2");
 	mountain1 = (Sprite*)parallaxBackground->getChildByName("Mountain_1");
@@ -82,6 +116,20 @@ bool HelloWorld::init()
 	track1 = (Sprite*)trackNode1->getChildByName("Track");
 	track2 = (Sprite*)trackNode2->getChildByName("Track");
 	track3 = (Sprite*)trackNode3->getChildByName("Track");
+
+	Black_Filter = (Sprite*)rootNode->getChildByName("Black_Filter");
+
+	Start_Button = static_cast<ui::Button*>(rootNode->getChildByName("Start_Button"));
+	Credits_Button = static_cast<ui::Button*>(rootNode->getChildByName("Credits_Button"));
+
+	Credit_Text = (ui::Text*)creditNode->getChildByName("Credit_Text");
+
+	player_sprite = (Sprite*)playerNode->getChildByName("Player_Skin_1");
+}
+
+void HelloWorld::initCocosElements()
+{
+	auto winSize = Director::getInstance()->getVisibleSize();
 
 	sky1->setPosition(Vec2(888.0f, 864.0f));
 	sky2->setPosition(Vec2(888.0f, sky1->getTextureRect().getMaxX() + (sky1->getTextureRect().getMaxX() / 2)));
@@ -116,117 +164,113 @@ bool HelloWorld::init()
 	track2->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 2)));
 	track3->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 4)));
 
-	Black_Filter = (Sprite*)rootNode->getChildByName("Black_Filter");
-
-	Start_Button = static_cast<ui::Button*>(rootNode->getChildByName("Start_Button"));
 	Start_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::StartButtonPressed, this));
 
-	Credits_Button = static_cast<ui::Button*>(rootNode->getChildByName("Credits_Button"));
 	Credits_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::CreditsButtonPressed, this));
 
-	Credit_Text = (ui::Text*)creditNode->getChildByName("Credit_Text");
 	Credit_Text->setFontSize(30);
 	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nArtwork:\n Sam Head\n\nDocumentation:\n David Smith\n");
 	Credit_Text->setAnchorPoint(Vec2(0.0f, 1.0f));
 	Credit_Text->setVisible(false);
-
-	player->create();
-	player = Player::create();
-	this->addChild(player);
-
-	player_sprite = (Sprite*)playerNode->getChildByName("Player_Skin_1");
-	player->setOffscreenPos(player_sprite);
-	player_sprite->setVisible(true);
-
-	// Initialise Audio
-	audio = dynamic_cast<cocostudio::ComAudio*>(rootNode->getChildByName("Menu_Background_Music")->getComponent("Menu_Background_Music"));
-	audio->playEffect();
-	//audio = (cocostudio::ComAudio*)rootNode->getComponent("Menu_Background_Music");
-	//while (audio->isBackgroundMusicPlaying() == false) {
-	//	audio->playBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3");
-	//}
-
-	// Game is not live until the start button is pressed.
-	GameManager::sharedGameManager()->setIsGameLive(false);
-
-    return true;
 }
 
 void HelloWorld::update(float delta)
 {
-	auto winSize = Director::getInstance()->getVisibleSize();
-
 	// Check what scene player is on
 	if (scene == 1) {		// scene 1 == menu
-
+		updateMenu(delta);
 	}
 	else if (scene == 2) {	// scene 2 == game
-		if (GameManager::sharedGameManager()->getIsGameLive() == false) {
-			if (Black_Filter->getOpacity() != 0) {
-				// Start smoothly fading the filter to 0 opacity
-				int currOpac = Black_Filter->getOpacity();
-
-				if (currOpac >= 0) {
-					int nextOpac = currOpac - 5;
-
-					// Check that currOpac will not fall below 0 next update
-					if (nextOpac > 0) {
-						Black_Filter->setOpacity(nextOpac);
-					}
-					else {
-						Black_Filter->setOpacity(0);
-					}
-				}
-			}
-			else {
-				if (player->isReady(player_sprite) == true) {
-					GameManager::sharedGameManager()->setIsGameLive(true);
-				}
-				else {
-					player->setVisible(true);
-					player->moveIntoStartPos(player_sprite);
-				}
-			}
-		}
-		else {
-			// Updates for when game is live
-			// Start listening for touch events
-			if (GameManager::sharedGameManager()->getPlayerRunning() == true) {
-				GameManager::sharedGameManager()->incrementSpeed(delta);
-			}
-			else {
-				GameManager::sharedGameManager()->setPlayerRunning(true);
-			}
-		}
+		updateGame(delta);
 	}
 	else if (scene == 3) {	// scene 3 == credits
-		// Check if credits have exited the screen
-		// REMEMBER - Anchor point is taken at (0, 1) [Normalized coords]
-		if ((Credit_Text->getPositionY() - Credit_Text->getSize().height) > winSize.height) {
-			EndCredits();
-		}
-		else {
-			int currOpac = Black_Filter->getOpacity();
-
-			// If scenes have just switched, the black filter's opacity needs to slowly increase for a smooth fade transition
-			if (currOpac <= 255) {	// 255 because opacity is stored as an unsigned char
-				int nextOpac = currOpac + 5;
-
-				// Check that currOpac will not exeed 255 next update
-				if (nextOpac <= 255) {
-					Black_Filter->setOpacity(nextOpac);
-				}
-				else {
-					Black_Filter->setOpacity(255);
-				}
-			}
-
-			Credit_Text->setPosition(Vec2(Credit_Text->getPositionX() + (delta * 0.0f),
-				Credit_Text->getPositionY() + (delta * 150.0f)));
-		}
+		updateCredits(delta);
 	}
 
 	// Parallax Background
+	updateParallaxBackground(delta);
+}
+
+void HelloWorld::updateMenu(float delta)
+{
+
+}
+
+void HelloWorld::updateGame(float delta)
+{
+	if (GameManager::sharedGameManager()->getIsGameLive() == false) {
+		if (Black_Filter->getOpacity() != 0) {
+			// Start smoothly fading the filter to 0 opacity
+			int currOpac = Black_Filter->getOpacity();
+
+			if (currOpac >= 0) {
+				int nextOpac = currOpac - 5;
+
+				// Check that currOpac will not fall below 0 next update
+				if (nextOpac > 0) {
+					Black_Filter->setOpacity(nextOpac);
+				}
+				else {
+					Black_Filter->setOpacity(0);
+				}
+			}
+		}
+		else {
+			if (player->isReady(player_sprite) == true) {
+				GameManager::sharedGameManager()->setIsGameLive(true);
+			}
+			else {
+				player->setVisible(true);
+				player->moveIntoStartPos(player_sprite);
+			}
+		}
+	}
+	else {
+		// Updates for when game is live
+		// Start listening for touch events
+		if (GameManager::sharedGameManager()->getPlayerRunning() == true) {
+			GameManager::sharedGameManager()->incrementSpeed(delta);
+		}
+		else {
+			GameManager::sharedGameManager()->setPlayerRunning(true);
+		}
+	}
+}
+
+void HelloWorld::updateCredits(float delta)
+{
+	auto winSize = Director::getInstance()->getVisibleSize();
+
+	// Check if credits have exited the screen
+	// REMEMBER - Anchor point is taken at (0, 1) [Normalized coords]
+	if ((Credit_Text->getPositionY() - Credit_Text->getSize().height) > winSize.height) {
+		EndCredits();
+	}
+	else {
+		int currOpac = Black_Filter->getOpacity();
+
+		// If scenes have just switched, the black filter's opacity needs to slowly increase for a smooth fade transition
+		if (currOpac <= 255) {	// 255 because opacity is stored as an unsigned char
+			int nextOpac = currOpac + 5;
+
+			// Check that currOpac will not exeed 255 next update
+			if (nextOpac <= 255) {
+				Black_Filter->setOpacity(nextOpac);
+			}
+			else {
+				Black_Filter->setOpacity(255);
+			}
+		}
+
+		Credit_Text->setPosition(Vec2(Credit_Text->getPositionX() + (delta * 0.0f),
+			Credit_Text->getPositionY() + (delta * 150.0f)));
+	}
+}
+
+void HelloWorld::updateParallaxBackground(float delta)
+{
+	auto winSize = Director::getInstance()->getVisibleSize();
+
 	// Sky
 	float skySpeed = GameManager::sharedGameManager()->getSkySpeed() * delta;
 	sky1->setPositionX(sky1->getPositionX() + skySpeed);

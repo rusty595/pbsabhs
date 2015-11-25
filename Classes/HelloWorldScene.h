@@ -59,11 +59,18 @@ public:
 
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
+	void initTouchListeners();
+	void initNodes();
+	void initCocosElements();
 
     // implement the "static create()" method manually
 	CREATE_FUNC(HelloWorld);
 
 	void update(float);
+	void updateMenu(float);
+	void updateGame(float);
+	void updateCredits(float);
+	void updateParallaxBackground(float);
 
 	// Deal with touches.
 	virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
