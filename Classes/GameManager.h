@@ -10,14 +10,7 @@ private:
 
 	bool isGameLive;
 
-	// score
-	int score;
-	int highScore;
-
 	// Methods
-	void setHighscore(int highScore);
-	void storeHighscoreToFile(int highScore);
-	int getHighscoreFromFile();
 	void resetSpeeds();
 
 	// Speed
@@ -40,12 +33,4 @@ public:
 	float getMountainSpeed();
 	float getTreeSpeed();
 	float getIncomingSpeed();
-
-	void addToScore(int point);
-	void subtractFromScore(int point);
-	int getScore();
-	void resetScore();
-
-	void compareScoreToHighscore();
-	int getHighscore();
 };
