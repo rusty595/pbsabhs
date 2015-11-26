@@ -6,16 +6,6 @@
       <ObjectData Name="Scene" ctype="GameNodeObjectData">
         <Size X="1776.0000" Y="1080.0000" />
         <Children>
-          <AbstractNodeData Name="Track_Background" ActionTag="-1979259478" Tag="2" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" Scale9Width="1776" Scale9Height="1080" ctype="ImageViewObjectData">
-            <Size X="1776.0000" Y="1080.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="888.0000" Y="540.0000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.5000" Y="0.5000" />
-            <PreSize X="1.0000" Y="1.0000" />
-            <FileData Type="Normal" Path="Resources/Backgrounds/TrackBackground.png" Plist="" />
-          </AbstractNodeData>
           <AbstractNodeData Name="Black_Filter" ActionTag="-1400023573" Alpha="127" Tag="10" IconVisible="False" ctype="SpriteObjectData">
             <Size X="1776.0000" Y="1080.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />

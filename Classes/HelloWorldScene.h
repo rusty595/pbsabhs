@@ -18,7 +18,6 @@ private:
 	cocos2d::ui::Button*	Credits_Button;
 
 	// Backgrounds
-	cocos2d::Image*			Track_Background;	// TEMPLATE BACKGROUND - NEEDS REMOVING	
 	cocos2d::Sprite*		track1;
 	cocos2d::Sprite*		track2;
 	cocos2d::Sprite*		track3;
@@ -41,6 +40,11 @@ private:
 
 	// Text
 	cocos2d::ui::Text*		Credit_Text;
+
+	// UI
+	bool					UIMoving;
+	cocos2d::ui::Button*	Pause_Button;
+	cocos2d::Sprite*		UI_Background;
 
 	// Audio
 	cocostudio::ComAudio*	audio;

@@ -3,7 +3,7 @@
     <Item Key="CocosRecentOperation">
       <Value ctype="CocosRecentOperation">
         <LastPublishType Value="VS" />
-        <IsLastPublish Value="True" />
+        <IsLastPublish Value="False" />
         <LastRunType Value="Windows" />
       </Value>
     </Item>
@@ -12,26 +12,20 @@
         <LuaIsEncrypt Value="False" />
         <LuaEncryptKey Value="" />
         <LuaEncryptSign Value="" />
-        <Android_PackageName Value="org.cocos.BaseLandscapeProject" />
+        <Android_PackageName Value="hv.sb.pbsabhs" />
         <AndroidkeyStore Value="" />
         <AndroidVersion Value="android-20" />
         <iOS_Target Value="BaseLandscapeProject-mobile" />
         <iOS_BundleID Value="" />
-        <Platform Value="None" />
+        <Platform Value="Android" />
         <RunPlatform Value="None" />
         <FrameworkVersion Value="cocos2d-x-3.8" />
         <IsDebugKeystore Value="True" />
+        <KeystorePassword Value="" />
+        <KeystoreAliasName Value="" />
+        <KeystoreAliasPassword Value="" />
         <EnableSourceMap Value="False" />
         <EnableHTML5Advanced Value="False" />
-      </Value>
-    </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="ParallaxBackground.csd" />
-          <FilePathData Path="KillableDog.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="ParallaxBackground.csd" />
       </Value>
     </Item>
   </Properties>

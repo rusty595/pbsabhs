@@ -33,6 +33,7 @@ bool HelloWorld::init()
 
 	// Initialise Scene
 	scene = 1;
+	UIMoving = false;
 
 	//TOUCHES
 	initTouchListeners();
@@ -49,11 +50,6 @@ bool HelloWorld::init()
 	this->addChild(player);
 	player->setOffscreenPos(player_sprite);
 	player_sprite->setVisible(true);
-
-	// Initialise Audio
-	//audio = dynamic_cast<cocostudio::ComAudio*>(rootNode->getChildByName("Menu_Background_Music")->getComponent("Menu_Background_Music"));
-	//audio->playEffect();
-	//audio = (cocostudio::ComAudio*)rootNode->getComponent("Menu_Background_Music");
 	//while (audio->isBackgroundMusicPlaying() == false) {
 	//	audio->playBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3");
 	//}
@@ -92,6 +88,8 @@ void HelloWorld::initNodes()
 	addChild(trackNode2);
 	auto trackNode3 = CSLoader::createNode("Track.csb");
 	addChild(trackNode3);
+	auto UINode = CSLoader::createNode("UI.csb");
+	addChild(UINode);
 	auto rootNode = CSLoader::createNode("MainMenu.csb");
 	addChild(rootNode);
 	auto creditNode = CSLoader::createNode("CreditScene.csb");
@@ -116,15 +114,22 @@ void HelloWorld::initNodes()
 	track1 = (Sprite*)trackNode1->getChildByName("Track");
 	track2 = (Sprite*)trackNode2->getChildByName("Track");
 	track3 = (Sprite*)trackNode3->getChildByName("Track");
+	UI_Background = (Sprite*)UINode->getChildByName("UI_Background");
 
 	Black_Filter = (Sprite*)rootNode->getChildByName("Black_Filter");
 
 	Start_Button = static_cast<ui::Button*>(rootNode->getChildByName("Start_Button"));
 	Credits_Button = static_cast<ui::Button*>(rootNode->getChildByName("Credits_Button"));
+	Pause_Button = static_cast<ui::Button*>(UINode->getChildByName("Pause_Button"));
 
 	Credit_Text = (ui::Text*)creditNode->getChildByName("Credit_Text");
 
 	player_sprite = (Sprite*)playerNode->getChildByName("Player_Skin_1");
+
+	// Initialise Audio
+	audio = dynamic_cast<cocostudio::ComAudio*>(rootNode->getChildByName("Menu_Background_Music")->getComponent("Menu_Background_Music"));
+	audio->playEffect();
+	audio = (cocostudio::ComAudio*)rootNode->getComponent("Menu_Background_Music");
 }
 
 void HelloWorld::initCocosElements()
@@ -132,7 +137,7 @@ void HelloWorld::initCocosElements()
 	auto winSize = Director::getInstance()->getVisibleSize();
 
 	sky1->setPosition(Vec2(888.0f, 864.0f));
-	sky2->setPosition(Vec2(888.0f, sky1->getTextureRect().getMaxX() + (sky1->getTextureRect().getMaxX() / 2)));
+	sky2->setPosition(Vec2(sky1->getTextureRect().getMaxX() + (sky1->getPosition().x), 864.0f));
 
 	int limiter = (int)winSize.width + mountain1->getBoundingBox().getMaxX();
 	int random = cocos2d::RandomHelper::random_int(1, limiter);
@@ -160,17 +165,20 @@ void HelloWorld::initCocosElements()
 	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
 	tree8->setPosition(Vec2(random, 812.0f));
 
+	UI_Background->setPosition(Vec2(951.0f, winSize.height + 109.0f));
+
 	track1->setPosition(Vec2(888.0f, 108.0f));
 	track2->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 2)));
 	track3->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 4)));
 
 	Start_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::StartButtonPressed, this));
-
 	Credits_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::CreditsButtonPressed, this));
+	Pause_Button->setPosition(Vec2(63.0f, winSize.height + 109.0f));
 
 	Credit_Text->setFontSize(30);
-	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nArtwork:\n Sam Head\n\nDocumentation:\n David Smith\n");
-	Credit_Text->setAnchorPoint(Vec2(0.0f, 1.0f));
+	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nDog Handler:\n Sam Head\n\nDocumentation:\n David Smith\n");
+	Credit_Text->setAnchorPoint(Vec2(0.5f, 1.0f));
+	
 	Credit_Text->setVisible(false);
 }
 
@@ -199,6 +207,16 @@ void HelloWorld::updateMenu(float delta)
 void HelloWorld::updateGame(float delta)
 {
 	if (GameManager::sharedGameManager()->getIsGameLive() == false) {
+		if (UIMoving == false) {
+			UIMoving = true;
+
+			auto moveTo = MoveTo::create(1.0f, Vec2(63.0f, 1025.5f)); // Take a second to move into position.
+			Pause_Button->runAction(moveTo);
+
+			moveTo = MoveTo::create(1.0f, Vec2(951.0f, 1025.5f)); // Take a second to move into position.
+			UI_Background->runAction(moveTo);
+		}
+
 		if (Black_Filter->getOpacity() != 0) {
 			// Start smoothly fading the filter to 0 opacity
 			int currOpac = Black_Filter->getOpacity();
@@ -277,10 +295,10 @@ void HelloWorld::updateParallaxBackground(float delta)
 	sky2->setPositionX(sky2->getPositionX() + skySpeed);
 	// Check if sky is offscreen, if so, move sky image to the end of second sky image
 	if (sky1->getPositionX() + sky1->getTextureRect().getMaxX() < 0) {
-		sky1->setPositionX(sky2->getTextureRect().getMaxX() + (sky2->getTextureRect().getMaxX() / 2));
+		sky1->setPositionX(sky2->getTextureRect().getMaxX() + (sky2->getPosition().x));
 	}
 	else if (sky2->getPositionX() + sky2->getTextureRect().getMaxX() < 0) {
-		sky2->setPositionX(sky1->getTextureRect().getMaxX() + (sky1->getTextureRect().getMaxX() / 2));
+		sky2->setPositionX(sky1->getTextureRect().getMaxX() + (sky1->getPosition().x));
 	}
 
 	// Mountain

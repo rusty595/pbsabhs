@@ -44,6 +44,11 @@
             <Image Name="sutaato.png" />
             <Image Name="kuredito1.png" />
           </Folder>
+          <Folder Name="UI">
+            <Image Name="PauseButtonPressed.png" />
+            <Image Name="PauseButtonUnPressed.png" />
+            <Image Name="UI_Background.png" />
+          </Folder>
         </Folder>
         <Project Name="MainMenu.csd" Type="Scene" />
         <Project Name="CreditScene.csd" Type="Scene" />
@@ -53,6 +58,7 @@
         <Project Name="ScottishTerrier.csd" Type="Layer" />
         <Project Name="KillableDog.csd" Type="Layer" />
         <Project Name="ParallaxBackground.csd" Type="Layer" />
+        <Project Name="UI.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>

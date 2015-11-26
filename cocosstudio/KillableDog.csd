@@ -6,13 +6,13 @@
       <ObjectData Name="Layer" Tag="19" ctype="GameLayerObjectData">
         <Size X="500.0000" Y="500.0000" />
         <Children>
-          <AbstractNodeData Name="abyssinianwirehairedtripe_body" ActionTag="-870655521" Tag="20" IconVisible="False" LeftMargin="-226.4679" RightMargin="630.4679" TopMargin="297.3687" BottomMargin="74.6313" ctype="SpriteObjectData">
+          <AbstractNodeData Name="abyssinianwirehairedtripe_body" ActionTag="-870655521" Tag="20" IconVisible="False" LeftMargin="-271.8987" RightMargin="675.8987" TopMargin="307.9906" BottomMargin="64.0094" ctype="SpriteObjectData">
             <Size X="96.0000" Y="128.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="-178.4679" Y="138.6313" />
+            <Position X="-223.8987" Y="128.0094" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="-0.3569" Y="0.2773" />
+            <PrePosition X="-0.4478" Y="0.2560" />
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="Resources/Sprites/Dogs/bodies/abyssinianwirehairedtripe.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
@@ -50,46 +50,46 @@
             <FileData Type="Normal" Path="Resources/Sprites/Dogs/bodies/skye.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="abyssinianwirehairedtripe_head" ActionTag="-310750730" Tag="24" IconVisible="False" LeftMargin="-336.3515" RightMargin="772.3514" TopMargin="295.8406" BottomMargin="108.1594" ctype="SpriteObjectData">
+          <AbstractNodeData Name="abyssinianwirehairedtripe_head" ActionTag="-310750730" Tag="24" IconVisible="False" LeftMargin="-309.5599" RightMargin="745.5599" TopMargin="271.0353" BottomMargin="132.9647" ctype="SpriteObjectData">
             <Size X="64.0000" Y="96.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="-304.3515" Y="156.1594" />
+            <Position X="-277.5599" Y="180.9647" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="-0.6087" Y="0.3123" />
+            <PrePosition X="-0.5551" Y="0.3619" />
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="Resources/Sprites/Dogs/heads/abyssinianwirehairedtripe.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="beagle_head" ActionTag="-979435519" Tag="25" IconVisible="False" LeftMargin="-350.7576" RightMargin="754.7576" TopMargin="101.5042" BottomMargin="334.4958" ctype="SpriteObjectData">
+          <AbstractNodeData Name="beagle_head" ActionTag="-979435519" Tag="25" IconVisible="False" LeftMargin="-292.2741" RightMargin="696.2742" TopMargin="89.3200" BottomMargin="346.6800" ctype="SpriteObjectData">
             <Size X="96.0000" Y="64.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="-302.7576" Y="366.4958" />
+            <Position X="-244.2741" Y="378.6800" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="-0.6055" Y="0.7330" />
+            <PrePosition X="-0.4885" Y="0.7574" />
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="Resources/Sprites/Dogs/heads/beagle.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="dachs_head" ActionTag="161725419" Tag="26" IconVisible="False" LeftMargin="551.2076" RightMargin="-115.2076" TopMargin="85.5688" BottomMargin="350.4312" ctype="SpriteObjectData">
+          <AbstractNodeData Name="dachs_head" ActionTag="161725419" Tag="26" IconVisible="False" LeftMargin="592.6315" RightMargin="-156.6315" TopMargin="52.0164" BottomMargin="383.9836" ctype="SpriteObjectData">
             <Size X="64.0000" Y="64.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="583.2076" Y="382.4312" />
+            <Position X="624.6315" Y="415.9836" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="1.1664" Y="0.7649" />
+            <PrePosition X="1.2493" Y="0.8320" />
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="Resources/Sprites/Dogs/heads/dachs.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="skye_head" ActionTag="4358358" Tag="27" IconVisible="False" LeftMargin="563.9550" RightMargin="-127.9550" TopMargin="302.0837" BottomMargin="37.9163" ctype="SpriteObjectData">
+          <AbstractNodeData Name="skye_head" ActionTag="4358358" Tag="27" IconVisible="False" LeftMargin="607.8167" RightMargin="-171.8167" TopMargin="304.5205" BottomMargin="35.4795" ctype="SpriteObjectData">
             <Size X="64.0000" Y="160.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="595.9550" Y="117.9163" />
+            <Position X="639.8167" Y="115.4795" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="1.1919" Y="0.2358" />
+            <PrePosition X="1.2796" Y="0.2310" />
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="Resources/Sprites/Dogs/heads/skye.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
