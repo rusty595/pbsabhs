@@ -50,6 +50,9 @@
     <ClInclude Include="..\Classes\ScoreManager.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Dog.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
