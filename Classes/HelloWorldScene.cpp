@@ -130,6 +130,8 @@ void HelloWorld::initNodes()
 	Start_Button = static_cast<ui::Button*>(rootNode->getChildByName("Start_Button"));
 	Credits_Button = static_cast<ui::Button*>(rootNode->getChildByName("Credits_Button"));
 	Pause_Button = static_cast<ui::Button*>(UINode->getChildByName("Pause_Button"));
+	Resume_Button = static_cast<ui::Button*>(rootNode->getChildByName("Resume_Button"));
+	Exit_Button = static_cast<ui::Button*>(rootNode->getChildByName("Exit_Button"));
 
 	Credit_Text = (ui::Text*)creditNode->getChildByName("Credit_Text");
 
@@ -186,6 +188,12 @@ void HelloWorld::initCocosElements()
 	Credits_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::CreditsButtonPressed, this));
 	Pause_Button->setPosition(Vec2(63.0f, winSize.height + 109.0f));
 	Pause_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::PauseButtonPressed, this));
+	Resume_Button->setVisible(false);
+	Resume_Button->setPositionX(winSize.width + Resume_Button->getSize().width);
+	Resume_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::ResumeButtonPressed, this));
+	Exit_Button->setVisible(false);
+	Exit_Button->setPositionX(winSize.width + Exit_Button->getSize().width);
+	Exit_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::ExitButtonPressed, this));
 
 	Credit_Text->setFontSize(30);
 	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nDog Handler:\n Sam Head\n\nDocumentation:\n David Smith\n");
@@ -264,6 +272,23 @@ void HelloWorld::updateGame(float delta)
 			}
 			else {
 				GameManager::sharedGameManager()->setPlayerRunning(true);
+			}
+
+			if (Black_Filter->getOpacity() != 0) {
+				// Start smoothly fading the filter to 0 opacity
+				int currOpac = Black_Filter->getOpacity();
+
+				if (currOpac >= 0) {
+					int nextOpac = currOpac - 5;
+
+					// Check that currOpac will not fall below 0 next update
+					if (nextOpac > 0) {
+						Black_Filter->setOpacity(nextOpac);
+					}
+					else {
+						Black_Filter->setOpacity(0);
+					}
+				}
 			}
 		}
 		else if (GameManager::sharedGameManager()->getIsGamePaused() == true) {
@@ -463,6 +488,22 @@ void HelloWorld::PauseButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEvent
 	}
 }
 
+void HelloWorld::ResumeButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
+{
+	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
+	{
+		this->ResumeGame();
+	}
+}
+
+void HelloWorld::ExitButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
+{
+	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
+	{
+		this->EndGame();
+	}
+}
+
 void HelloWorld::StartMainMenu()
 {
 	scene = 1;
@@ -488,7 +529,30 @@ void HelloWorld::StartGame()
 
 void HelloWorld::PauseGame()
 {
+	auto winSize = Director::getInstance()->getVisibleSize();
 	GameManager::sharedGameManager()->setIsGamePaused(true);
+
+	auto resumeMoveTo = MoveTo::create(0.5, Vec2(winSize.width / 2, Resume_Button->getPositionY())); // Take half a second to move on screen.
+	Resume_Button->setVisible(true);
+	Resume_Button->runAction(resumeMoveTo);
+
+	auto exitMoveTo = MoveTo::create(0.5, Vec2(winSize.width / 2, Exit_Button->getPositionY())); // Take half a second to move on screen.
+	Exit_Button->setVisible(true);
+	Exit_Button->runAction(exitMoveTo);
+}
+
+void HelloWorld::ResumeGame()
+{
+	auto winSize = Director::getInstance()->getVisibleSize();
+	GameManager::sharedGameManager()->setIsGamePaused(false);
+
+	auto resumeMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Resume_Button->getSize().width, Resume_Button->getPositionY())); // Take half a second to move on screen.
+	Resume_Button->setVisible(true);
+	Resume_Button->runAction(resumeMoveTo);
+
+	auto exitMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Exit_Button->getSize().width, Exit_Button->getPositionY())); // Take half a second to move on screen.
+	Exit_Button->setVisible(true);
+	Exit_Button->runAction(exitMoveTo);
 }
 
 void HelloWorld::EndGame()

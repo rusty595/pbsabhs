@@ -50,7 +50,9 @@ private:
 	cocos2d::ui::Button*	Pause_Button;
 	cocos2d::Sprite*		UI_Background;
 
-	// Audio
+	// Pause
+	cocos2d::ui::Button*    Resume_Button;
+	cocos2d::ui::Button*	Exit_Button;
 
 	// Classes
 	Player*					player;
@@ -89,11 +91,14 @@ public:
 	void StartButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type);
 	void CreditsButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type);
 	void PauseButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type);
+	void ResumeButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type);
+	void ExitButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type);
 
 	// Deal with scene change
 	void StartMainMenu();
 	void StartGame();
 	void PauseGame();
+	void ResumeGame();
 	void EndGame();
 	void StartCredits();
 	void EndCredits();
