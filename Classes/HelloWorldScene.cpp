@@ -53,7 +53,7 @@ bool HelloWorld::init()
 	//while (audio->isBackgroundMusicPlaying() == false) {
 	//	audio->playBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3");
 	//}
-
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Kevin_MacLeod_-_Monkeys_Spinning_Monkeys.mp3", true);
 	this->scheduleUpdate();
 
 	// Game is not live until the start button is pressed.
@@ -88,6 +88,12 @@ void HelloWorld::initNodes()
 	addChild(trackNode2);
 	auto trackNode3 = CSLoader::createNode("Track.csb");
 	addChild(trackNode3);
+	auto trackNode4 = CSLoader::createNode("Track.csb");
+	addChild(trackNode3);
+	auto trackNode5 = CSLoader::createNode("Track.csb");
+	addChild(trackNode3);
+	auto trackNode6 = CSLoader::createNode("Track.csb");
+	addChild(trackNode3);
 	auto UINode = CSLoader::createNode("UI.csb");
 	addChild(UINode);
 	auto rootNode = CSLoader::createNode("MainMenu.csb");
@@ -114,6 +120,9 @@ void HelloWorld::initNodes()
 	track1 = (Sprite*)trackNode1->getChildByName("Track");
 	track2 = (Sprite*)trackNode2->getChildByName("Track");
 	track3 = (Sprite*)trackNode3->getChildByName("Track");
+	track4 = (Sprite*)trackNode4->getChildByName("Track");
+	track5 = (Sprite*)trackNode5->getChildByName("Track");
+	track6 = (Sprite*)trackNode6->getChildByName("Track");
 	UI_Background = (Sprite*)UINode->getChildByName("UI_Background");
 
 	Black_Filter = (Sprite*)rootNode->getChildByName("Black_Filter");
@@ -127,9 +136,8 @@ void HelloWorld::initNodes()
 	player_sprite = (Sprite*)playerNode->getChildByName("Player_Skin_1");
 
 	// Initialise Audio
-	audio = dynamic_cast<cocostudio::ComAudio*>(rootNode->getChildByName("Menu_Background_Music")->getComponent("Menu_Background_Music"));
-	audio->playEffect();
-	audio = (cocostudio::ComAudio*)rootNode->getComponent("Menu_Background_Music");
+	auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+	audio->preloadBackgroundMusic("Kevin_MacLeod_-_Monkeys_Spinning_Monkeys.mp3");
 }
 
 void HelloWorld::initCocosElements()
@@ -170,10 +178,14 @@ void HelloWorld::initCocosElements()
 	track1->setPosition(Vec2(888.0f, 108.0f));
 	track2->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 2)));
 	track3->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 4)));
+	track4->setPosition(Vec2(track1->getTextureRect().getMaxX(), 108.0f));
+	track5->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 2)));
+	track6->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 4)));
 
 	Start_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::StartButtonPressed, this));
 	Credits_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::CreditsButtonPressed, this));
 	Pause_Button->setPosition(Vec2(63.0f, winSize.height + 109.0f));
+	Pause_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::PauseButtonPressed, this));
 
 	Credit_Text->setFontSize(30);
 	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nDog Handler:\n Sam Head\n\nDocumentation:\n David Smith\n");
@@ -246,11 +258,32 @@ void HelloWorld::updateGame(float delta)
 	else {
 		// Updates for when game is live
 		// Start listening for touch events
-		if (GameManager::sharedGameManager()->getPlayerRunning() == true) {
-			GameManager::sharedGameManager()->incrementSpeed(delta);
+		if (GameManager::sharedGameManager()->getIsGamePaused() == false) {
+			if (GameManager::sharedGameManager()->getPlayerRunning() == true) {
+				GameManager::sharedGameManager()->incrementSpeed(delta);
+			}
+			else {
+				GameManager::sharedGameManager()->setPlayerRunning(true);
+			}
 		}
-		else {
-			GameManager::sharedGameManager()->setPlayerRunning(true);
+		else if (GameManager::sharedGameManager()->getIsGamePaused() == true) {
+
+			if (Black_Filter->getOpacity() != 127) {
+				// Start smoothly fading the filter to 127 opacity
+				int currOpac = Black_Filter->getOpacity();
+
+				if (currOpac <= 127) {
+					int nextOpac = currOpac + 5;
+
+					// Check that currOpac will not fall below 0 next update
+					if (nextOpac < 127) {
+						Black_Filter->setOpacity(nextOpac);
+					}
+					else {
+						Black_Filter->setOpacity(127);
+					}
+				}
+			}
 		}
 	}
 }
@@ -414,12 +447,20 @@ void HelloWorld::StartButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEvent
 
 void HelloWorld::CreditsButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
 {
-		CCLOG("But what if there's an after-credits sequence? %d", type);
+	CCLOG("But what if there's an after-credits sequence? %d", type);
 
-		if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
-		{
-			this->StartCredits();
-		}
+	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
+	{
+		this->StartCredits();
+	}
+}
+
+void HelloWorld::PauseButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
+{
+	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
+	{
+		this->PauseGame();
+	}
 }
 
 void HelloWorld::StartMainMenu()
@@ -447,7 +488,7 @@ void HelloWorld::StartGame()
 
 void HelloWorld::PauseGame()
 {
-
+	GameManager::sharedGameManager()->setIsGamePaused(true);
 }
 
 void HelloWorld::EndGame()

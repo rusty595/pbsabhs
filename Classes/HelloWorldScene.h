@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "SimpleAudioEngine.h"
 #include "editor-support/cocostudio/cccomaudio.h"
 #include "Player.h"
 #include "GameManager.h"
@@ -21,6 +22,9 @@ private:
 	cocos2d::Sprite*		track1;
 	cocos2d::Sprite*		track2;
 	cocos2d::Sprite*		track3;
+	cocos2d::Sprite*		track4;
+	cocos2d::Sprite*		track5;
+	cocos2d::Sprite*		track6;
 	cocos2d::Sprite*		sky1;
 	cocos2d::Sprite*		sky2;
 	cocos2d::Sprite*		mountain1;
@@ -47,7 +51,6 @@ private:
 	cocos2d::Sprite*		UI_Background;
 
 	// Audio
-	cocostudio::ComAudio*	audio;
 
 	// Classes
 	Player*					player;
@@ -85,6 +88,7 @@ public:
 	// Button event
 	void StartButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type);
 	void CreditsButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type);
+	void PauseButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type);
 
 	// Deal with scene change
 	void StartMainMenu();

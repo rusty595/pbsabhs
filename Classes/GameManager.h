@@ -9,6 +9,7 @@ private:
 	static GameManager* instance;
 
 	bool isGameLive;
+	bool isGamePaused;
 
 	// Methods
 	void resetSpeeds();
@@ -16,6 +17,7 @@ private:
 	// Speed
 	float	secondCheck;
 	float	playerSpeed;
+	float	storedPlayerSpeed;
 	float	skyMultiplier;
 	float	mountainMultiplier;
 	float	treeMultiplier;
@@ -25,6 +27,8 @@ public:
 
 	void setIsGameLive(bool);
 	bool getIsGameLive();
+	void setIsGamePaused(bool);
+	bool getIsGamePaused();
 
 	void incrementSpeed(float delta);
 	void setPlayerRunning(bool running);
