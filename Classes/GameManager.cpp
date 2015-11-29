@@ -5,6 +5,7 @@ GameManager* GameManager::instance = NULL;
 GameManager::GameManager()
 {
 	isGameLive = false;
+	isGamePaused = false;
 	secondCheck = 0.0f;
 	playerSpeed = 0.0f;
 	skyMultiplier = 0.002f;
@@ -30,6 +31,16 @@ void GameManager::setIsGameLive(bool live)
 bool GameManager::getIsGameLive()
 {
 	return isGameLive;
+}
+
+void GameManager::setIsGamePaused(bool paused)
+{
+	isGamePaused = paused;
+}
+
+bool GameManager::getIsGamePaused()
+{
+	return isGamePaused;
 }
 
 void GameManager::incrementSpeed(float delta)
@@ -68,28 +79,55 @@ float GameManager::getSkySpeed()
 {
 	// The sky will always be moving in the same direction as bob runs
 	// Sky starts moving in the opposite direction when Bob is fast enough
-	float speed = 4.0f - (playerSpeed * skyMultiplier);
-
+	float speed;
+	
+	if (isGamePaused == false) {
+		speed = 4.0f - (playerSpeed * skyMultiplier);
+	}
+	else if (isGamePaused == true) {
+		speed = 0.0f;
+	}
 	return speed;
 }
 
 float GameManager::getMountainSpeed()
 {
-	float speed = -1 * (playerSpeed * mountainMultiplier);
+	float speed;
+
+	if (isGamePaused == false) {
+		speed = -1 * (playerSpeed * mountainMultiplier);
+	}
+	else if (isGamePaused == true) {
+		speed = 0.0f;
+	}
 
 	return speed;
 }
 
 float GameManager::getTreeSpeed()
 {
-	float speed = -1 * (playerSpeed * treeMultiplier);
+	float speed;
+
+	if (isGamePaused == false) {
+		speed = -1 * (playerSpeed * treeMultiplier);
+	}
+	else if (isGamePaused == true) {
+		speed = 0.0f;
+	}
 
 	return speed;
 }
 
 float GameManager::getIncomingSpeed()
 {
-	float speed = -1 * playerSpeed;
+	float speed;
+
+	if (isGamePaused == false) {
+		speed = -1 * playerSpeed;
+	}
+	else if (isGamePaused == true) {
+		speed = 0.0f;
+	}
 
 	return speed;
 }
