@@ -43,6 +43,8 @@
             <Image Name="sutaato1.png" />
             <Image Name="sutaato.png" />
             <Image Name="kuredito1.png" />
+            <Image Name="Button_Normal.png" />
+            <Image Name="Button_Press.png" />
           </Folder>
           <Folder Name="UI">
             <Image Name="PauseButtonPressed.png" />
