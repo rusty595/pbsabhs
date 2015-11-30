@@ -134,6 +134,7 @@ void HelloWorld::initNodes()
 	Exit_Button = static_cast<ui::Button*>(rootNode->getChildByName("Exit_Button"));
 
 	Credit_Text = (ui::Text*)creditNode->getChildByName("Credit_Text");
+	score = (ui::Text*)UINode->getChildByName("Score");
 
 	player_sprite = (Sprite*)playerNode->getChildByName("Player_Skin_1");
 
@@ -195,10 +196,13 @@ void HelloWorld::initCocosElements()
 	Exit_Button->setPositionX(winSize.width + Exit_Button->getSize().width);
 	Exit_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::ExitButtonPressed, this));
 
+	score->setFontSize(30);
+	score->setString(std::to_string(ScoreManager::sharedScoreManager()->getScore()));
+	score->setVisible(false);
+	score->setPosition(Vec2(winSize.width - 40.0f, winSize.height - 45.0f));
 	Credit_Text->setFontSize(30);
 	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nDog Handler:\n Sam Head\n\nDocumentation:\n David Smith\n");
 	Credit_Text->setAnchorPoint(Vec2(0.5f, 1.0f));
-	
 	Credit_Text->setVisible(false);
 }
 
@@ -256,6 +260,10 @@ void HelloWorld::updateGame(float delta)
 		else {
 			if (player->isReady(player_sprite) == true) {
 				GameManager::sharedGameManager()->setIsGameLive(true);
+				score->setVisible(true);
+
+				auto scoreFadeIn = FadeIn::create(0.5);
+				score->runAction(scoreFadeIn);
 			}
 			else {
 				player->setVisible(true);
@@ -265,7 +273,6 @@ void HelloWorld::updateGame(float delta)
 	}
 	else {
 		// Updates for when game is live
-		// Start listening for touch events
 		if (GameManager::sharedGameManager()->getIsGamePaused() == false) {
 			if (GameManager::sharedGameManager()->getPlayerRunning() == true) {
 				GameManager::sharedGameManager()->incrementSpeed(delta);
@@ -274,6 +281,14 @@ void HelloWorld::updateGame(float delta)
 				GameManager::sharedGameManager()->setPlayerRunning(true);
 			}
 
+			// Score
+			// Use player speed as a multiplier
+			float multiplier = GameManager::sharedGameManager()->getPlayerSpeed() / 1000;
+			ScoreManager::sharedScoreManager()->addToScore(multiplier * delta);
+			score->setString(std::to_string((int)ScoreManager::sharedScoreManager()->getScore()));
+
+
+			// Filter
 			if (Black_Filter->getOpacity() != 0) {
 				// Start smoothly fading the filter to 0 opacity
 				int currOpac = Black_Filter->getOpacity();

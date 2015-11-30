@@ -9,7 +9,7 @@ private:
 	static ScoreManager* instance;
 
 	// score
-	int score;
+	float score;
 	int highScore;
 
 	// Methods
@@ -20,9 +20,9 @@ public:
 	~ScoreManager();
 	static ScoreManager* sharedScoreManager();
 
-	void addToScore(int point);
-	void subtractFromScore(int point);
-	int getScore();
+	void addToScore(float point);
+	void subtractFromScore(float point);
+	float getScore();
 	void resetScore();
 
 	void compareScoreToHighscore();

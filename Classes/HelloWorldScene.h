@@ -7,6 +7,7 @@
 #include "editor-support/cocostudio/cccomaudio.h"
 #include "Player.h"
 #include "GameManager.h"
+#include "ScoreManager.h"
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -49,6 +50,7 @@ private:
 	bool					UIMoving;
 	cocos2d::ui::Button*	Pause_Button;
 	cocos2d::Sprite*		UI_Background;
+	cocos2d::ui::Text*		score;
 
 	// Pause
 	cocos2d::ui::Button*    Resume_Button;

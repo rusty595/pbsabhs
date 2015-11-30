@@ -32,8 +32,10 @@
       <Value ctype="TabsInfo">
         <OpenedDocuments>
           <FilePathData Path="MainMenu.csd" />
+          <FilePathData Path="UI.csd" />
+          <FilePathData Path="CreditScene.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="MainMenu.csd" />
+        <ActiveDocument Path="UI.csd" />
       </Value>
     </Item>
   </Properties>
