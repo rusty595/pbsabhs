@@ -75,6 +75,11 @@ bool GameManager::getPlayerRunning()
 	}
 }
 
+float GameManager::getPlayerSpeed()
+{
+	return playerSpeed;
+}
+
 float GameManager::getSkySpeed()
 {
 	// The sky will always be moving in the same direction as bob runs

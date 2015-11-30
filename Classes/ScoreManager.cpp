@@ -18,17 +18,17 @@ ScoreManager* ScoreManager::sharedScoreManager()
 	return instance;
 }
 
-void ScoreManager::addToScore(int point)
+void ScoreManager::addToScore(float point)
 {
 	score += point;
 }
 
-void ScoreManager::subtractFromScore(int point)
+void ScoreManager::subtractFromScore(float point)
 {
 	score -= point;
 }
 
-int ScoreManager::getScore()
+float ScoreManager::getScore()
 {
 	return score;
 }

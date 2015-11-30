@@ -7,7 +7,7 @@
         <Size X="1776.0000" Y="109.0000" />
         <Children>
           <AbstractNodeData Name="UI_Background" ActionTag="-1776547333" Tag="30" IconVisible="False" VerticalEdge="BothEdge" LeftMargin="126.0000" ctype="SpriteObjectData">
-            <Size X="1650.0000" Y="109.0000" />
+            <Size X="1650.0000" Y="108.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="951.0000" Y="54.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
@@ -17,7 +17,7 @@
             <FileData Type="Normal" Path="Resources/UI/UI_Background.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Pause_Button" ActionTag="-1753059675" Tag="31" IconVisible="False" VerticalEdge="BothEdge" RightMargin="1650.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="96" Scale9Height="87" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+          <AbstractNodeData Name="Pause_Button" ActionTag="-1753059675" Tag="31" IconVisible="False" VerticalEdge="BothEdge" RightMargin="1650.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="96" Scale9Height="86" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
             <Size X="126.0000" Y="109.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="63.0000" Y="54.5000" />
@@ -29,6 +29,17 @@
             <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
             <PressedFileData Type="Normal" Path="Resources/UI/PauseButtonPressed.png" Plist="" />
             <NormalFileData Type="Normal" Path="Resources/UI/PauseButtonUnPressed.png" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Score" ActionTag="1406920482" Tag="14" IconVisible="False" LeftMargin="1652.9814" RightMargin="33.0186" TopMargin="34.2236" BottomMargin="51.7764" FontSize="20" LabelText="Text Label" HorizontalAlignmentType="HT_Right" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+            <Size X="90.0000" Y="23.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1697.9814" Y="63.2764" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="0" G="0" B="0" />
+            <PrePosition X="0.9561" Y="0.5805" />
+            <PreSize X="0.0000" Y="0.0000" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>

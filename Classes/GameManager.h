@@ -33,6 +33,7 @@ public:
 	void incrementSpeed(float delta);
 	void setPlayerRunning(bool running);
 	bool getPlayerRunning();
+	float getPlayerSpeed();
 	float getSkySpeed();
 	float getMountainSpeed();
 	float getTreeSpeed();
