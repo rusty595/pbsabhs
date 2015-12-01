@@ -17,7 +17,6 @@
             <Image Name="Black Screen.png" />
           </Folder>
           <Folder Name="Audio">
-            <Audio Name="Steve_Combs_-_05_-_Dog.mp3" />
           </Folder>
           <Folder Name="Sprites">
             <Image Name="Bob.png" />
