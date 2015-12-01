@@ -60,13 +60,58 @@ int ScoreManager::getHighscore()
 void ScoreManager::storeHighscoreToFile(int highScore)
 {
 	// Insert code to save highscore to file
+	std::string path = getFilePath();
+
+	FILE *fp = fopen(path.c_str(), "w");
+
+	if (!fp) {
+		CCLOG("Cannot create file in %s", path.c_str());
+		return;
+	}
+
+	std::string value = std::to_string(highScore);
+	fputs(value.c_str(), fp);
+	fclose(fp);
 }
 
 int ScoreManager::getHighscoreFromFile()
 {
 	// Insert code to get highscore from file
+	std::string path = getFilePath();
 
-	return highScore;
+	FILE *fp = fopen(path.c_str(), "r");
+	char buf[50] = { 0 };
+
+	if (!fp) {
+		CCLOG("The file cannot be opened in %s", path.c_str());
+		return 0;
+	}
+
+	fgets(buf, 50, fp);
+	CCLOG("Content Read %s", buf);
+
+	int highscore = atoi(buf);
+
+	fclose(fp);
+
+	return highscore;
+}
+
+std::string ScoreManager::getFilePath()
+{
+	std::string path = "";
+
+	// testing
+	std::string writableDir = CCFileUtils::sharedFileUtils()->getWritablePath();
+
+	if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) {
+		path = writableDir + "\highscoredata.txt";
+	}
+	else if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) {
+		path = writableDir + "\highscoredata.txt";
+	}
+
+	return path;
 }
 
 ScoreManager::~ScoreManager()

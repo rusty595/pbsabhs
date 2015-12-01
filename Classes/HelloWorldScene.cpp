@@ -140,7 +140,8 @@ void HelloWorld::initNodes()
 
 	// Initialise Audio
 	auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
-	audio->preloadBackgroundMusic("Kevin_MacLeod_-_Monkeys_Spinning_Monkeys.mp3");
+	audio->preloadBackgroundMusic("wales.mp3");
+	audio->playBackgroundMusic("wales.mp3");
 }
 
 void HelloWorld::initCocosElements()
@@ -197,7 +198,7 @@ void HelloWorld::initCocosElements()
 	Exit_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::ExitButtonPressed, this));
 
 	score->setFontSize(30);
-	score->setString(std::to_string(ScoreManager::sharedScoreManager()->getScore()));
+	score->setString(std::to_string(0));
 	score->setVisible(false);
 	score->setPosition(Vec2(winSize.width - 40.0f, winSize.height - 45.0f));
 	Credit_Text->setFontSize(30);
@@ -286,7 +287,6 @@ void HelloWorld::updateGame(float delta)
 			float multiplier = GameManager::sharedGameManager()->getPlayerSpeed() / 1000;
 			ScoreManager::sharedScoreManager()->addToScore(multiplier * delta);
 			score->setString(std::to_string((int)ScoreManager::sharedScoreManager()->getScore()));
-
 
 			// Filter
 			if (Black_Filter->getOpacity() != 0) {
