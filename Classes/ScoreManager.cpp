@@ -88,9 +88,13 @@ int ScoreManager::getHighscoreFromFile()
 	}
 
 	fgets(buf, 50, fp);
-	CCLOG("Content Read");
+	CCLOG("Content Read %s", buf);
+
+	int highscore = atoi(buf);
 
 	fclose(fp);
+
+	return highscore;
 }
 
 std::string ScoreManager::getFilePath()
