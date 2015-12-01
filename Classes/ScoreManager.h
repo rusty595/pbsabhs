@@ -1,6 +1,12 @@
 #pragma once
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "CCFileUtils.h"
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+
+using namespace cocos2d;
 
 class ScoreManager
 {
@@ -27,4 +33,5 @@ public:
 
 	void compareScoreToHighscore();
 	int getHighscore();
+	std::string getFilePath();
 };
