@@ -54,8 +54,8 @@ bool HelloWorld::init()
 	//while (audio->isBackgroundMusicPlaying() == false) {
 	//	audio->playBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3");
 	//}
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("no.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("no.mp3", true);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("dog.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("dog.mp3", true);
 
 	this->scheduleUpdate();
 
