@@ -50,10 +50,13 @@ bool HelloWorld::init()
 	this->addChild(player);
 	player->setOffscreenPos(player_sprite);
 	player_sprite->setVisible(true);
+
 	//while (audio->isBackgroundMusicPlaying() == false) {
 	//	audio->playBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3");
 	//}
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Kevin_MacLeod_-_Monkeys_Spinning_Monkeys.mp3", true);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("no.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("no.mp3", true);
+
 	this->scheduleUpdate();
 
 	// Game is not live until the start button is pressed.
@@ -139,9 +142,11 @@ void HelloWorld::initNodes()
 	player_sprite = (Sprite*)playerNode->getChildByName("Player_Skin_1");
 
 	// Initialise Audio
-	auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
-	audio->preloadBackgroundMusic("wales.mp3");
-	audio->playBackgroundMusic("wales.mp3");
+	//auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+	//audio->preloadBackgroundMusic("Resources/dogs.mp3");
+	//audio->playBackgroundMusic("Resources/dogs.mp3");
+
+	float woof = 10.0f;
 }
 
 void HelloWorld::initCocosElements()

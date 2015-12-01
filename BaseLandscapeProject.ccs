@@ -16,8 +16,6 @@
           <Folder Name="ColourBlocks">
             <Image Name="Black Screen.png" />
           </Folder>
-          <Folder Name="Audio">
-          </Folder>
           <Folder Name="Sprites">
             <Image Name="Bob.png" />
             <Folder Name="Dogs">
@@ -50,6 +48,8 @@
             <Image Name="PauseButtonUnPressed.png" />
             <Image Name="UI_Background.png" />
           </Folder>
+          <Audio Name="dogs.mp3" />
+          <Audio Name="no.mp3" />
         </Folder>
         <Project Name="MainMenu.csd" Type="Scene" />
         <Project Name="CreditScene.csd" Type="Scene" />
