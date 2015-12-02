@@ -45,6 +45,8 @@ private:
 
 	// Text
 	cocos2d::ui::Text*		Credit_Text;
+	cocos2d::ui::Text*		Pause_Score;
+	cocos2d::ui::Text*		Pause_Highscore;
 
 	// UI
 	bool					UIMoving;
