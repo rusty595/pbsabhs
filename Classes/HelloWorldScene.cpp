@@ -559,6 +559,8 @@ void HelloWorld::StartGame()
 
 	auto creditsMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Credits_Button->getBoundingBox().getMaxX(), Credits_Button->getPositionY())); // Take half a second to move off screen.
 	Credits_Button->runAction(creditsMoveTo);
+
+	Mute_Button->setVisible(false);
 }
 
 void HelloWorld::PauseGame()
@@ -573,6 +575,8 @@ void HelloWorld::PauseGame()
 	auto exitMoveTo = MoveTo::create(0.5, Vec2(winSize.width / 2, Exit_Button->getPositionY())); // Take half a second to move on screen.
 	Exit_Button->setVisible(true);
 	Exit_Button->runAction(exitMoveTo);
+
+	Mute_Button->setVisible(true);
 }
 
 void HelloWorld::ResumeGame()
@@ -587,6 +591,8 @@ void HelloWorld::ResumeGame()
 	auto exitMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Exit_Button->getSize().width, Exit_Button->getPositionY())); // Take half a second to move on screen.
 	Exit_Button->setVisible(true);
 	Exit_Button->runAction(exitMoveTo);
+
+	Mute_Button->setVisible(false);
 }
 
 void HelloWorld::EndGame()
