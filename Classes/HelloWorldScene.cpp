@@ -51,11 +51,10 @@ bool HelloWorld::init()
 	player->setOffscreenPos(player_sprite);
 	player_sprite->setVisible(true);
 
-	//while (audio->isBackgroundMusicPlaying() == false) {
-	//	audio->playBackgroundMusic("Resources/Audio/Steve_Combs_-_05_-_Dog.mp3");
-	//}
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("dog.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("dog.mp3", true);
+	// Audio
+	muted = false;
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("dogs.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("dogs.mp3", true);
 
 	this->scheduleUpdate();
 
@@ -132,6 +131,7 @@ void HelloWorld::initNodes()
 
 	Start_Button = static_cast<ui::Button*>(rootNode->getChildByName("Start_Button"));
 	Credits_Button = static_cast<ui::Button*>(rootNode->getChildByName("Credits_Button"));
+	Mute_Button = static_cast<ui::Button*>(rootNode->getChildByName("Mute_Button"));
 	Pause_Button = static_cast<ui::Button*>(UINode->getChildByName("Pause_Button"));
 	Resume_Button = static_cast<ui::Button*>(rootNode->getChildByName("Resume_Button"));
 	Exit_Button = static_cast<ui::Button*>(rootNode->getChildByName("Exit_Button"));
@@ -142,13 +142,6 @@ void HelloWorld::initNodes()
 	score = (ui::Text*)UINode->getChildByName("Score");
 
 	player_sprite = (Sprite*)playerNode->getChildByName("Player_Skin_1");
-
-	// Initialise Audio
-	//auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
-	//audio->preloadBackgroundMusic("Resources/dogs.mp3");
-	//audio->playBackgroundMusic("Resources/dogs.mp3");
-
-	float woof = 10.0f;
 }
 
 void HelloWorld::initCocosElements()
@@ -195,6 +188,7 @@ void HelloWorld::initCocosElements()
 
 	Start_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::StartButtonPressed, this));
 	Credits_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::CreditsButtonPressed, this));
+	Mute_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::MuteButtonPressed, this));
 	Pause_Button->setPosition(Vec2(63.0f, winSize.height + 109.0f));
 	Pause_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::PauseButtonPressed, this));
 	Resume_Button->setVisible(false);
@@ -506,6 +500,26 @@ void HelloWorld::CreditsButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEve
 	}
 }
 
+void HelloWorld::MuteButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
+{
+	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
+	{
+		if (muted == false) {
+			muted = true;
+			Mute_Button->setBright(false);
+
+			CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+			CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
+		}
+		else if (muted == true) {
+			muted = false;
+			Mute_Button->setBright(true);
+
+			CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+		}
+	}
+}
+
 void HelloWorld::PauseButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
@@ -551,6 +565,8 @@ void HelloWorld::StartGame()
 
 	auto creditsMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Credits_Button->getBoundingBox().getMaxX(), Credits_Button->getPositionY())); // Take half a second to move off screen.
 	Credits_Button->runAction(creditsMoveTo);
+
+	Mute_Button->setVisible(false);
 }
 
 void HelloWorld::PauseGame()
@@ -571,6 +587,8 @@ void HelloWorld::PauseGame()
 
 	Pause_Highscore->setString("Highscore: " + std::to_string((int)ScoreManager::sharedScoreManager()->getHighscore()));
 	Pause_Highscore->setVisible(true);
+
+	Mute_Button->setVisible(true);
 }
 
 void HelloWorld::ResumeGame()
@@ -588,6 +606,8 @@ void HelloWorld::ResumeGame()
 
 	Pause_Score->setVisible(false);
 	Pause_Highscore->setVisible(false);
+
+	Mute_Button->setVisible(false);
 }
 
 void HelloWorld::EndGame()
