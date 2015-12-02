@@ -134,6 +134,8 @@ void HelloWorld::initNodes()
 	Exit_Button = static_cast<ui::Button*>(rootNode->getChildByName("Exit_Button"));
 
 	Credit_Text = (ui::Text*)creditNode->getChildByName("Credit_Text");
+	Pause_Score = (ui::Text*)rootNode->getChildByName("Pause_Score");
+	Pause_Highscore = (ui::Text*)rootNode->getChildByName("Pause_Highscore");
 	score = (ui::Text*)UINode->getChildByName("Score");
 
 	player_sprite = (Sprite*)playerNode->getChildByName("Player_Skin_1");
@@ -205,6 +207,10 @@ void HelloWorld::initCocosElements()
 	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nDog Handler:\n Sam Head\n\nDocumentation:\n David Smith\n");
 	Credit_Text->setAnchorPoint(Vec2(0.5f, 1.0f));
 	Credit_Text->setVisible(false);
+	Pause_Score->setString(std::to_string(0));
+	Pause_Score->setVisible(false);
+	Pause_Highscore->setString(std::to_string(0));
+	Pause_Highscore->setVisible(false);
 }
 
 void HelloWorld::update(float delta)
@@ -554,6 +560,12 @@ void HelloWorld::PauseGame()
 	auto exitMoveTo = MoveTo::create(0.5, Vec2(winSize.width / 2, Exit_Button->getPositionY())); // Take half a second to move on screen.
 	Exit_Button->setVisible(true);
 	Exit_Button->runAction(exitMoveTo);
+
+	Pause_Score->setString("Score: " + std::to_string((int)ScoreManager::sharedScoreManager()->getScore()));
+	Pause_Score->setVisible(true);
+
+	Pause_Highscore->setString("Highscore: " + std::to_string((int)ScoreManager::sharedScoreManager()->getHighscore()));
+	Pause_Highscore->setVisible(true);
 }
 
 void HelloWorld::ResumeGame()
@@ -568,6 +580,9 @@ void HelloWorld::ResumeGame()
 	auto exitMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Exit_Button->getSize().width, Exit_Button->getPositionY())); // Take half a second to move on screen.
 	Exit_Button->setVisible(true);
 	Exit_Button->runAction(exitMoveTo);
+
+	Pause_Score->setVisible(false);
+	Pause_Highscore->setVisible(false);
 }
 
 void HelloWorld::EndGame()
