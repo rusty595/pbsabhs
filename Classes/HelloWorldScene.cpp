@@ -390,8 +390,8 @@ void HelloWorld::updateParallaxBackground(float delta)
 		sky2->setPositionX(sky1->getTextureRect().getMaxX() + (sky1->getPosition().x));
 	}
 	else if (sky1->getBoundingBox().getMinX() > 0) {
-			// Sky has floated too far to the right
-			sky2->setPositionX(sky1->getPositionX() - sky1->getTextureRect().getMaxX());
+		// Sky has floated too far to the right
+		sky2->setPositionX(sky1->getPositionX() - sky1->getTextureRect().getMaxX());
 	}
 
 	// Mountain
@@ -495,9 +495,9 @@ void HelloWorld::updateParallaxBackground(float delta)
 	}
 
 	// Tracks
-	float trackSpeed = -0.5 * GameManager::sharedGameManager()->getPlayerSpeed();
+	float trackSpeed = 0.5 * GameManager::sharedGameManager()->getIncomingSpeed();
 	if (delta > 1) initTracksPositions();
-	else trackSpeed = (-1) * GameManager::sharedGameManager()->getPlayerSpeed() * delta;
+	else trackSpeed = GameManager::sharedGameManager()->getIncomingSpeed() * delta;
 	track1->setPositionX(track1->getPositionX() + trackSpeed);
 	track2->setPositionX(track2->getPositionX() + trackSpeed);
 	track3->setPositionX(track3->getPositionX() + trackSpeed);
