@@ -11,9 +11,6 @@ private:
 	bool isGameLive;
 	bool isGamePaused;
 
-	// Methods
-	void resetSpeeds();
-
 	// Speed
 	float	secondCheck;
 	float	playerSpeed;
@@ -38,4 +35,6 @@ public:
 	float getMountainSpeed();
 	float getTreeSpeed();
 	float getIncomingSpeed();
+
+	void resetSpeeds();
 };

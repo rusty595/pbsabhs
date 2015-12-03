@@ -177,7 +177,7 @@ void HelloWorld::initCocosElements()
 	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
 	tree8->setPosition(Vec2(random, 812.0f));
 
-	UI_Background->setPosition(Vec2(951.0f, winSize.height + 109.0f));
+	UI_Background->setPosition(Vec2(951.0f, 1025.5f));
 
 	track1->setPosition(Vec2(888.0f, 108.0f));
 	track2->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 2)));
@@ -188,8 +188,17 @@ void HelloWorld::initCocosElements()
 
 	Start_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::StartButtonPressed, this));
 	Credits_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::CreditsButtonPressed, this));
+	Start_Button->setPosition(Vec2(winSize.width + Start_Button->getBoundingBox().getMaxX(), Start_Button->getPositionY()));
+	Credits_Button->setPosition(Vec2(winSize.width + Credits_Button->getBoundingBox().getMaxX(), Credits_Button->getPositionY()));
+
+	auto startMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 471.0f)); // Take half a second to move off screen.
+	Start_Button->runAction(startMoveTo);
+
+	auto creditsMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 249.0f)); // Take half a second to move off screen.
+	Credits_Button->runAction(creditsMoveTo);
+
 	Mute_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::MuteButtonPressed, this));
-	Pause_Button->setPosition(Vec2(63.0f, winSize.height + 109.0f));
+	Pause_Button->setPosition(Vec2(63.0f, 1025.5f));
 	Pause_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::PauseButtonPressed, this));
 	Resume_Button->setVisible(false);
 	Resume_Button->setPositionX(winSize.width + Resume_Button->getSize().width);
@@ -231,21 +240,27 @@ void HelloWorld::update(float delta)
 
 void HelloWorld::updateMenu(float delta)
 {
+	if (Black_Filter->getOpacity() != 127) {
+		// Start smoothly fading the filter to 127 opacity
+		int currOpac = Black_Filter->getOpacity();
 
+		if (currOpac <= 127) {
+			int nextOpac = currOpac + 5;
+
+			// Check that currOpac will not fall below 0 next update
+			if (nextOpac < 127) {
+				Black_Filter->setOpacity(nextOpac);
+			}
+			else {
+				Black_Filter->setOpacity(127);
+			}
+		}
+	}
 }
 
 void HelloWorld::updateGame(float delta)
 {
 	if (GameManager::sharedGameManager()->getIsGameLive() == false) {
-		if (UIMoving == false) {
-			UIMoving = true;
-
-			auto moveTo = MoveTo::create(1.0f, Vec2(63.0f, 1025.5f)); // Take a second to move into position.
-			Pause_Button->runAction(moveTo);
-
-			moveTo = MoveTo::create(1.0f, Vec2(951.0f, 1025.5f)); // Take a second to move into position.
-			UI_Background->runAction(moveTo);
-		}
 
 		if (Black_Filter->getOpacity() != 0) {
 			// Start smoothly fading the filter to 0 opacity
@@ -542,9 +557,11 @@ void HelloWorld::MuteButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventT
 
 void HelloWorld::PauseButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
 {
-	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
-	{
-		this->PauseGame();
+	if (GameManager::sharedGameManager()->getIsGameLive() == true) {
+		if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
+		{
+			this->PauseGame();
+		}
 	}
 }
 
@@ -632,7 +649,19 @@ void HelloWorld::ResumeGame()
 
 void HelloWorld::EndGame()
 {
+	GameManager::sharedGameManager()->setIsGamePaused(false);
+	GameManager::sharedGameManager()->setIsGameLive(false);
 
+	// Abandon high score. Players are not rewarded for quitting
+	ScoreManager::sharedScoreManager()->resetScore();
+
+	// Reset Speeds
+	GameManager::sharedGameManager()->resetSpeeds();
+
+	// Reset all objects to the default position
+	initCocosElements();
+
+	scene = 1;
 }
 
 void HelloWorld::StartCredits()
