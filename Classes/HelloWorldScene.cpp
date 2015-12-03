@@ -495,7 +495,7 @@ void HelloWorld::updateParallaxBackground(float delta)
 	}
 
 	// Tracks
-	float trackSpeed = (-1) * GameManager::sharedGameManager()->getPlayerSpeed() * delta;
+	float trackSpeed = GameManager::sharedGameManager()->getIncomingSpeed() * delta;
 	track1->setPositionX(track1->getPositionX() + trackSpeed);
 	track2->setPositionX(track2->getPositionX() + trackSpeed);
 	track3->setPositionX(track3->getPositionX() + trackSpeed);
