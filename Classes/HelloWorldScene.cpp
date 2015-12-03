@@ -53,6 +53,7 @@ bool HelloWorld::init()
 
 	// Audio
 	muted = false;
+	cocos2d::RandomHelper::random_int(0, 65535);
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("dogs.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("dogs.mp3", true);
 
@@ -387,6 +388,10 @@ void HelloWorld::updateParallaxBackground(float delta)
 	}
 	else if (sky2->getPositionX() + sky2->getTextureRect().getMaxX() < 0) {
 		sky2->setPositionX(sky1->getTextureRect().getMaxX() + (sky1->getPosition().x));
+	}
+	else if (sky1->getBoundingBox().getMinX() > 0) {
+			// Sky has floated too far to the right
+			sky2->setPositionX(sky1->getPositionX() - sky1->getTextureRect().getMaxX());
 	}
 
 	// Mountain
