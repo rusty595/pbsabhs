@@ -18,7 +18,7 @@
         <iOS_Target Value="BaseLandscapeProject-mobile" />
         <iOS_BundleID Value="" />
         <Platform Value="Android" />
-        <RunPlatform Value="None" />
+        <RunPlatform Value="Android" />
         <FrameworkVersion Value="cocos2d-x-3.8" />
         <IsDebugKeystore Value="True" />
         <KeystorePassword Value="" />
