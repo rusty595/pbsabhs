@@ -393,6 +393,10 @@ void HelloWorld::updateParallaxBackground(float delta)
 	else if (sky2->getPositionX() + sky2->getTextureRect().getMaxX() < 0) {
 		sky2->setPositionX(sky1->getTextureRect().getMaxX() + (sky1->getPosition().x));
 	}
+	else if (sky1->getBoundingBox().getMinX() > 0) {
+		// Sky has floated too far to the right
+		sky2->setPositionX(sky1->getPositionX() - sky1->getTextureRect().getMaxX());
+	}
 
 	// Mountain
 	int randomMountain = cocos2d::RandomHelper::random_int(1, 300);
