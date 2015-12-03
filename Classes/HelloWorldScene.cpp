@@ -188,6 +188,15 @@ void HelloWorld::initCocosElements()
 
 	Start_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::StartButtonPressed, this));
 	Credits_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::CreditsButtonPressed, this));
+	Start_Button->setPosition(Vec2(winSize.width + Start_Button->getBoundingBox().getMaxX(), Start_Button->getPositionY()));
+	Credits_Button->setPosition(Vec2(winSize.width + Credits_Button->getBoundingBox().getMaxX(), Credits_Button->getPositionY()));
+
+	auto startMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 471.0f)); // Take half a second to move off screen.
+	Start_Button->runAction(startMoveTo);
+
+	auto creditsMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 249.0f)); // Take half a second to move off screen.
+	Credits_Button->runAction(creditsMoveTo);
+
 	Mute_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::MuteButtonPressed, this));
 	Pause_Button->setPosition(Vec2(63.0f, winSize.height + 109.0f));
 	Pause_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::PauseButtonPressed, this));
@@ -231,7 +240,22 @@ void HelloWorld::update(float delta)
 
 void HelloWorld::updateMenu(float delta)
 {
+	if (Black_Filter->getOpacity() != 127) {
+		// Start smoothly fading the filter to 127 opacity
+		int currOpac = Black_Filter->getOpacity();
 
+		if (currOpac <= 127) {
+			int nextOpac = currOpac + 5;
+
+			// Check that currOpac will not fall below 0 next update
+			if (nextOpac < 127) {
+				Black_Filter->setOpacity(nextOpac);
+			}
+			else {
+				Black_Filter->setOpacity(127);
+			}
+		}
+	}
 }
 
 void HelloWorld::updateGame(float delta)
@@ -632,7 +656,16 @@ void HelloWorld::ResumeGame()
 
 void HelloWorld::EndGame()
 {
+	GameManager::sharedGameManager()->setIsGameLive(false);
 
+	// Abandon high score. Players are not rewarded for quitting
+	ScoreManager::sharedScoreManager()->resetScore();
+
+	// Reset Speeds
+	GameManager::sharedGameManager()->resetSpeeds();
+
+	// Reset all objects to the default position
+	initCocosElements();
 }
 
 void HelloWorld::StartCredits()
