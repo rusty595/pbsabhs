@@ -79,6 +79,7 @@ public:
 	void initTouchListeners();
 	void initNodes();
 	void initCocosElements();
+	void initTracksPositions();
 
     // implement the "static create()" method manually
 	CREATE_FUNC(HelloWorld);
