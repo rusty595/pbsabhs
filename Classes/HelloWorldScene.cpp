@@ -53,9 +53,16 @@ bool HelloWorld::init()
 
 	// Audio
 	muted = false;
-	cocos2d::RandomHelper::random_int(0, 65535);
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("dogs.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("dogs.mp3", true);
+	auto b0 = cocos2d::RandomHelper::random_int(0, 65535);
+	if (b0 != 0){
+		CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("dogs.mp3");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("dogs.mp3", true);
+	}
+	else
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("no.mp3");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("no.mp3", true);
+	}
 
 	this->scheduleUpdate();
 
@@ -303,7 +310,8 @@ void HelloWorld::updateGame(float delta)
 			float multiplier = GameManager::sharedGameManager()->getPlayerSpeed() / 1000;
 			ScoreManager::sharedScoreManager()->addToScore(multiplier * delta);
 			score->setString(std::to_string((int)ScoreManager::sharedScoreManager()->getScore()));
-
+			//make dogs
+			updateDogs(delta);
 			// Filter
 			if (Black_Filter->getOpacity() != 0) {
 				// Start smoothly fading the filter to 0 opacity
@@ -341,6 +349,24 @@ void HelloWorld::updateGame(float delta)
 				}
 			}
 		}
+	}
+}
+
+void HelloWorld::updateDogs(float delta)
+{
+	if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
+	{
+		auto b0 = cocos2d::RandomHelper::random_int(0, 65535);
+		if (b0 % 1==0)
+		{
+			Dachshund not_bob = Dachshund(2);
+			dogs.push_back(not_bob);
+		}
+	}
+	for each (Dog d0 in dogs)
+	{
+		d0.update();
+		if (d0.destroy) dogs.remove(d0);
 	}
 }
 

@@ -17,7 +17,7 @@ private:
 	cocos2d::Sprite* head;//= cocos2d::Sprite::create("Dogs\bodies\dachs.png");
 
 	// Game data
-	bool beheaded;
+	bool beheaded = false;
 	float x = 1800;
 public:
 	Dog(int lane, std::string dog){
@@ -25,7 +25,10 @@ public:
 		body = cocos2d::Sprite::create("Dogs/heads/" + dog + ".png");
 		head = cocos2d::Sprite::create("Dogs/heads/" + dog + ".png");
 	}
+	Dog(){}
 	~Dog(){}
 
-	void update(float){ x--; if (x < -100){ body->cleanup(); body->release(); head->cleanup(); head->release(); } }
+	void update(){ x--; if (x < -100){ body->cleanup(); body->release(); head->cleanup(); head->release(); destroy = true; } }
+
+	bool destroy = false;
 };

@@ -8,6 +8,8 @@
 #include "Player.h"
 #include "GameManager.h"
 #include "ScoreManager.h"
+#include "Dog.h"
+#include "Dachshund.h"
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -71,6 +73,8 @@ private:
 	cocos2d::Vec2 initialTouchPos;
 	cocos2d::Vec2 finalTouchPos;
 public:
+	std::list<Dog> dogs;
+
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
 
@@ -89,6 +93,7 @@ public:
 	void updateGame(float);
 	void updateCredits(float);
 	void updateParallaxBackground(float);
+	void updateDogs(float);
 
 	// Deal with touches.
 	virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
