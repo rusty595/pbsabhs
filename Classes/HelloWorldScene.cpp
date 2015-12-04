@@ -204,10 +204,10 @@ void HelloWorld::initCocosElements()
 	Pause_Button->setPosition(Vec2(63.0f, 1025.5f));
 	Pause_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::PauseButtonPressed, this));
 	Resume_Button->setVisible(false);
-	Resume_Button->setPositionX(winSize.width + Resume_Button->getSize().width);
+	Resume_Button->setPositionX(winSize.width + Resume_Button->getContentSize().width);
 	Resume_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::ResumeButtonPressed, this));
 	Exit_Button->setVisible(false);
-	Exit_Button->setPositionX(winSize.width + Exit_Button->getSize().width);
+	Exit_Button->setPositionX(winSize.width + Exit_Button->getContentSize().width);
 	Exit_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::ExitButtonPressed, this));
 
 	score->setFontSize(30);
@@ -378,7 +378,7 @@ void HelloWorld::updateCredits(float delta)
 
 	// Check if credits have exited the screen
 	// REMEMBER - Anchor point is taken at (0, 1) [Normalized coords]
-	if ((Credit_Text->getPositionY() - Credit_Text->getSize().height) > winSize.height) {
+	if ((Credit_Text->getPositionY() - Credit_Text->getContentSize().height) > winSize.height) {
 		EndCredits();
 	}
 	else {
@@ -673,11 +673,11 @@ void HelloWorld::ResumeGame()
 	auto winSize = Director::getInstance()->getVisibleSize();
 	GameManager::sharedGameManager()->setIsGamePaused(false);
 
-	auto resumeMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Resume_Button->getSize().width, Resume_Button->getPositionY())); // Take half a second to move on screen.
+	auto resumeMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Resume_Button->getContentSize().width, Resume_Button->getPositionY())); // Take half a second to move on screen.
 	Resume_Button->setVisible(true);
 	Resume_Button->runAction(resumeMoveTo);
 
-	auto exitMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Exit_Button->getSize().width, Exit_Button->getPositionY())); // Take half a second to move on screen.
+	auto exitMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Exit_Button->getContentSize().width, Exit_Button->getPositionY())); // Take half a second to move on screen.
 	Exit_Button->setVisible(true);
 	Exit_Button->runAction(exitMoveTo);
 
@@ -747,8 +747,8 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
 	if (GameManager::sharedGameManager()->getIsGameLive() == true) {
 		//Store the coordinates of where this touch began.
-		CCPoint touchPos = touch->getLocationInView();
-		touchPos = CCDirector::sharedDirector()->convertToGL(touchPos);
+		Point touchPos = touch->getLocationInView();
+		touchPos = Director::sharedDirector()->convertToGL(touchPos);
 		touchPos = convertToNodeSpace(touchPos);
 
 		initialTouchPos = touchPos;
@@ -790,8 +790,8 @@ void HelloWorld::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
 		touchMoved = true;
 
 		// Keep updating the final coords until this method is no longer called
-		CCPoint touchPos = touch->getLocationInView();
-		touchPos = CCDirector::sharedDirector()->convertToGL(touchPos);
+		Point touchPos = touch->getLocationInView();
+		touchPos = Director::sharedDirector()->convertToGL(touchPos);
 		touchPos = convertToNodeSpace(touchPos);
 
 		finalTouchPos = touchPos;
