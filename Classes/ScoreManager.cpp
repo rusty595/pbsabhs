@@ -69,7 +69,7 @@ void ScoreManager::storeHighscoreToFile(int highScore)
 		return;
 	}
 
-	std::string value = std::to_string(highScore);
+	std::string value = StringUtils::format("%d", (highScore));
 	fputs(value.c_str(), fp);
 	fclose(fp);
 }

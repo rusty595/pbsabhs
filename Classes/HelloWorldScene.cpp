@@ -208,16 +208,17 @@ void HelloWorld::initCocosElements()
 	Exit_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::ExitButtonPressed, this));
 
 	score->setFontSize(30);
-	score->setString(std::to_string(0));
+	score->setString(StringUtils::format("%d", 0));
 	score->setVisible(false);
 	score->setPosition(Vec2(winSize.width - 40.0f, winSize.height - 45.0f));
 	Credit_Text->setFontSize(30);
 	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nDog Handler:\n Sam Head\n\nDocumentation:\n David Smith\n");
 	Credit_Text->setAnchorPoint(Vec2(0.5f, 1.0f));
 	Credit_Text->setVisible(false);
-	Pause_Score->setString(std::to_string(0));
+	Pause_Score->setString(StringUtils::format("%d", 0));
 	Pause_Score->setVisible(false);
-	Pause_Highscore->setString(std::to_string(0));
+	//Pause_Highscore->setString(StringUtils::format("%d", 0));
+	Pause_Highscore->setString(StringUtils::format("%d", 0));
 	Pause_Highscore->setVisible(false);
 }
 
@@ -306,7 +307,7 @@ void HelloWorld::updateGame(float delta)
 			// Use player speed as a multiplier
 			float multiplier = GameManager::sharedGameManager()->getPlayerSpeed() / 1000;
 			ScoreManager::sharedScoreManager()->addToScore(multiplier * delta);
-			score->setString(std::to_string((int)ScoreManager::sharedScoreManager()->getScore()));
+			score->setString(StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getScore())));
 
 			// Filter
 			if (Black_Filter->getOpacity() != 0) {
@@ -623,10 +624,10 @@ void HelloWorld::PauseGame()
 	Exit_Button->setVisible(true);
 	Exit_Button->runAction(exitMoveTo);
 
-	Pause_Score->setString("Score: " + std::to_string((int)ScoreManager::sharedScoreManager()->getScore()));
+	Pause_Score->setString("Score: " + StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getScore())));
 	Pause_Score->setVisible(true);
 
-	Pause_Highscore->setString("Highscore: " + std::to_string((int)ScoreManager::sharedScoreManager()->getHighscore()));
+	Pause_Highscore->setString("Highscore: " + StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getHighscore())));
 	Pause_Highscore->setVisible(true);
 
 	Mute_Button->setVisible(true);
