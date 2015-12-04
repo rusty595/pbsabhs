@@ -3,7 +3,7 @@
 class Dachshund : public Dog
 {
 public:
-	Dachshund(int lane):Dog(lane, "dachs"){};
+	Dachshund(int lane, cocos2d::Layer*scene) :Dog(lane, "dachs", scene){};
 	~Dachshund();
 };
 

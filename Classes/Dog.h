@@ -2,7 +2,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
-class Dog : public cocos2d::Node
+class Dog
 {
 private:
 	// Lane data
@@ -20,15 +20,20 @@ private:
 	bool beheaded = false;
 	float x = 1800;
 public:
-	Dog(int lane, std::string dog){
+	Dog(int lane, std::string dog, cocos2d::Layer*scene){
 		currentLane = lane;
-		body = cocos2d::Sprite::create("Dogs/heads/" + dog + ".png");
-		head = cocos2d::Sprite::create("Dogs/heads/" + dog + ".png");
+		body = cocos2d::Sprite::create("/Sprites/Dogs/heads/" + dog + ".png");
+		body->setPosition(10, 10);
+		head = cocos2d::Sprite::create("/Sprites/Dogs/heads/" + dog + ".png");
+		head->setPosition(20, 20);
+		scene->addChild(body);
+		scene->addChild(head);
 	}
 	Dog(){}
-	~Dog(){}
-
-	void update(){ x--; if (x < -100){ body->cleanup(); body->release(); head->cleanup(); head->release(); destroy = true; } }
+	~Dog(){ body->cleanup(); body->release(); head->cleanup(); head->release(); }
 
 	bool destroy = false;
+
+	void update(){ x--; if (x < -100) destroy = true; }
+	
 };
