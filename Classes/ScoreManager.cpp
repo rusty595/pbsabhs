@@ -69,7 +69,7 @@ void ScoreManager::storeHighscoreToFile(int highScore)
 		return;
 	}
 
-	std::string value = std::to_string(highScore);
+	std::string value = StringUtils::format("%d", highScore);
 	fputs(value.c_str(), fp);
 	fclose(fp);
 }
@@ -102,7 +102,7 @@ std::string ScoreManager::getFilePath()
 	std::string path = "";
 
 	// testing
-	std::string writableDir = CCFileUtils::sharedFileUtils()->getWritablePath();
+	std::string writableDir = CCFileUtils::getInstance()->getWritablePath();
 
 	if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) {
 		path = writableDir + "\highscoredata.txt";
