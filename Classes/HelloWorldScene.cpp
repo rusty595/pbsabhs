@@ -312,7 +312,7 @@ void HelloWorld::updateGame(float delta)
 			score->setString(StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getScore())));
 
 			//make dogs
-			updateDogs(delta);
+			//updateDogs(delta);
 
 			// Filter
 			if (Black_Filter->getOpacity() != 0) {
@@ -356,20 +356,20 @@ void HelloWorld::updateGame(float delta)
 
 void HelloWorld::updateDogs(float delta)
 {
-	if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
-	{
-		auto b0 = cocos2d::RandomHelper::random_int(0, 65535);
-		if (b0 % 1==0)
-		{
-			Dachshund not_bob = Dachshund(2);
-			dogs.push_back(not_bob);
-		}
-	}
-	for each (Dog d0 in dogs)
-	{
-		d0.update();
-		if (d0.destroy) dogs.remove(d0);
-	}
+	//if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
+	//{
+	//	auto b0 = cocos2d::RandomHelper::random_int(0, 65535);
+	//	if (b0 % 1==0)
+	//	{
+	//		Dachshund not_bob = Dachshund(2);
+	//		dogs.push_back(not_bob);
+	//	}
+	//}
+	//for each (Dog d0 in dogs)
+	//{
+	//	d0.update();
+	//	if (d0.destroy) dogs.remove(d0);
+	//}
 }
 
 void HelloWorld::updateCredits(float delta)
