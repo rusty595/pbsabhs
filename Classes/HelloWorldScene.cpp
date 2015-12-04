@@ -53,8 +53,16 @@ bool HelloWorld::init()
 
 	// Audio
 	muted = false;
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("no.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("no.mp3", true);
+	auto b0 = cocos2d::RandomHelper::random_int(0, 65535);
+	if (b0 != 0){
+		CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("dogs.mp3");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("dogs.mp3", true);
+	}
+	else
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("no.mp3");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("no.mp3", true);
+	}
 
 	this->scheduleUpdate();
 
@@ -179,12 +187,7 @@ void HelloWorld::initCocosElements()
 
 	UI_Background->setPosition(Vec2(951.0f, 1025.5f));
 
-	track1->setPosition(Vec2(888.0f, 108.0f));
-	track2->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 2)));
-	track3->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 4)));
-	track4->setPosition(Vec2((track1->getPosition().x + track1->getTextureRect().getMaxX()), track1->getPositionY()));
-	track5->setPosition(Vec2((track2->getPosition().x + track2->getTextureRect().getMaxX()), (track1->getPositionY() * 3)));
-	track6->setPosition(Vec2((track3->getPosition().x + track3->getTextureRect().getMaxX()), (track1->getPositionY() * 5)));
+	initTracksPositions();
 
 	Start_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::StartButtonPressed, this));
 	Credits_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::CreditsButtonPressed, this));
@@ -308,6 +311,9 @@ void HelloWorld::updateGame(float delta)
 			ScoreManager::sharedScoreManager()->addToScore(multiplier * delta);
 			score->setString(StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getScore())));
 
+			//make dogs
+			updateDogs(delta);
+
 			// Filter
 			if (Black_Filter->getOpacity() != 0) {
 				// Start smoothly fading the filter to 0 opacity
@@ -345,6 +351,24 @@ void HelloWorld::updateGame(float delta)
 				}
 			}
 		}
+	}
+}
+
+void HelloWorld::updateDogs(float delta)
+{
+	if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
+	{
+		auto b0 = cocos2d::RandomHelper::random_int(0, 65535);
+		if (b0 % 1==0)
+		{
+			Dachshund not_bob = Dachshund(2);
+			dogs.push_back(not_bob);
+		}
+	}
+	for each (Dog d0 in dogs)
+	{
+		d0.update();
+		if (d0.destroy) dogs.remove(d0);
 	}
 }
 
@@ -499,14 +523,16 @@ void HelloWorld::updateParallaxBackground(float delta)
 	}
 
 	// Tracks
-	float trackSpeed = GameManager::sharedGameManager()->getIncomingSpeed() * delta;
+	float trackSpeed = 0.5 * GameManager::sharedGameManager()->getIncomingSpeed();
+	if (delta > 1) initTracksPositions();
+	else trackSpeed = GameManager::sharedGameManager()->getIncomingSpeed() * delta;
 	track1->setPositionX(track1->getPositionX() + trackSpeed);
 	track2->setPositionX(track2->getPositionX() + trackSpeed);
 	track3->setPositionX(track3->getPositionX() + trackSpeed);
 	track4->setPositionX(track4->getPositionX() + trackSpeed);
 	track5->setPositionX(track5->getPositionX() + trackSpeed);
 	track6->setPositionX(track6->getPositionX() + trackSpeed);
-	// Check if sky is offscreen, if so, move sky image to the end of second sky image
+	// Check if track is offscreen, if so, move sky image to the end of second sky image
 	if (track1->getPositionX() + track1->getTextureRect().getMaxX() < 0) {
 		track1->setPositionX(track4->getTextureRect().getMaxX() + (track4->getPosition().x));
 		track2->setPositionX(track5->getTextureRect().getMaxX() + (track5->getPosition().x));
@@ -517,6 +543,16 @@ void HelloWorld::updateParallaxBackground(float delta)
 		track5->setPositionX(track2->getTextureRect().getMaxX() + (track2->getPosition().x));
 		track6->setPositionX(track3->getTextureRect().getMaxX() + (track3->getPosition().x));
 	}
+}
+
+void HelloWorld::initTracksPositions()
+{
+	track1->setPosition(Vec2(888.0f, 108.0f));
+	track2->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 2)));
+	track3->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 4)));
+	track4->setPosition(Vec2((track1->getPosition().x + track1->getTextureRect().getMaxX()), track1->getPositionY()));
+	track5->setPosition(Vec2((track2->getPosition().x + track2->getTextureRect().getMaxX()), (track1->getPositionY() * 3)));
+	track6->setPosition(Vec2((track3->getPosition().x + track3->getTextureRect().getMaxX()), (track1->getPositionY() * 5)));
 }
 
 void HelloWorld::StartButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
