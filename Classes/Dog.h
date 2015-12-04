@@ -7,23 +7,28 @@ class Dog : public cocos2d::Node
 private:
 	// Lane data
 	int currentLane;
-	float laneOneY;
-	float laneTwoY;
-	float laneThreeY;
-	float fixedX;
+	float laneOneY = 108.0f;
+	float laneTwoY = laneOneY + (laneOneY * 2);
+	float laneThreeY = laneOneY + (laneOneY * 4);
+	float Bob = 217.0f;
 
 	// Cocos sprites
 	cocos2d::Sprite* body;//= cocos2d::Sprite::create("Dogs\heads\dachs.png");
 	cocos2d::Sprite* head;//= cocos2d::Sprite::create("Dogs\bodies\dachs.png");
 
 	// Game data
-	bool beheaded;
+	bool beheaded = false;
+	float x = 1800;
 public:
-	Dog();
-	~Dog();
+	Dog(int lane, std::string dog){
+		currentLane = lane;
+		body = cocos2d::Sprite::create("Dogs/heads/" + dog + ".png");
+		head = cocos2d::Sprite::create("Dogs/heads/" + dog + ".png");
+	}
+	Dog(){}
+	~Dog(){}
 
-	virtual bool init() override;
-	static Dog* create();
+	void update(){ x--; if (x < -100){ body->cleanup(); body->release(); head->cleanup(); head->release(); destroy = true; } }
 
-	void update(float);
+	bool destroy = false;
 };
