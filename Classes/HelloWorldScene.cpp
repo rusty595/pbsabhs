@@ -309,11 +309,11 @@ void HelloWorld::updateGame(float delta)
 			// Use player speed as a multiplier
 			float multiplier = GameManager::sharedGameManager()->getPlayerSpeed() / 1000;
 			ScoreManager::sharedScoreManager()->addToScore(multiplier * delta);
+			//ScoreManager::sharedScoreManager()->resetScore();
+			//ScoreManager::sharedScoreManager()->addToScore(dogs.size());		//debug to check number of dogs in memory
 			score->setString(StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getScore())));
-
-			//make dogs
-			//updateDogs(delta);
-
+			////make dogs
+			//updateDogs(delta); // DO NOT MAKE DOGS
 			// Filter
 			if (Black_Filter->getOpacity() != 0) {
 				// Start smoothly fading the filter to 0 opacity
@@ -356,20 +356,24 @@ void HelloWorld::updateGame(float delta)
 
 void HelloWorld::updateDogs(float delta)
 {
-	//if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
-	//{
-	//	auto b0 = cocos2d::RandomHelper::random_int(0, 65535);
-	//	if (b0 % 1==0)
-	//	{
-	//		Dachshund not_bob = Dachshund(2);
-	//		dogs.push_back(not_bob);
-	//	}
-	//}
-	//for each (Dog d0 in dogs)
-	//{
-	//	d0.update();
-	//	if (d0.destroy) dogs.remove(d0);
-	//}
+	int b0;
+	if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
+	{
+		b0 = cocos2d::RandomHelper::random_int(0, 65535);
+		if (b0 % 1==0)
+		{
+			Dachshund not_bob = Dachshund(2, this);
+			dogs.push_back(not_bob);
+		}
+	}
+	std::list<Dog> dogsRemaining;
+	for each (Dog d0 in dogs)
+	{
+		d0.update();
+		if (!d0.destroy) dogsRemaining.push_back(d0);
+	}
+	dogs.clear();
+	dogs = dogsRemaining;
 }
 
 void HelloWorld::updateCredits(float delta)
