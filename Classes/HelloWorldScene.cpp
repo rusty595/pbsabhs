@@ -356,24 +356,24 @@ void HelloWorld::updateGame(float delta)
 
 void HelloWorld::updateDogs(float delta)
 {
-	int b0;
-	if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
-	{
-		b0 = cocos2d::RandomHelper::random_int(0, 65535);
-		if (b0 % 1==0)
-		{
-			Dachshund not_bob = Dachshund(2, this);
-			dogs.push_back(not_bob);
-		}
-	}
-	std::list<Dog> dogsRemaining;
-	for each (Dog d0 in dogs)
-	{
-		d0.update();
-		if (!d0.destroy) dogsRemaining.push_back(d0);
-	}
-	dogs.clear();
-	dogs = dogsRemaining;
+	//int b0;
+	//if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
+	//{
+	//	b0 = cocos2d::RandomHelper::random_int(0, 65535);
+	//	if (b0 % 1==0)
+	//	{
+	//		Dachshund not_bob = Dachshund(2, this);
+	//		dogs.push_back(not_bob);
+	//	}
+	//}
+	//std::list<Dog> dogsRemaining;
+	//for each (Dog d0 in dogs)
+	//{
+	//	d0.update();
+	//	if (!d0.destroy) dogsRemaining.push_back(d0);
+	//}
+	//dogs.clear();
+	//dogs = dogsRemaining;
 }
 
 void HelloWorld::updateCredits(float delta)
