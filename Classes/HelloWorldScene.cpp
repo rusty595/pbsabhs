@@ -752,7 +752,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 	if (GameManager::sharedGameManager()->getIsGameLive() == true) {
 		//Store the coordinates of where this touch began.
 		Point touchPos = touch->getLocationInView();
-		touchPos = Director::sharedDirector()->convertToGL(touchPos);
+		touchPos = Director::getInstance()->convertToGL(touchPos);
 		touchPos = convertToNodeSpace(touchPos);
 
 		initialTouchPos = touchPos;
@@ -795,7 +795,7 @@ void HelloWorld::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
 
 		// Keep updating the final coords until this method is no longer called
 		Point touchPos = touch->getLocationInView();
-		touchPos = Director::sharedDirector()->convertToGL(touchPos);
+		touchPos = Director::getInstance()->convertToGL(touchPos);
 		touchPos = convertToNodeSpace(touchPos);
 
 		finalTouchPos = touchPos;
