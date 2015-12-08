@@ -312,8 +312,8 @@ void HelloWorld::updateGame(float delta)
 			//ScoreManager::sharedScoreManager()->resetScore();
 			//ScoreManager::sharedScoreManager()->addToScore(dogs.size());		//debug to check number of dogs in memory
 			score->setString(StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getScore())));
-			////make dogs
-			//updateDogs(delta); // DO NOT MAKE DOGS
+			//make dogs
+			updateDogs(delta); // DO NOT MAKE DOGS
 			// Filter
 			if (Black_Filter->getOpacity() != 0) {
 				// Start smoothly fading the filter to 0 opacity

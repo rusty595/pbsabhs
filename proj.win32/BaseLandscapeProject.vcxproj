@@ -150,7 +150,6 @@ xcopy /Y /Q "C:\cocos2d-x-3.8\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\ScoreManager.cpp" />
-    <ClCompile Include="..\Classes\Dachshund.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

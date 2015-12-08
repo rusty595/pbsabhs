@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "cocostudio/CocoStudio.h"
 
 class Dog
 {
@@ -20,17 +21,22 @@ private:
 	bool beheaded = false;
 	float x = 1800;
 public:
-	Dog(int lane, std::string dog, cocos2d::Layer*scene){
+	cocos2d::Node* layer;
+	Dog(int lane, std::string dog, cocos2d::Layer*scene){//, cocos2d::Vec2 headoffset){
 		currentLane = lane;
-		body = cocos2d::Sprite::create("/Sprites/Dogs/heads/" + dog + ".png");
-		body->setPosition(10, 10);
-		head = cocos2d::Sprite::create("/Sprites/Dogs/heads/" + dog + ".png");
-		head->setPosition(20, 20);
+		layer = cocos2d::CSLoader::createNode("Dog.csb");
+		//scene->addChild(layer);
+		//layer->
+		body = (Sprite*)layer->getChildByName("Body");
 		scene->addChild(body);
+		//body->setPosition(10, 10);
+		head = (Sprite*)layer->getChildByName("Head");
 		scene->addChild(head);
+		//head = cocos2d::Sprite::create("Resources/Sprites/Dogs/heads/" + dog + ".png");
+		//head->setPosition(20, 20);
 	}
 	Dog(){}
-	~Dog(){ body->cleanup(); body->release(); head->cleanup(); head->release(); }
+	~Dog(){}
 
 	bool destroy = false;
 

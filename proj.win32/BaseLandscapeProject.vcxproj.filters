@@ -30,9 +30,6 @@
     <ClCompile Include="..\Classes\ScoreManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Dachshund.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
