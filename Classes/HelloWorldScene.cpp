@@ -308,7 +308,7 @@ void HelloWorld::updateGame(float delta)
 			// Score
 			// Use player speed as a multiplier
 			float multiplier = GameManager::sharedGameManager()->getPlayerSpeed() / 1000;
-			ScoreManager::sharedScoreManager()->addToScore(multiplier * delta);
+			//ScoreManager::sharedScoreManager()->addToScore(multiplier * delta);
 			//ScoreManager::sharedScoreManager()->resetScore();
 			//ScoreManager::sharedScoreManager()->addToScore(dogs.size());		//debug to check number of dogs in memory
 			score->setString(StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getScore())));

@@ -91,7 +91,7 @@ void Player::moveUpLane(Sprite* player)
 	}
 	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
-	if (!GameManager::sharedGameManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/logon.wav"); GameManager::sharedGameManager()->isSoundEffectPlaying = true; GameManager::sharedGameManager()->currSFlength = 0.45; }
+	if (!GameManager::sharedGameManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/up.wav"); GameManager::sharedGameManager()->isSoundEffectPlaying = true; GameManager::sharedGameManager()->currSFlength = 0.095; }
 }
 
 void Player::moveDownLane(Sprite* player)
@@ -106,7 +106,7 @@ void Player::moveDownLane(Sprite* player)
 	}
 	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
-	if (!GameManager::sharedGameManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/logoff.wav"); GameManager::sharedGameManager()->isSoundEffectPlaying = true; GameManager::sharedGameManager()->currSFlength = 0.6; }
+	if (!GameManager::sharedGameManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/dn.wav"); GameManager::sharedGameManager()->isSoundEffectPlaying = true; GameManager::sharedGameManager()->currSFlength = 0.09; }
 }
 
 Player::Player()
