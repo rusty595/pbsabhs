@@ -11,6 +11,9 @@ private:
 	bool isGameLive;
 	bool isGamePaused;
 
+	// SFX
+	float timeSinceEffectStart = 0.0f;
+
 	// Speed
 	float	secondCheck;
 	float	playerSpeed;
@@ -20,6 +23,8 @@ private:
 	float	treeMultiplier;
 public:
 	float laneY[3];
+	bool isSoundEffectPlaying = false;
+	float currSFlength;
 
 	~GameManager();
 	static GameManager* sharedGameManager();
@@ -37,6 +42,8 @@ public:
 	float getMountainSpeed();
 	float getTreeSpeed();
 	float getIncomingSpeed();
+
+	void updateSFXState(float delta);
 
 	void resetSpeeds();
 };
