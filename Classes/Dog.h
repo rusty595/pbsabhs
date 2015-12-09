@@ -2,7 +2,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
-#include "GameManager.h"
+#include "NoiseManager.h"
 
 class Dog : public cocos2d::Sprite
 {
@@ -37,10 +37,10 @@ private:
 		beheaded = behead;
 		dead = true;
 
-		if (!GameManager::sharedGameManager()->isSoundEffectPlaying) {
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/chord.wav");
-			GameManager::sharedGameManager()->isSoundEffectPlaying = true;
-			GameManager::sharedGameManager()->currSFlength = 0.25;
+		if (!NoiseManager::sharedNoiseManager()->isSoundEffectPlaying) {
+			NoiseManager::sharedNoiseManager()->Play("chord");
+			NoiseManager::sharedNoiseManager()->isSoundEffectPlaying = true;
+			NoiseManager::sharedNoiseManager()->currSFlength = 0.25;
 		}
 	}
 
