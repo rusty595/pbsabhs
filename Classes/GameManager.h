@@ -19,6 +19,8 @@ private:
 	float	mountainMultiplier;
 	float	treeMultiplier;
 public:
+	float laneY[3];
+
 	~GameManager();
 	static GameManager* sharedGameManager();
 

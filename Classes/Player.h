@@ -7,9 +7,6 @@ class Player : public cocos2d::Node
 private:
 	// Lane data
 	int currentLane;
-	float laneOneY;
-	float laneTwoY;
-	float laneThreeY;
 	float fixedX;
 
 	// Player Data

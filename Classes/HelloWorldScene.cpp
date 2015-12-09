@@ -313,7 +313,7 @@ void HelloWorld::updateGame(float delta)
 			//ScoreManager::sharedScoreManager()->addToScore(dogs.size());		//debug to check number of dogs in memory
 			score->setString(StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getScore())));
 			//make dogs
-			updateDogs(delta); // DO NOT MAKE DOGS
+			updateDogs(delta);
 			// Filter
 			if (Black_Filter->getOpacity() != 0) {
 				// Start smoothly fading the filter to 0 opacity
@@ -370,7 +370,7 @@ void HelloWorld::updateDogs(float delta)
 	for each (Dog d0 in dogs)
 	{
 		d0.update();
-		if (!d0.destroy) dogsRemaining.push_back(d0);
+		if (!d0.destroy) dogsRemaining.push_back(d0); else d0.~Dog();
 	}
 	dogs.clear();
 	dogs = dogsRemaining;

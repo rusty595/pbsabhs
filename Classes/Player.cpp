@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "GameManager.h"
 
 using namespace cocos2d;
 
@@ -27,11 +28,6 @@ bool Player::init()
 		return false;
 	}
 
-	// Set lane Y values
-	laneOneY = 108.0f;
-	laneTwoY = laneOneY + (laneOneY * 2);
-	laneThreeY = laneOneY + (laneOneY * 4);
-
 	// Set the x coords that Bob can never run past
 	fixedX = 217.0f;
 
@@ -50,11 +46,11 @@ void Player::update(float deltaTime)
 
 void Player::setOffscreenPos(Sprite* player)
 {
-	laneTwoY = laneTwoY;
+	//laneTwoY = laneTwoY;
 	int boundingBoxWidth = player->boundingBox().size.width;
 	float x = 0.0f - (0.5f * boundingBoxWidth);
 	//float x = 200.0f;
-	float y = laneTwoY;
+	float y = GameManager::sharedGameManager()->laneY[1];
 	player->setPosition(Vec2(x, y));
 }
 
@@ -64,7 +60,7 @@ void Player::moveIntoStartPos(Sprite* player)
 	if (gameStarting == false) {
 		if (currX < fixedX) {
 			//player->setPositionX(currX + 0.5f);
-			auto moveTo = MoveTo::create(1.0f, Vec2(fixedX, laneTwoY)); // Take a second to move into position.
+			auto moveTo = MoveTo::create(1.0f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[1])); // Take a second to move into position.
 			player->runAction(moveTo);
 
 			gameStarting = true;
@@ -90,17 +86,14 @@ void Player::moveUpLane(Sprite* player)
 	if (currentLane == 1) {
 		// Bottom Lane
 		currentLane = 2;
-
-		auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, laneTwoY)); // Take half a second to move into position.
-		player->runAction(moveTo);
 	}
 	else if (currentLane == 2) {
 		// Middle lane
 		currentLane = 3;
-
-		auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, laneThreeY)); // Take half a second to move into position.
-		player->runAction(moveTo);
 	}
+	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane - 1])); // Take half a second to move into position.
+	player->runAction(moveTo);
+
 }
 
 void Player::moveDownLane(Sprite* player)
@@ -108,17 +101,13 @@ void Player::moveDownLane(Sprite* player)
 	if (currentLane == 2) {
 		// Middle Lane
 		currentLane = 1;
-
-		auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, laneOneY)); // Take half a second to move into position.
-		player->runAction(moveTo);
 	}
 	else if (currentLane == 3) {
 		// Top Lane
 		currentLane = 2;
-
-		auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, laneTwoY)); // Take half a second to move into position.
-		player->runAction(moveTo);
 	}
+	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane - 1])); // Take half a second to move into position.
+	player->runAction(moveTo);
 }
 
 Player::Player()

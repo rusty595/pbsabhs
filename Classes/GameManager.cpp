@@ -11,6 +11,9 @@ GameManager::GameManager()
 	skyMultiplier = 0.002f;
 	mountainMultiplier = 0.04f;
 	treeMultiplier = 0.4f;
+	laneY[0] = 108.0f;
+	laneY[1] = laneY[0] + (laneY[0] * 2);
+	laneY[2] = laneY[0] + (laneY[0] * 4);
 }
 
 GameManager* GameManager::sharedGameManager()
