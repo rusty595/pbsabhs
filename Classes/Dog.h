@@ -17,9 +17,26 @@ private:
 	float x = 1800;
 	float headx;
 
+	// Score Data
+	int scorePerKill = 20;
+	int scorePerBeheading = scorePerKill * 1.75;
+
 	cocos2d::Node* layer;
 
-	void kill(bool behead){ if (!beheaded) beheaded = behead; dead = true; }
+	void kill(bool behead)
+	{
+		if (!dead) {
+			if (!beheaded) {
+				ScoreManager::sharedScoreManager()->addToScore(scorePerKill);
+			}
+			else if (beheaded) {
+				ScoreManager::sharedScoreManager()->addToScore(scorePerBeheading);
+			}
+		}
+
+		beheaded = behead;
+		dead = true;
+	}
 
 protected:
 	// Cocos sprites
