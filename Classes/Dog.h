@@ -17,9 +17,32 @@ private:
 	float x = 1800;
 	float headx;
 
+	// Score Data
+	int scorePerKill = 20;
+	int scorePerBeheading = scorePerKill * 1.75;
+
 	cocos2d::Node* layer;
 
-	void kill(bool behead){ if (!beheaded) beheaded = behead; dead = true; if (!GameManager::sharedGameManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/chord.wav"); GameManager::sharedGameManager()->isSoundEffectPlaying = true; GameManager::sharedGameManager()->currSFlength = 0.25; } }
+	void kill(bool behead)
+	{
+		if (!dead) {
+			if (!beheaded) {
+				ScoreManager::sharedScoreManager()->addToScore(scorePerKill);
+			}
+			else if (beheaded) {
+				ScoreManager::sharedScoreManager()->addToScore(scorePerBeheading);
+			}
+		}
+
+		beheaded = behead;
+		dead = true;
+
+		if (!GameManager::sharedGameManager()->isSoundEffectPlaying) {
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/chord.wav");
+			GameManager::sharedGameManager()->isSoundEffectPlaying = true;
+			GameManager::sharedGameManager()->currSFlength = 0.25;
+		}
+	}
 
 protected:
 	// Cocos sprites
