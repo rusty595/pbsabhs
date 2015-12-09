@@ -146,6 +146,12 @@ void GameManager::resetSpeeds()
 	playerSpeed = 0.0f;
 }
 
+void GameManager::updateSFXState(float delta)
+{
+	if (isSoundEffectPlaying) timeSinceEffectStart += delta;
+	if (timeSinceEffectStart > currSFlength) { isSoundEffectPlaying = false; timeSinceEffectStart = 0.0f; }
+}
+
 GameManager::~GameManager()
 {
 }
