@@ -360,11 +360,14 @@ void HelloWorld::updateDogs(float delta)
 	if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
 	{
 		b0 = cocos2d::RandomHelper::random_int(0, 65535);
-		if (b0 % 1==0)
+		if (b0 % 4==0)
 		{
-			Dachshund not_bob = Dachshund(2, this);
-			dogs.push_back(not_bob);
+			Dachshund sausage = Dachshund(b0 % 3, this);
+			dogs.push_back(sausage);
 		}
+		else if (b0 % 4 == 1) { AbyssinianWireHairedTripeHound gnob = AbyssinianWireHairedTripeHound(b0 % 3, this); dogs.push_back(gnob); }
+		else if (b0 % 4 == 2) { SkyeTerrier pollux = SkyeTerrier(b0 % 3, this); dogs.push_back(pollux); }
+		else if (b0 % 4 == 3) { Beagle peanus = Beagle(b0 % 3, this); dogs.push_back(peanus); }
 	}
 	std::list<Dog> dogsRemaining;
 	for each (Dog d0 in dogs)

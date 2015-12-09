@@ -31,8 +31,8 @@ bool Player::init()
 	// Set the x coords that Bob can never run past
 	fixedX = 217.0f;
 
-	// Start in center lane
-	currentLane = 2;
+	// Start in center lane (lanes now numbered from zero because we're programmers)
+	currentLane = 1;
 
 	gameStarting = false;
 	this->scheduleUpdate();
@@ -83,30 +83,30 @@ bool Player::isReady(Sprite* player)
 
 void Player::moveUpLane(Sprite* player) 
 {
-	if (currentLane == 1) {
+	if (currentLane == 0) {
 		// Bottom Lane
+		currentLane = 1;
+	}
+	else if (currentLane == 1) {
+		// Middle lane
 		currentLane = 2;
 	}
-	else if (currentLane == 2) {
-		// Middle lane
-		currentLane = 3;
-	}
-	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane - 1])); // Take half a second to move into position.
+	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
 
 }
 
 void Player::moveDownLane(Sprite* player)
 {
-	if (currentLane == 2) {
+	if (currentLane == 1) {
 		// Middle Lane
+		currentLane = 0;
+	}
+	else if (currentLane == 2) {
+		// Top Lane
 		currentLane = 1;
 	}
-	else if (currentLane == 3) {
-		// Top Lane
-		currentLane = 2;
-	}
-	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane - 1])); // Take half a second to move into position.
+	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
 }
 
