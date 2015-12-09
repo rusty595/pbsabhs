@@ -28,9 +28,6 @@ bool Player::init()
 		return false;
 	}
 
-	// Set the x coords that Bob can never run past
-	fixedX = 217.0f;
-
 	// Start in center lane (lanes now numbered from zero because we're programmers)
 	currentLane = 1;
 

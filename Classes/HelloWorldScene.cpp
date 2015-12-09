@@ -372,7 +372,7 @@ void HelloWorld::updateDogs(float delta)
 	std::list<Dog> dogsRemaining;
 	for each (Dog d0 in dogs)
 	{
-		d0.update();
+		d0.update(player->currentLane);
 		if (!d0.destroy) dogsRemaining.push_back(d0); else d0.~Dog();
 	}
 	dogs.clear();
