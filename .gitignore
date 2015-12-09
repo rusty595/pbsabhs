@@ -22,9 +22,10 @@ xcuserdata
 
 # Visual Studio
 *.sdf
+*.opensdf
 proj.win32/Debug.win32/*
 OGLdpf.log
-*.v12.suo
+*.suo
 
 # Windows
 *humbs.db
