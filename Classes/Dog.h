@@ -4,7 +4,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "GameManager.h"
 
-class Dog
+class Dog : public cocos2d::Sprite
 {
 private:
 	// Lane data

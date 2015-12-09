@@ -72,7 +72,7 @@ private:
 	cocos2d::Vec2 initialTouchPos;
 	cocos2d::Vec2 finalTouchPos;
 public:
-	std::list<Dog> dogs;
+	cocos2d::Vector<Dog*> dogs;
 
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();

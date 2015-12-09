@@ -362,18 +362,18 @@ void HelloWorld::updateDogs(float delta)
 		b0 = cocos2d::RandomHelper::random_int(0, 65535);
 		if (b0 % 4==0)
 		{
-			Dachshund sausage = Dachshund(b0 % 3, this);
-			dogs.push_back(sausage);
+			Dachshund* sausage = new Dachshund(b0 % 3, this);
+			dogs.pushBack(sausage);
 		}
-		else if (b0 % 4 == 1) { AbyssinianWireHairedTripeHound gnob = AbyssinianWireHairedTripeHound(b0 % 3, this); dogs.push_back(gnob); }
-		else if (b0 % 4 == 2) { SkyeTerrier pollux = SkyeTerrier(b0 % 3, this); dogs.push_back(pollux); }
-		else if (b0 % 4 == 3) { Beagle peanus = Beagle(b0 % 3, this); dogs.push_back(peanus); }
+		else if (b0 % 4 == 1) { AbyssinianWireHairedTripeHound* gnob = new AbyssinianWireHairedTripeHound(b0 % 3, this); dogs.pushBack(gnob); }
+		else if (b0 % 4 == 2) { SkyeTerrier* pollux = new SkyeTerrier(b0 % 3, this); dogs.pushBack(pollux); }
+		else if (b0 % 4 == 3) { Beagle* peanus = new Beagle(b0 % 3, this); dogs.pushBack(peanus); }
 	}
-	std::list<Dog> dogsRemaining;
-	for each (Dog d0 in dogs)
-	{
-		d0.update(player->currentLane);
-		if (!d0.destroy) dogsRemaining.push_back(d0); else d0.~Dog();
+	cocos2d::Vector<Dog*> dogsRemaining;
+	for (int i = 0; i < dogs.size(); i++) {
+		Dog* d0 = dogs.at(i);
+		d0->update(player->currentLane);
+		if (!d0->destroy) dogsRemaining.pushBack(d0); else d0->~Dog();
 	}
 	dogs.clear();
 	dogs = dogsRemaining;
@@ -807,5 +807,4 @@ void HelloWorld::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
 
 void HelloWorld::onTouchCancelled(cocos2d::Touch*, cocos2d::Event*)
 {
-
 }
