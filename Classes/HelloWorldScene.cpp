@@ -312,8 +312,8 @@ void HelloWorld::updateGame(float delta)
 			//ScoreManager::sharedScoreManager()->resetScore();
 			//ScoreManager::sharedScoreManager()->addToScore(dogs.size());		//debug to check number of dogs in memory
 			score->setString(StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getScore())));
-			////make dogs
-			//updateDogs(delta); // DO NOT MAKE DOGS
+			//make dogs
+			updateDogs(delta);
 			// Filter
 			if (Black_Filter->getOpacity() != 0) {
 				// Start smoothly fading the filter to 0 opacity
@@ -356,24 +356,27 @@ void HelloWorld::updateGame(float delta)
 
 void HelloWorld::updateDogs(float delta)
 {
-	//int b0;
-	//if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
-	//{
-	//	b0 = cocos2d::RandomHelper::random_int(0, 65535);
-	//	if (b0 % 1==0)
-	//	{
-	//		Dachshund not_bob = Dachshund(2, this);
-	//		dogs.push_back(not_bob);
-	//	}
-	//}
-	//std::list<Dog> dogsRemaining;
-	//for each (Dog d0 in dogs)
-	//{
-	//	d0.update();
-	//	if (!d0.destroy) dogsRemaining.push_back(d0);
-	//}
-	//dogs.clear();
-	//dogs = dogsRemaining;
+	int b0;
+	if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
+	{
+		b0 = cocos2d::RandomHelper::random_int(0, 65535);
+		if (b0 % 4==0)
+		{
+			Dachshund sausage = Dachshund(b0 % 3, this);
+			dogs.push_back(sausage);
+		}
+		else if (b0 % 4 == 1) { AbyssinianWireHairedTripeHound gnob = AbyssinianWireHairedTripeHound(b0 % 3, this); dogs.push_back(gnob); }
+		else if (b0 % 4 == 2) { SkyeTerrier pollux = SkyeTerrier(b0 % 3, this); dogs.push_back(pollux); }
+		else if (b0 % 4 == 3) { Beagle peanus = Beagle(b0 % 3, this); dogs.push_back(peanus); }
+	}
+	std::list<Dog> dogsRemaining;
+	for each (Dog d0 in dogs)
+	{
+		d0.update(player->currentLane);
+		if (!d0.destroy) dogsRemaining.push_back(d0); else d0.~Dog();
+	}
+	dogs.clear();
+	dogs = dogsRemaining;
 }
 
 void HelloWorld::updateCredits(float delta)
@@ -804,5 +807,4 @@ void HelloWorld::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
 
 void HelloWorld::onTouchCancelled(cocos2d::Touch*, cocos2d::Event*)
 {
-
 }

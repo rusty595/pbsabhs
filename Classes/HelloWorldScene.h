@@ -9,7 +9,6 @@
 #include "GameManager.h"
 #include "ScoreManager.h"
 #include "Dog.h"
-#include "Dachshund.h"
 
 class HelloWorld : public cocos2d::Layer
 {

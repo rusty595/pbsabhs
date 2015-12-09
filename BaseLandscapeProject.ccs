@@ -58,8 +58,7 @@
         <Project Name="GameScene.csd" Type="Scene" />
         <Project Name="Player.csd" Type="Layer" />
         <Project Name="Track.csd" Type="Layer" />
-        <Project Name="ScottishTerrier.csd" Type="Layer" />
-        <Project Name="KillableDog.csd" Type="Layer" />
+        <Project Name="Dog.csd" Type="Layer" />
         <Project Name="ParallaxBackground.csd" Type="Layer" />
         <Project Name="UI.csd" Type="Layer" />
         <Folder Name="Data">

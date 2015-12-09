@@ -5,19 +5,17 @@
 class Player : public cocos2d::Node
 {
 private:
-	// Lane data
-	int currentLane;
-	float laneOneY;
-	float laneTwoY;
-	float laneThreeY;
-	float fixedX;
-
+	// Set the x coord that Bob can never run past
+	const float fixedX = 217.0f;
 	// Player Data
 	cocos2d::Vec2		pos;
 
 	// Game data
 	bool gameStarting;
 public:
+	// Lane data
+	int currentLane;
+
 	Player();
 	~Player();
 

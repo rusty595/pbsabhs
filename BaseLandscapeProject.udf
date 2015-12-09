@@ -33,8 +33,9 @@
         <OpenedDocuments>
           <FilePathData Path="MainMenu.csd" />
           <FilePathData Path="Track.csd" />
+          <FilePathData Path="Dog.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="MainMenu.csd" />
+        <ActiveDocument Path="Dog.csd" />
       </Value>
     </Item>
   </Properties>
