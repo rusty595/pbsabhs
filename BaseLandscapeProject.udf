@@ -12,7 +12,7 @@
         <LuaIsEncrypt Value="False" />
         <LuaEncryptKey Value="" />
         <LuaEncryptSign Value="" />
-        <Android_PackageName Value="hv.sb.pbsabhs" />
+        <Android_PackageName Value="hv.sb.seventysix.pbsabhs" />
         <AndroidkeyStore Value="" />
         <AndroidVersion Value="android-20" />
         <iOS_Target Value="BaseLandscapeProject-mobile" />
