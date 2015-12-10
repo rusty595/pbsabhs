@@ -68,7 +68,7 @@ public:
 
 	bool destroy = false;
 
-	void update(int BobLane){ x--; if (x < -100) destroy = true; body->setPositionX(x); head->setPositionX(x + headx);
+	void update(int BobLane){ x--; if (x < -256) destroy = true; body->setPositionX(x); head->setPositionX(x + headx);
 		if (BobLane == currentLane && x < Bob && !dead) kill(false);
 		if (x < Bob && beheaded)
 		{
