@@ -313,7 +313,7 @@ void HelloWorld::updateGame(float delta)
 			//ScoreManager::sharedScoreManager()->addToScore(dogs.size());		//debug to check number of dogs in memory
 			score->setString(StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getScore())));
 			//prevent dogs making too many noises
-			GameManager::sharedGameManager()->updateSFXState(delta);
+			NoiseManager::sharedNoiseManager()->updateSFXState(delta);
 			//make dogs
 			updateDogs(delta);
 			// Filter

@@ -2,7 +2,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "GameManager.h"
-#include "SimpleAudioEngine.h"
+#include "NoiseManager.h"
 
 using namespace cocos2d;
 
@@ -91,7 +91,7 @@ void Player::moveUpLane(Sprite* player)
 	}
 	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
-	if (!GameManager::sharedGameManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/up.wav"); GameManager::sharedGameManager()->isSoundEffectPlaying = true; GameManager::sharedGameManager()->currSFlength = 0.095; }
+	if (!NoiseManager::sharedNoiseManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/up.wav"); NoiseManager::sharedNoiseManager()->isSoundEffectPlaying = true; NoiseManager::sharedNoiseManager()->currSFlength = 0.095; }
 }
 
 void Player::moveDownLane(Sprite* player)
@@ -106,7 +106,7 @@ void Player::moveDownLane(Sprite* player)
 	}
 	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
-	if (!GameManager::sharedGameManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/dn.wav"); GameManager::sharedGameManager()->isSoundEffectPlaying = true; GameManager::sharedGameManager()->currSFlength = 0.09; }
+	if (!NoiseManager::sharedNoiseManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/dn.wav"); NoiseManager::sharedNoiseManager()->isSoundEffectPlaying = true; NoiseManager::sharedNoiseManager()->currSFlength = 0.09; }
 }
 
 Player::Player()
