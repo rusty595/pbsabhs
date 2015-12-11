@@ -335,7 +335,7 @@ void HelloWorld::updateGame(float delta)
 			}
 		}
 		else if (GameManager::sharedGameManager()->getIsGamePaused() == true) {
-
+			Black_Filter->setGlobalZOrder(200);
 			if (Black_Filter->getOpacity() != 127) {
 				// Start smoothly fading the filter to 127 opacity
 				int currOpac = Black_Filter->getOpacity();
@@ -364,21 +364,19 @@ void HelloWorld::updateDogs(float delta)
 		b0 = cocos2d::RandomHelper::random_int(0, 65535);
 		if (b0 % 4==0)
 		{
-			Dachshund* sausage = new Dachshund(b0 % 3, this);
+			Dog* sausage = new Dog(b0%3, "dachs", this, Vec2(-32.0f, 32.0f));
 			dogs.pushBack(sausage);
 		}
-		else if (b0 % 4 == 1) { AbyssinianWireHairedTripeHound* gnob = new AbyssinianWireHairedTripeHound(b0 % 3, this); dogs.pushBack(gnob); }
-		else if (b0 % 4 == 2) { SkyeTerrier* pollux = new SkyeTerrier(b0 % 3, this); dogs.pushBack(pollux); }
-		else if (b0 % 4 == 3) { Beagle* peanus = new Beagle(b0 % 3, this); dogs.pushBack(peanus); }
+		else if (b0 % 4 == 1) { Dog* gnob = new Dog(b0%3, "abyssinianwirehairedtripe", this, Vec2(-32.0f, 32.0f)); dogs.pushBack(gnob); }
+		else if (b0 % 4 == 2) { Dog* pollux = new Dog(b0%3, "skye", this, Vec2(-64.0f, 0.0f)); dogs.pushBack(pollux); }
+		else if (b0 % 4 == 3) { Dog* peanus = new Dog(b0%3, "beagle", this, Vec2(-32.0f, 12.0f)); dogs.pushBack(peanus); }
 	}
-	cocos2d::Vector<Dog*> dogsRemaining;
-	for (int i = 0; i < dogs.size(); i++) {
+	for (int i = 0; i < (GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)-1; i++) {
 		Dog* d0 = dogs.at(i);
 		d0->update(player->currentLane);
-		if (!d0->destroy) dogsRemaining.pushBack(d0); else d0->~Dog();
+		// if dog has gone offscreen, renew its existence
+		if (d0->destroy) { b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % 4 == 0) d0->reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f)); else if (b0 % 4 == 1) d0->reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f)); else if (b0 % 4 == 2) d0->reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f)); else if (b0 % 4 == 3) d0->reset(b0 % 3, "beagle", Vec2(0.0f, 12.0f)); }
 	}
-	dogs.clear();
-	dogs = dogsRemaining;
 }
 
 void HelloWorld::updateCredits(float delta)
