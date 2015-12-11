@@ -14,7 +14,7 @@ private:
 	// Game data
 	bool beheaded = false;
 	bool dead = false;
-	float x = 1800;
+	float x = 2000;
 	float headx;
 
 	// Score Data
@@ -44,7 +44,6 @@ private:
 		}
 	}
 
-protected:
 	// Cocos sprites
 	cocos2d::Sprite* body;
 	cocos2d::Sprite* head;
@@ -56,17 +55,19 @@ public:
 		body = (Sprite*)layer->getChildByName("Body");
 		scene->addChild(body);
 		body->setTexture("Resources/Sprites/Dogs/bodies/" + dog + ".png");
-		body->setPosition(1000, GameManager::sharedGameManager()->laneY[currentLane] + (body->getTextureRect().size.height / 2));
+		body->setPosition(x, GameManager::sharedGameManager()->laneY[currentLane] + (body->getTextureRect().size.height / 2));
 		head = (Sprite*)layer->getChildByName("Head");
 		scene->addChild(head);
 		head->setTexture("Resources/Sprites/Dogs/heads/" + dog + ".png");
 		head->setPosition(body->getPositionX() + headoffset.x, body->getPositionY() + headoffset.y);
 		headx = headoffset.x;
+		if (dog.compare("abyssinianwirehairedtripe") == 0) { head->setAnchorPoint(Vec2(0, 1)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() + 32); }
+		else if (dog.compare("skye") == 0) { head->setAnchorPoint(Vec2(0, 0)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() - body->getTextureRect().size.height); }
 	}
 	Dog(){}
 	~Dog(){}
 
-	bool destroy = false;
+	bool destroy = false; // whether to reset the dog or not
 
 	void update(int BobLane){ x--; if (x < -256) destroy = true; body->setPositionX(x); head->setPositionX(x + headx);
 		if (BobLane == currentLane && x < Bob && !dead) kill(false);
@@ -76,8 +77,23 @@ public:
 		}
 		else if (x<Bob && dead){ head->setPositionY(head->getPositionY() - 1); }
 	}
-};
 
+	void reset(int lane, std::string dog, cocos2d::Vec2 headoffset)
+	{
+		destroy = false;
+		x = 2000;
+		body->setTexture("Resources/Sprites/Dogs/bodies/" + dog + ".png");
+		body->setPosition(x, GameManager::sharedGameManager()->laneY[currentLane] + (body->getTextureRect().size.height / 2));
+		head->setAnchorPoint(Vec2(1.0f, 1.0f));
+		head->setTexture("Resources/Sprites/Dogs/heads/" + dog + ".png");
+		head->setPosition(body->getPositionX() + headoffset.x, body->getPositionY() + headoffset.y);
+		headx = headoffset.x;
+		if (dog.compare("abyssinianwirehairedtripe") == 0) { head->setAnchorPoint(Vec2(0.0f, 1.0f)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() + 32); }
+		else if (dog.compare("skye") == 0) { head->setAnchorPoint(Vec2(0.0f, 0.0f)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() - body->getTextureRect().size.height); }
+	}
+
+};
+/*
 class Dachshund : public Dog
 {
 public:
@@ -85,6 +101,6 @@ public:
 	~Dachshund(){};
 };
 
-class AbyssinianWireHairedTripeHound : public Dog { public: AbyssinianWireHairedTripeHound(int lane, cocos2d::Layer*scene) :Dog(lane, "abyssinianwirehairedtripe", scene, Vec2(-32.0f, 32.0f)){ head->setAnchorPoint(Vec2(0, 1)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() +32); }; ~AbyssinianWireHairedTripeHound(){} };
-class SkyeTerrier : public Dog { public: SkyeTerrier(int lane, cocos2d::Layer*scene) :Dog(lane, "skye", scene, Vec2(-64.0f, 0.0f)){ head->setAnchorPoint(Vec2(0, 0)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() - body->getTextureRect().size.height); }; ~SkyeTerrier(){};};
-class Beagle : public Dog { public: Beagle(int lane, cocos2d::Layer*scene) :Dog(lane, "beagle", scene, Vec2(-32.0f, 12.0f)){}; ~Beagle(){} };
+class AbyssinianWireHairedTripeHound : public Dog { public: AbyssinianWireHairedTripeHound(int lane, cocos2d::Layer*scene) :Dog(lane, "abyssinianwirehairedtripe", scene, Vec2(-32.0f, 32.0f)){  }; ~AbyssinianWireHairedTripeHound(){} };
+class SkyeTerrier : public Dog { public: SkyeTerrier(int lane, cocos2d::Layer*scene) :Dog(lane, "skye", scene, Vec2(-64.0f, 0.0f)){}; ~SkyeTerrier(){};};
+class Beagle : public Dog { public: Beagle(int lane, cocos2d::Layer*scene) :Dog(lane, "beagle", scene, Vec2(-32.0f, 12.0f)){}; ~Beagle(){} };*/
