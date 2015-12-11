@@ -2,6 +2,11 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
+// Includes required for Pseudo Random Numbers
+#include <cstdlib>
+#include <ctime>
+
+
 USING_NS_CC;
 
 using namespace cocostudio::timeline;
