@@ -210,11 +210,9 @@ void HelloWorld::initCocosElements()
 	Exit_Button->setPositionX(winSize.width + Exit_Button->getContentSize().width);
 	Exit_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::ExitButtonPressed, this));
 
-	score->setFontSize(30);
 	score->setString(StringUtils::format("%d", 0));
 	score->setVisible(false);
 	score->setPosition(Vec2(winSize.width - 40.0f, winSize.height - 45.0f));
-	Credit_Text->setFontSize(30);
 	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nDog Handler:\n Sam Head\n\nDocumentation:\n David Smith\n");
 	Credit_Text->setAnchorPoint(Vec2(0.5f, 1.0f));
 	Credit_Text->setVisible(false);

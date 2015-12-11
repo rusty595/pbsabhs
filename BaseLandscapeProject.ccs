@@ -64,6 +64,7 @@
         <Folder Name="Data">
           <File Name="gamedata.txt" />
         </Folder>
+        <TTF Name="zx_spectrum-7.ttf" />
       </RootFolder>
     </Group>
   </SolutionFolder>

@@ -32,14 +32,15 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Score" ActionTag="1406920482" Tag="14" IconVisible="False" LeftMargin="1652.9814" RightMargin="33.0186" TopMargin="34.2236" BottomMargin="51.7764" FontSize="20" LabelText="Text Label" HorizontalAlignmentType="HT_Right" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-            <Size X="90.0000" Y="23.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1697.9814" Y="63.2764" />
+          <AbstractNodeData Name="Score" ActionTag="1406920482" Tag="14" IconVisible="False" LeftMargin="1593.9143" RightMargin="22.0857" TopMargin="4.9946" BottomMargin="24.0054" FontSize="80" LabelText="SCORE" HorizontalAlignmentType="HT_Right" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+            <Size X="160.0000" Y="80.0000" />
+            <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
+            <Position X="1753.9143" Y="64.0054" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="0" G="0" B="0" />
-            <PrePosition X="0.9561" Y="0.5805" />
-            <PreSize X="0.0000" Y="0.0000" />
+            <PrePosition X="0.9876" Y="0.5872" />
+            <PreSize X="0.0450" Y="0.1835" />
+            <FontResource Type="Normal" Path="zx_spectrum-7.ttf" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
