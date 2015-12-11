@@ -74,30 +74,6 @@ bool HelloWorld::init()
 	// Game is not live until the start button is pressed.
 	GameManager::sharedGameManager()->setIsGameLive(false);
 
-	// Add the label to give us some feedback on where we have touched
-	labelTouchInfo = Label::createWithSystemFont("Touch or click on the screen", "Arial", 30);
-
-	// Set the label to be in the middle of the screen
-	labelTouchInfo->setPosition(cocos2d::Vec2(Director::getInstance()->getVisibleSize().width / 2, Director::getInstance()->getVisibleSize().height / 2));
-
-	// Create a custom event listener
-	auto touchListener = EventListenerTouchOneByOne::create();
-
-	// Assign the event methods to the event listener (known as callbacks)
-	touchListener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
-	touchListener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
-	touchListener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
-	touchListener->onTouchCancelled = CC_CALLBACK_2(HelloWorld::onTouchCancelled, this);
-
-	/* For more information on the eventdispatcher mechanism (and how events in Cocos work in general) go to http://www.cocos2d-x.org/wiki/EventDispatcher_Mechanism */
-	// Add the event listener to the event dispatcher
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
-
-	// Finally, lets add the label to the layer (HelloWorld is a layer, NOT a scene)
-	this->addChild(labelTouchInfo);
-
-	
-
     return true;
 }
 
