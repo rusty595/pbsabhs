@@ -701,6 +701,9 @@ void HelloWorld::EndGame()
 	GameManager::sharedGameManager()->setIsGamePaused(false);
 	GameManager::sharedGameManager()->setIsGameLive(false);
 
+	// DEBUG
+	ScoreManager::sharedScoreManager()->compareScoreToHighscore();
+
 	// Abandon high score. Players are not rewarded for quitting
 	ScoreManager::sharedScoreManager()->resetScore();
 

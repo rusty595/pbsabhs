@@ -59,43 +59,149 @@ int ScoreManager::getHighscore()
 
 void ScoreManager::storeHighscoreToFile(int highScore)
 {
+	bool tagFound = false;
+
 	// Insert code to save highscore to file
 	std::string path = getFilePath();
+	std::string fileContents = "";
 
-	FILE *fp = fopen(path.c_str(), "w");
+	std::ifstream infile(path);
+	std::string currLine;
 
-	if (!fp) {
-		CCLOG("Cannot create file in %s", path.c_str());
-		return;
+	if (infile.good()) {
+		while (std::getline(infile, currLine)) {
+			if (currLine.find("<highscore>") == true) {
+				tagFound = true;
+			}
+			fileContents += currLine + "\n";
+		}
+
+		if (!tagFound) {
+			int indexTagEnd = fileContents.find("</data>");
+			std::string insertString = "\t<highscore>" + StringUtils::format("%d", highScore) + "</highscore>\n";
+
+			std::string firstHalf = "";
+			std::string secondHalf = "";
+
+			for (int i = 0; i < indexTagEnd; i++) {
+				firstHalf += fileContents[i];
+			}
+			for (int i2 = indexTagEnd; i2 < fileContents.size(); i2++) {
+				secondHalf += fileContents[i2];
+			}
+
+			fileContents = firstHalf + insertString + secondHalf;
+		}
+		else {
+			int indexTagStart = fileContents.find("<highscore>");
+			int indexTagEnd = fileContents.find("</highscore>");
+
+			std::string firstHalf = "";
+			std::string secondHalf = "";
+
+			for (int i = 0; i < (indexTagStart + 11); i++) {
+				firstHalf += fileContents[i];
+			}
+			for (int i2 = indexTagEnd; i2 < fileContents.size(); i2++) {
+				secondHalf += fileContents[i2];
+			}
+
+			fileContents = firstHalf + StringUtils::format("%d", highScore) + secondHalf;
+		}
+
+		std::fstream output;
+		output.open(path);
+
+		output << fileContents;
+
+		output.close();
+	}
+	else {
+		FILE *fp = fopen(path.c_str(), "w");
+
+		if (!fp) {
+			CCLOG("Cannot create file in %s", path.c_str());
+			return;
+		}
+
+		std::string value = StringUtils::format("<?xml version=\"1.0\" encoding=\"UTF - 8\"?>");
+		value += StringUtils::format("\n<!DOCTYPE SB76-PBS-ABHS PUBLIC>");
+		value += StringUtils::format("\n<data>");
+		value += StringUtils::format("\n\t<highscore>%d</highscore>", highScore);
+		value += StringUtils::format("\n</data>");
+		//std::string value = StringUtils::format("%d", highScore);
+
+		fputs(value.c_str(), fp);
+		fclose(fp);
 	}
 
-	std::string value = StringUtils::format("%d", highScore);
+	
 
-	fputs(value.c_str(), fp);
-	fclose(fp);
+
 }
 
 int ScoreManager::getHighscoreFromFile()
 {
+	bool tagFound = false;
+
+	int highscore = 0;
+	std::string tempHighScore = "";
+
 	// Insert code to get highscore from file
 	std::string path = getFilePath();
 
-	FILE *fp = fopen(path.c_str(), "r");
-	char buf[50] = { 0 };
+	std::ifstream infile(path);
+	std::string currLine;
 
-	if (!fp) {
-		CCLOG("The file cannot be opened in %s", path.c_str());
-		return 0;
+	while (std::getline(infile, currLine)) {
+		if (!tagFound) {
+			int found = currLine.find("<highscore>");
+			if (found != -1) {
+				tagFound = true;
+
+				if (tagFound) {
+					int indexScoreStart = currLine.find(">");
+					int indexScoreEnd = currLine.find("<", indexScoreStart + 1);
+
+					for (int i = indexScoreStart + 1; i < indexScoreEnd; i++) {
+						tempHighScore += currLine.at(i);
+					}
+
+					highScore = stoi(tempHighScore);
+				}
+			}
+		}
 	}
 
-	fgets(buf, 50, fp);
-	CCLOG("Content Read %s", buf);
+	// No tag found, set highscore to 0
+	if (!tagFound) {
+		highScore = 0;
+	}
 
-	int highscore = atoi(buf);
+	return highScore;
+	//std::string contents;
+	//std::stringstream ss;
 
-	fclose(fp);
+	//FILE *fp = fopen(path.c_str(), "r");
+	//char buf[500] = { 0 };
 
-	return highscore;
+	//if (!fp) {
+	//	CCLOG("The file cannot be opened in %s", path.c_str());
+	//	return 0;
+	//}
+
+	//fgets(buf, 50, fp);
+	//CCLOG("Content Read %s", buf);
+
+	//ss << buf; ss >> contents;	// Move char into a stringstream, into a string
+
+	//int found = contents.find("<highscore>");
+
+	//int highscore = atoi(buf);
+
+	//fclose(fp);
+
+	//return highscore;
 }
 
 std::string ScoreManager::getFilePath()
@@ -106,10 +212,10 @@ std::string ScoreManager::getFilePath()
 	std::string writableDir = CCFileUtils::getInstance()->getWritablePath();
 
 	if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) {
-		path = writableDir + "\highscoredata.txt";
+		path = writableDir + "\highscoredata.xml";
 	}
 	else if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) {
-		path = writableDir + "\highscoredata.txt";
+		path = writableDir + "\highscoredata.xml";
 	}
 
 	return path;
