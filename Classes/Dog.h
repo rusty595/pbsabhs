@@ -81,11 +81,14 @@ public:
 	void reset(int lane, std::string dog, cocos2d::Vec2 headoffset)
 	{
 		destroy = false;
+		beheaded = false;
+		dead = false;
 		x = 2000;
-		body->setTexture("Resources/Sprites/Dogs/bodies/" + dog + ".png");
+		currentLane = lane;
+		body->setTexture("Resources/Sprites/Dogs/Debug/bodies/" + dog + ".png");
 		body->setPosition(x, GameManager::sharedGameManager()->laneY[currentLane] + (body->getTextureRect().size.height / 2));
-		head->setAnchorPoint(Vec2(1.0f, 1.0f));
-		head->setTexture("Resources/Sprites/Dogs/heads/" + dog + ".png");
+		head->setAnchorPoint(Vec2(0.0f, 1.0f));
+		head->setTexture("Resources/Sprites/Dogs/Debug/heads/" + dog + ".png");
 		head->setPosition(body->getPositionX() + headoffset.x, body->getPositionY() + headoffset.y);
 		headx = headoffset.x;
 		if (dog.compare("abyssinianwirehairedtripe") == 0) { head->setAnchorPoint(Vec2(0.0f, 1.0f)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() + 32); }

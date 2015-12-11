@@ -375,7 +375,7 @@ void HelloWorld::updateDogs(float delta)
 		Dog* d0 = dogs.at(i);
 		d0->update(player->currentLane);
 		// if dog has gone offscreen, renew its existence
-		if (d0->destroy) { b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % 4 == 0) d0->reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f)); else if (b0 % 4 == 1) d0->reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f)); else if (b0 % 4 == 2) d0->reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f)); else if (b0 % 4 == 3) d0->reset(b0 % 3, "beagle", Vec2(0.0f, 12.0f)); }
+		if (d0->destroy) { b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % 4 == 0) d0->reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f)); else if (b0 % 4 == 1) d0->reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f)); else if (b0 % 4 == 2) d0->reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f)); else if (b0 % 4 == 3) d0->reset(b0 % 3, "beagle", Vec2(-32.0f, 12.0f)); }
 	}
 }
 
