@@ -38,7 +38,7 @@ private:
 		dead = true;
 
 		if (!NoiseManager::sharedNoiseManager()->isSoundEffectPlaying) {
-			NoiseManager::sharedNoiseManager()->Play("chord");
+			NoiseManager::sharedNoiseManager()->Play((char*)"chord");
 			NoiseManager::sharedNoiseManager()->isSoundEffectPlaying = true;
 			NoiseManager::sharedNoiseManager()->currSFlength = 0.25;
 		}

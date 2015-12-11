@@ -167,7 +167,8 @@ int ScoreManager::getHighscoreFromFile()
 						tempHighScore += currLine.at(i);
 					}
 
-					highScore = stoi(tempHighScore);
+					//highScore = stoi(tempHighScore);
+					highScore = strtod(tempHighScore.c_str(), nullptr);
 				}
 			}
 		}
