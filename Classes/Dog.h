@@ -18,7 +18,7 @@ private:
 	float headx;
 
 	// Score Data
-	int scorePerKill = 20;
+	int scorePerKill = 20000000;
 	int scorePerBeheading = scorePerKill * 1.75;
 
 	cocos2d::Node* layer;
@@ -85,10 +85,10 @@ public:
 		dead = false;
 		x = 2000;
 		currentLane = lane;
-		body->setTexture("Resources/Sprites/Dogs/Debug/bodies/" + dog + ".png");
+		body->setTexture("Resources/Sprites/Dogs/bodies/" + dog + ".png");
 		body->setPosition(x, GameManager::sharedGameManager()->laneY[currentLane] + (body->getTextureRect().size.height / 2));
 		head->setAnchorPoint(Vec2(0.0f, 1.0f));
-		head->setTexture("Resources/Sprites/Dogs/Debug/heads/" + dog + ".png");
+		head->setTexture("Resources/Sprites/Dogs/heads/" + dog + ".png");
 		head->setPosition(body->getPositionX() + headoffset.x, body->getPositionY() + headoffset.y);
 		headx = headoffset.x;
 		if (dog.compare("abyssinianwirehairedtripe") == 0) { head->setAnchorPoint(Vec2(0.0f, 1.0f)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() + 32); }
