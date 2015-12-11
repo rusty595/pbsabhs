@@ -26,6 +26,7 @@ xcuserdata
 proj.win32/Debug.win32/*
 OGLdpf.log
 *.suo
+*.pdb
 
 # Windows
 *humbs.db
