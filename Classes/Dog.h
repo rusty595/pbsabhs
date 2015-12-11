@@ -18,7 +18,7 @@ private:
 	float headx;
 
 	// Score Data
-	int scorePerKill = 20000000;
+	int scorePerKill = 20;
 	int scorePerBeheading = scorePerKill * 1.75;
 
 	cocos2d::Node* layer;
