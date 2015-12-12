@@ -60,13 +60,11 @@ bool HelloWorld::init()
 	muted = false;
 	auto b0 = cocos2d::RandomHelper::random_int(0, 65535);
 	if (b0 != 0){
-		CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("dogs.mp3");
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("dogs.mp3", true);
+		NoiseManager::sharedNoiseManager()->PlayBGM("dogs");
 	}
 	else
 	{
-		CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("no.mp3");
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("no.mp3", true);
+		NoiseManager::sharedNoiseManager()->PlayBGM("no");
 	}
 
 	this->scheduleUpdate();
@@ -592,15 +590,13 @@ void HelloWorld::MuteButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventT
 		if (muted == false) {
 			muted = true;
 			Mute_Button->setBright(false);
-
-			CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-			CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
+			NoiseManager::sharedNoiseManager()->PauseBGM();
+			NoiseManager::sharedNoiseManager()->PauseSFX();
 		}
 		else if (muted == true) {
 			muted = false;
 			Mute_Button->setBright(true);
-
-			CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+			NoiseManager::sharedNoiseManager()->ResumeBGM();
 		}
 	}
 }

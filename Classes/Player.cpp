@@ -79,7 +79,7 @@ bool Player::isReady(Sprite* player)
 	}
 }
 
-void Player::moveUpLane(Sprite* player) 
+void Player::moveUpLane(Sprite* player)
 {
 	if (currentLane == 0) {
 		// Bottom Lane
@@ -91,7 +91,7 @@ void Player::moveUpLane(Sprite* player)
 	}
 	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
-	if (!NoiseManager::sharedNoiseManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/up.wav"); NoiseManager::sharedNoiseManager()->isSoundEffectPlaying = true; NoiseManager::sharedNoiseManager()->currSFlength = 0.095; }
+	NoiseManager::NoiseManager().PlaySFX("up");
 }
 
 void Player::moveDownLane(Sprite* player)
@@ -106,7 +106,7 @@ void Player::moveDownLane(Sprite* player)
 	}
 	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
-	if (!NoiseManager::sharedNoiseManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/dn.wav"); NoiseManager::sharedNoiseManager()->isSoundEffectPlaying = true; NoiseManager::sharedNoiseManager()->currSFlength = 0.09; }
+	NoiseManager::NoiseManager().PlaySFX("dn");
 }
 
 Player::Player()
