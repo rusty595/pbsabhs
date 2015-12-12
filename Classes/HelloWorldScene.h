@@ -69,8 +69,10 @@ private:
 
 	// Touch Events
 	bool touchMoved;
+	bool inTouch;
 	cocos2d::Vec2 initialTouchPos;
 	cocos2d::Vec2 finalTouchPos;
+
 public:
 	cocos2d::Vector<Dog*> dogs;
 

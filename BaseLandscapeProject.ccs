@@ -32,7 +32,6 @@
                 <Image Name="dachs.png" />
                 <Image Name="scot.png" />
                 <Image Name="skye.png" />
-				<Image Name="obstacle.png" />
               </Folder>
             </Folder>
           </Folder>

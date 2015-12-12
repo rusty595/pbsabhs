@@ -365,18 +365,18 @@ void HelloWorld::updateDogs(float delta)
 		b0 = cocos2d::RandomHelper::random_int(0, 65535);
 		if (b0 % 4==0)
 		{
-			Dog* sausage = new Dog(b0%3, "dachs", this, Vec2(-32.0f, 32.0f));
+			Dog* sausage = new Dog(b0%3, "dachs", this, Vec2(-32.0f, 32.0f), 20);
 			dogs.pushBack(sausage);
 		}
-		else if (b0 % 4 == 1) { Dog* gnob = new Dog(b0%3, "abyssinianwirehairedtripe", this, Vec2(-32.0f, 32.0f)); dogs.pushBack(gnob); }
-		else if (b0 % 4 == 2) { Dog* pollux = new Dog(b0%3, "skye", this, Vec2(-64.0f, 0.0f)); dogs.pushBack(pollux); }
-		else if (b0 % 4 == 3) { Dog* peanus = new Dog(b0%3, "beagle", this, Vec2(-32.0f, 12.0f)); dogs.pushBack(peanus); }
+		else if (b0 % 4 == 1) { Dog* gnob = new Dog(b0%3, "abyssinianwirehairedtripe", this, Vec2(-32.0f, 32.0f), 20); dogs.pushBack(gnob); }
+		else if (b0 % 4 == 2) { Dog* pollux = new Dog(b0%3, "skye", this, Vec2(-64.0f, 0.0f), 20); dogs.pushBack(pollux); }
+		else if (b0 % 4 == 3) { Dog* peanus = new Dog(b0%3, "beagle", this, Vec2(-32.0f, 12.0f), 20); dogs.pushBack(peanus); }
 	}
 	for (int i = 0; i < (GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)-1; i++) {
 		Dog* d0 = dogs.at(i);
-		d0->update(player->currentLane);
+		d0->update(player->currentLane, inTouch);
 		// if dog has gone offscreen, renew its existence
-		if (d0->destroy) { b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % 4 == 0) d0->reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f)); else if (b0 % 4 == 1) d0->reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f)); else if (b0 % 4 == 2) d0->reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f)); else if (b0 % 4 == 3) d0->reset(b0 % 3, "beagle", Vec2(-32.0f, 12.0f)); }
+		if (d0->destroy) { b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % 4 == 0) d0->reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f), 20); else if (b0 % 4 == 1) d0->reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f), 20); else if (b0 % 4 == 2) d0->reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f), 20); else if (b0 % 4 == 3) d0->reset(b0 % 3, "beagle", Vec2(-32.0f, 12.0f), 20); }
 	}
 }
 
@@ -761,6 +761,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 		touchPos = convertToNodeSpace(touchPos);
 
 		initialTouchPos = touchPos;
+		inTouch = true;
 		return true;
 	}
 	else {
@@ -771,6 +772,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 void HelloWorld::onTouchEnded(cocos2d::Touch*, cocos2d::Event*)
 {
 	if (GameManager::sharedGameManager()->getIsGameLive() == true) {
+		inTouch = false;
 		if (touchMoved == true)	// Deal with a touch-slide
 		{
 			int minimumMoved = 200;	// 200px must have been moved across to make Bob change lanes
@@ -797,6 +799,7 @@ void HelloWorld::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
 {
 	if (GameManager::sharedGameManager()->getIsGameLive() == true) {
 		touchMoved = true;
+		inTouch = false; // can't behead from a slide
 
 		// Keep updating the final coords until this method is no longer called
 		Point touchPos = touch->getLocationInView();
