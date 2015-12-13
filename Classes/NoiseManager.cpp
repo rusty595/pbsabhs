@@ -36,7 +36,7 @@ void NoiseManager::PlayBGM(char * noise)
 		{
 			fclose(file);
 			CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic((cocos2d::StringUtils::format("%s.mid", noise)).c_str());
-			CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic((cocos2d::StringUtils::format("%s.mid", noise)).c_str());
+			CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic((cocos2d::StringUtils::format("%s.mid", noise)).c_str(), true);
 		}
 		else
 		{

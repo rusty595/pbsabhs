@@ -24,10 +24,10 @@ private:
 
 	void kill(bool behead)
 	{
+		dead = true;
 		if (score > 0)
 		{
 			beheaded = behead;
-			dead = true;
 			
 			if (!beheaded) {
 				NoiseManager::NoiseManager().PlaySFX("chord");
@@ -37,6 +37,10 @@ private:
 				NoiseManager::NoiseManager().PlaySFX("sound240");
 				ScoreManager::sharedScoreManager()->addToScore(score*1.75);
 			}
+		}
+		else
+		{
+			GameManager::sharedGameManager()->health--;
 		}
 	}
 
@@ -96,14 +100,18 @@ public:
 	}
 
 };
-/*
-class Dachshund : public Dog
+
+class Obstacle : public Dog
 {
 public:
-	Dachshund(int lane, cocos2d::Layer*scene) :Dog(lane, "dachs", scene, Vec2(-32.0f, 32.0f)){};
-	~Dachshund(){};
+	Obstacle(int lane, cocos2d::Layer*scene, int scoreoverride = -5) :Dog(lane, "obstacle", scene, Vec2(-32.0f, 32.0f), scoreoverride){};
+	Obstacle(int lane, std::string textureoverride, cocos2d::Layer*scene, cocos2d::Vec2 headoffset, int scoreoverride = -5) :Dog(lane, textureoverride, scene, headoffset, scoreoverride){};
+	~Obstacle(){};
 };
 
-class AbyssinianWireHairedTripeHound : public Dog { public: AbyssinianWireHairedTripeHound(int lane, cocos2d::Layer*scene) :Dog(lane, "abyssinianwirehairedtripe", scene, Vec2(-32.0f, 32.0f)){  }; ~AbyssinianWireHairedTripeHound(){} };
-class SkyeTerrier : public Dog { public: SkyeTerrier(int lane, cocos2d::Layer*scene) :Dog(lane, "skye", scene, Vec2(-64.0f, 0.0f)){}; ~SkyeTerrier(){};};
-class Beagle : public Dog { public: Beagle(int lane, cocos2d::Layer*scene) :Dog(lane, "beagle", scene, Vec2(-32.0f, 12.0f)){}; ~Beagle(){} };*/
+class ScottishTerrier : public Obstacle
+{
+public:
+	ScottishTerrier(int lane, cocos2d::Layer*scene) : Obstacle(lane, "scot", scene, Vec2(-64.0f, 8.0f)){};
+	~ScottishTerrier(){};
+};

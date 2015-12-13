@@ -58,6 +58,7 @@ private:
 	cocos2d::ui::Button*	Mute_Button;
 	cocos2d::Sprite*		UI_Background;
 	cocos2d::ui::Text*		score;
+	cocos2d::ui::Text*		healthmeter;
 
 	// Pause
 	cocos2d::ui::Button*    Resume_Button;
@@ -95,6 +96,7 @@ public:
 	void updateCredits(float);
 	void updateParallaxBackground(float);
 	void updateDogs(float);
+	Dog* newDog();
 
 	// Deal with touches.
 	virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);

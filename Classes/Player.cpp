@@ -44,10 +44,8 @@ void Player::update(float deltaTime)
 
 void Player::setOffscreenPos(Sprite* player)
 {
-	//laneTwoY = laneTwoY;
 	int boundingBoxWidth = player->boundingBox().size.width;
 	float x = 0.0f - (0.5f * boundingBoxWidth);
-	//float x = 200.0f;
 	float y = GameManager::sharedGameManager()->laneY[1];
 	player->setPosition(Vec2(x, y));
 }
