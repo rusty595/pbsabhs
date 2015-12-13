@@ -474,15 +474,11 @@ void HelloWorld::updateParallaxBackground(float delta)
 		// Check if track is offscreen, if so, move track to the end of second track
 		if (track[b0]->getPositionX() + track[b0]->getTextureRect().getMaxX() < 0) {
 			if (b0 < 3){
-				track[0]->setPositionX(track[3]->getTextureRect().getMaxX() + (track[3]->getPosition().x));
-				track[1]->setPositionX(track[4]->getTextureRect().getMaxX() + (track[4]->getPosition().x));
-				track[2]->setPositionX(track[5]->getTextureRect().getMaxX() + (track[5]->getPosition().x));
+				track[b0]->setPositionX(track[b0+3]->getTextureRect().getMaxX() + (track[b0+3]->getPosition().x));
 			}
 			else
 			{
-				track[3]->setPositionX(track[0]->getTextureRect().getMaxX() + (track[0]->getPosition().x));
-				track[4]->setPositionX(track[1]->getTextureRect().getMaxX() + (track[1]->getPosition().x));
-				track[5]->setPositionX(track[2]->getTextureRect().getMaxX() + (track[2]->getPosition().x));
+				track[b0]->setPositionX(track[b0-3]->getTextureRect().getMaxX() + (track[b0-3]->getPosition().x));
 			}
 		}
 	}
