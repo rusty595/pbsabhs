@@ -89,7 +89,7 @@ void Player::moveUpLane(Sprite* player)
 	}
 	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
-	NoiseManager::sharedNoiseManager()->PlaySFX((char*)"up");
+	NoiseManager::NoiseManager().PlaySFX((char*)"up");
 }
 
 void Player::moveDownLane(Sprite* player)
@@ -104,7 +104,7 @@ void Player::moveDownLane(Sprite* player)
 	}
 	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
-	NoiseManager::sharedNoiseManager()->PlaySFX((char*)"dn");
+	NoiseManager::NoiseManager().PlaySFX((char*)"dn");
 }
 
 Player::Player()
