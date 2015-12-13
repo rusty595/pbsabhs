@@ -60,13 +60,11 @@ bool HelloWorld::init()
 	muted = false;
 	auto b0 = cocos2d::RandomHelper::random_int(0, 65535);
 	if (b0 != 0){
-		CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("dogs.mp3");
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("dogs.mp3", true);
+		NoiseManager::sharedNoiseManager()->PlayBGM((char*)"dogs");
 	}
 	else
 	{
-		CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("no.mp3");
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("no.mp3", true);
+		NoiseManager::sharedNoiseManager()->PlayBGM((char*)"no");
 	}
 
 	this->scheduleUpdate();
@@ -95,6 +93,8 @@ void HelloWorld::initTouchListeners()
 void HelloWorld::initNodes()
 {
 	// Create nodes
+	auto creditNode = CSLoader::createNode("CreditScene.csb");
+	addChild(creditNode);
 	auto parallaxBackground = CSLoader::createNode("ParallaxBackground.csb");
 	addChild(parallaxBackground);
 	auto trackNode1 = CSLoader::createNode("Track.csb");
@@ -113,34 +113,32 @@ void HelloWorld::initNodes()
 	addChild(UINode);
 	auto rootNode = CSLoader::createNode("MainMenu.csb");
 	addChild(rootNode);
-	auto creditNode = CSLoader::createNode("CreditScene.csb");
-	addChild(creditNode);
 	auto playerNode = CSLoader::createNode("Player.csb");
 	addChild(playerNode);
 
 	// Set up references
+	Credit_Text = (ui::Text*)creditNode->getChildByName("Credit_Text");
+
 	sky1 = (Sprite*)parallaxBackground->getChildByName("Sky");
 	sky2 = (Sprite*)parallaxBackground->getChildByName("Sky_2");
 	mountain1 = (Sprite*)parallaxBackground->getChildByName("Mountain_1");
 	mountain2 = (Sprite*)parallaxBackground->getChildByName("Mountain_2");
 	mountain3 = (Sprite*)parallaxBackground->getChildByName("Mountain_3");
-	tree1 = (Sprite*)parallaxBackground->getChildByName("Tree_1");
-	tree2 = (Sprite*)parallaxBackground->getChildByName("Tree_2");
-	tree3 = (Sprite*)parallaxBackground->getChildByName("Tree_3");
-	tree4 = (Sprite*)parallaxBackground->getChildByName("Tree_4");
-	tree5 = (Sprite*)parallaxBackground->getChildByName("Tree_5");
-	tree6 = (Sprite*)parallaxBackground->getChildByName("Tree_6");
-	tree7 = (Sprite*)parallaxBackground->getChildByName("Tree_7");
-	tree8 = (Sprite*)parallaxBackground->getChildByName("Tree_8");
-	track1 = (Sprite*)trackNode1->getChildByName("Track");
-	track2 = (Sprite*)trackNode2->getChildByName("Track");
-	track3 = (Sprite*)trackNode3->getChildByName("Track");
-	track4 = (Sprite*)trackNode4->getChildByName("Track");
-	track5 = (Sprite*)trackNode5->getChildByName("Track");
-	track6 = (Sprite*)trackNode6->getChildByName("Track");
+	tree[0] = (Sprite*)parallaxBackground->getChildByName("Tree_1");
+	tree[1] = (Sprite*)parallaxBackground->getChildByName("Tree_2");
+	tree[2] = (Sprite*)parallaxBackground->getChildByName("Tree_3");
+	tree[3] = (Sprite*)parallaxBackground->getChildByName("Tree_4");
+	tree[4] = (Sprite*)parallaxBackground->getChildByName("Tree_5");
+	tree[5] = (Sprite*)parallaxBackground->getChildByName("Tree_6");
+	tree[6] = (Sprite*)parallaxBackground->getChildByName("Tree_7");
+	tree[7] = (Sprite*)parallaxBackground->getChildByName("Tree_8");
+	track[0] = (Sprite*)trackNode1->getChildByName("Track");
+	track[1] = (Sprite*)trackNode2->getChildByName("Track");
+	track[2] = (Sprite*)trackNode3->getChildByName("Track");
+	track[3] = (Sprite*)trackNode4->getChildByName("Track");
+	track[4] = (Sprite*)trackNode5->getChildByName("Track");
+	track[5] = (Sprite*)trackNode6->getChildByName("Track");
 	UI_Background = (Sprite*)UINode->getChildByName("UI_Background");
-
-	Black_Filter = (Sprite*)rootNode->getChildByName("Black_Filter");
 
 	Start_Button = static_cast<ui::Button*>(rootNode->getChildByName("Start_Button"));
 	Credits_Button = static_cast<ui::Button*>(rootNode->getChildByName("Credits_Button"));
@@ -149,16 +147,21 @@ void HelloWorld::initNodes()
 	Resume_Button = static_cast<ui::Button*>(rootNode->getChildByName("Resume_Button"));
 	Exit_Button = static_cast<ui::Button*>(rootNode->getChildByName("Exit_Button"));
 
-	Credit_Text = (ui::Text*)creditNode->getChildByName("Credit_Text");
 	Pause_Score = (ui::Text*)rootNode->getChildByName("Pause_Score");
 	Pause_Highscore = (ui::Text*)rootNode->getChildByName("Pause_Highscore");
 	score = (ui::Text*)UINode->getChildByName("Score");
+	healthmeter = (ui::Text*)cocos2d::CSLoader::createNode("UI.csb")->getChildByName("Score"); // make a healthmeter ui::Text based on the score indicator
+	addChild(healthmeter);
 
 	player_sprite = (Sprite*)playerNode->getChildByName("Player_Skin_1");
+
+	Black_Filter = (Sprite*)rootNode->getChildByName("Black_Filter");
 }
 
 void HelloWorld::initCocosElements()
 {
+	Black_Filter->setGlobalZOrder(200);
+
 	auto winSize = Director::getInstance()->getVisibleSize();
 
 	sky1->setPosition(Vec2(888.0f, 864.0f));
@@ -172,23 +175,11 @@ void HelloWorld::initCocosElements()
 	random = cocos2d::RandomHelper::random_int(1, (int)winSize.width);
 	mountain3->setPosition(Vec2(random, 864.0f));
 
-	limiter = (int)winSize.width + tree1->getTextureRect().getMaxX();
-	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
-	tree1->setPosition(Vec2(random, 812.0f));
-	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
-	tree2->setPosition(Vec2(random, 812.0f));
-	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
-	tree3->setPosition(Vec2(random, 812.0f));
-	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
-	tree4->setPosition(Vec2(random, 812.0f));
-	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
-	tree5->setPosition(Vec2(random, 812.0f));
-	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
-	tree6->setPosition(Vec2(random, 812.0f));
-	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
-	tree7->setPosition(Vec2(random, 812.0f));
-	random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
-	tree8->setPosition(Vec2(random, 812.0f));
+	limiter = (int)winSize.width + tree[0]->getTextureRect().getMaxX();
+	for (int b0 = 0; b0 < 8; b0++) {
+		random = cocos2d::RandomHelper::random_int(1, (limiter * 2));
+		tree[b0]->setPosition(Vec2(random, 812.0f));
+	}
 
 	UI_Background->setPosition(Vec2(951.0f, 1025.5f));
 
@@ -218,7 +209,10 @@ void HelloWorld::initCocosElements()
 	score->setString(StringUtils::format("%d", 0));
 	score->setVisible(false);
 	score->setPosition(Vec2(winSize.width - 40.0f, winSize.height - 45.0f));
-	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nDog Handler:\n Sam Head\n\nDocumentation:\n David Smith\n");
+	healthmeter->setString(StringUtils::format("%d", GameManager::sharedGameManager()->health));
+	healthmeter->setVisible(false);
+	healthmeter->setPosition(Vec2(winSize.width - 400.0f, winSize.height - 45.0f));
+	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nDog Handler:\n Sam Head\n\nDocumentation:\n David Smith\n\n");
 	Credit_Text->setAnchorPoint(Vec2(0.5f, 1.0f));
 	Credit_Text->setVisible(false);
 	Pause_Score->setString(StringUtils::format("%d", 0));
@@ -288,9 +282,11 @@ void HelloWorld::updateGame(float delta)
 			if (player->isReady(player_sprite) == true) {
 				GameManager::sharedGameManager()->setIsGameLive(true);
 				score->setVisible(true);
+				healthmeter->setVisible(true);
 
 				auto scoreFadeIn = FadeIn::create(0.5);
 				score->runAction(scoreFadeIn);
+				healthmeter->runAction(scoreFadeIn);
 			}
 			else {
 				player->setVisible(true);
@@ -315,10 +311,14 @@ void HelloWorld::updateGame(float delta)
 			//ScoreManager::sharedScoreManager()->resetScore();
 			//ScoreManager::sharedScoreManager()->addToScore(dogs.size());		//debug to check number of dogs in memory
 			score->setString(StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getScore())));
-			//prevent dogs making too many noises
-			NoiseManager::sharedNoiseManager()->updateSFXState(delta);
+
+			// Dogs
 			//make dogs
 			updateDogs(delta);
+			
+			// Health
+			healthmeter->setString(StringUtils::format("%d", GameManager::sharedGameManager()->health));
+
 			// Filter
 			if (Black_Filter->getOpacity() != 0) {
 				// Start smoothly fading the filter to 0 opacity
@@ -338,7 +338,6 @@ void HelloWorld::updateGame(float delta)
 			}
 		}
 		else if (GameManager::sharedGameManager()->getIsGamePaused() == true) {
-			Black_Filter->setGlobalZOrder(200);
 			if (Black_Filter->getOpacity() != 127) {
 				// Start smoothly fading the filter to 127 opacity
 				int currOpac = Black_Filter->getOpacity();
@@ -361,25 +360,29 @@ void HelloWorld::updateGame(float delta)
 
 void HelloWorld::updateDogs(float delta)
 {
-	int b0;
 	if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
 	{
-		b0 = cocos2d::RandomHelper::random_int(0, 65535);
-		if (b0 % 4==0)
-		{
-			Dog* sausage = new Dog(b0%3, "dachs", this, Vec2(-32.0f, 32.0f));
-			dogs.pushBack(sausage);
-		}
-		else if (b0 % 4 == 1) { Dog* gnob = new Dog(b0%3, "abyssinianwirehairedtripe", this, Vec2(-32.0f, 32.0f)); dogs.pushBack(gnob); }
-		else if (b0 % 4 == 2) { Dog* pollux = new Dog(b0%3, "skye", this, Vec2(-64.0f, 0.0f)); dogs.pushBack(pollux); }
-		else if (b0 % 4 == 3) { Dog* peanus = new Dog(b0%3, "beagle", this, Vec2(-32.0f, 12.0f)); dogs.pushBack(peanus); }
+		dogs.pushBack(newDog());
 	}
 	for (int i = 0; i < (GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)-1; i++) {
 		Dog* d0 = dogs.at(i);
-		d0->update(player->currentLane);
+		d0->update(player->currentLane, inTouch);
 		// if dog has gone offscreen, renew its existence
-		if (d0->destroy) { b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % 4 == 0) d0->reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f)); else if (b0 % 4 == 1) d0->reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f)); else if (b0 % 4 == 2) d0->reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f)); else if (b0 % 4 == 3) d0->reset(b0 % 3, "beagle", Vec2(-32.0f, 12.0f)); }
+		if (d0->destroy) { int b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % 4 == 0) d0->reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f), 20); else if (b0 % 4 == 1) d0->reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f), 20); else if (b0 % 4 == 2) d0->reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f), 20); else if (b0 % 4 == 3) d0->reset(b0 % 3, "beagle", Vec2(-32.0f, 12.0f), 20); }
 	}
+}
+
+Dog* HelloWorld::newDog()
+{
+	int b0 = cocos2d::RandomHelper::random_int(0, 65535);
+	int range = (int)(GameManager::sharedGameManager()->getPlayerSpeed() / 1000) + 3;
+	if (b0 % range == 0) { Dog* sausage = new Dog(b0 % 3, "dachs", this, Vec2(-32.0f, 32.0f), 20); return sausage; }
+	else if (b0 % range == 1) { Dog* gnob = new Dog(b0 % 3, "abyssinianwirehairedtripe", this, Vec2(-32.0f, 32.0f), 20); return gnob; }
+	else if (b0 % range == 2) { Dog* pollux = new Dog(b0 % 3, "skye", this, Vec2(-64.0f, 0.0f), 20); return pollux; }
+	else if (b0 % range == 3) { Dog* peanus = new Dog(b0 % 3, "beagle", this, Vec2(-32.0f, 12.0f), 20); return peanus; }
+	else if (b0 % range == 4) { ScottishTerrier* ofthejedi = new ScottishTerrier(b0 % 3, this); return ofthejedi; }            // note only new 'dogs' can be 'obstacles'
+	else if (b0 % range == 5) { Obstacle* tooz = new Obstacle(b0 % 3, this); return tooz; }
+	else return newDog(); // keep trying until a dog is made successfully. prevents range-based dog generation bias.
 }
 
 void HelloWorld::updateCredits(float delta)
@@ -388,28 +391,12 @@ void HelloWorld::updateCredits(float delta)
 
 	// Check if credits have exited the screen
 	// REMEMBER - Anchor point is taken at (0, 1) [Normalized coords]
-	if ((Credit_Text->getPositionY() - Credit_Text->getContentSize().height) > winSize.height) {
+	if ((Credit_Text->getPositionY() - Credit_Text->getContentSize().height) > tree[0]->getPositionY()-(tree[0]->getBoundingBox().size.height/2)) {
 		EndCredits();
 	}
-	else {
-		int currOpac = Black_Filter->getOpacity();
+	Credit_Text->setPosition(Vec2(Credit_Text->getPositionX() + (delta * 0.0f),
+	Credit_Text->getPositionY() + (delta * 150.0f)));
 
-		// If scenes have just switched, the black filter's opacity needs to slowly increase for a smooth fade transition
-		if (currOpac <= 255) {	// 255 because opacity is stored as an unsigned char
-			int nextOpac = currOpac + 5;
-
-			// Check that currOpac will not exeed 255 next update
-			if (nextOpac <= 255) {
-				Black_Filter->setOpacity(nextOpac);
-			}
-			else {
-				Black_Filter->setOpacity(255);
-			}
-		}
-
-		Credit_Text->setPosition(Vec2(Credit_Text->getPositionX() + (delta * 0.0f),
-			Credit_Text->getPositionY() + (delta * 150.0f)));
-	}
 }
 
 void HelloWorld::updateParallaxBackground(float delta)
@@ -467,107 +454,53 @@ void HelloWorld::updateParallaxBackground(float delta)
 	// Tree
 	float treeSpeed = GameManager::sharedGameManager()->getTreeSpeed() * delta;
 	// If tree is offscreen, give it a CHANCE to come back onscreen to stop same tree pattern emerging
-	if (tree1->getPositionX() + tree1->getTextureRect().getMaxX() < 0) {
-		int limiter = (int)winSize.width + tree1->getTextureRect().getMaxX();
-		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
-		tree1->setPositionX(randomTree);
-	}
-	else {
-		tree1->setPositionX(tree1->getPositionX() + treeSpeed);
-	}
-	if (tree2->getPositionX() + tree2->getTextureRect().getMaxX() < 0) {
-		int limiter = (int)winSize.width + tree2->getTextureRect().getMaxX();
-		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
-		tree2->setPositionX(randomTree);
-	}
-	else {
-		tree2->setPositionX(tree2->getPositionX() + treeSpeed);
-	}
-	if (tree3->getPositionX() + tree3->getTextureRect().getMaxX() < 0) {
-		int limiter = (int)winSize.width + tree3->getTextureRect().getMaxX();
-		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
-		tree3->setPositionX(randomTree);
-	}
-	else {
-		tree3->setPositionX(tree3->getPositionX() + treeSpeed);
-	}
-	if (tree4->getPositionX() + tree4->getTextureRect().getMaxX() < 0) {
-		int limiter = (int)winSize.width + tree4->getTextureRect().getMaxX();
-		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
-		tree4->setPositionX(randomTree);
-	}
-	else {
-		tree4->setPositionX(tree4->getPositionX() + treeSpeed);
-	}
-	if (tree5->getPositionX() + tree5->getTextureRect().getMaxX() < 0) {
-		int limiter = (int)winSize.width + tree5->getTextureRect().getMaxX();
-		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
-		tree5->setPositionX(randomTree);
-	}
-	else {
-		tree5->setPositionX(tree5->getPositionX() + treeSpeed);
-	}
-	if (tree6->getPositionX() + tree6->getTextureRect().getMaxX() < 0) {
-		int limiter = (int)winSize.width + tree6->getTextureRect().getMaxX();
-		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
-		tree6->setPositionX(randomTree);
-	}
-	else {
-		tree6->setPositionX(tree6->getPositionX() + treeSpeed);
-	}
-	if (tree7->getPositionX() + tree7->getTextureRect().getMaxX() < 0) {
-		int limiter = (int)winSize.width + tree7->getTextureRect().getMaxX();
-		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
-		tree7->setPositionX(randomTree);
-	}
-	else {
-		tree7->setPositionX(tree7->getPositionX() + treeSpeed);
-	}
-	if (tree8->getPositionX() + tree8->getTextureRect().getMaxX() < 0) {
-		int limiter = (int)winSize.width + tree8->getTextureRect().getMaxX();
-		int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
-		tree8->setPositionX(randomTree);
-	}
-	else {
-		tree8->setPositionX(tree8->getPositionX() + treeSpeed);
-	}
+	for (int b0=0;b0<8;b0++)
+		if (tree[b0]->getPositionX() + tree[b0]->getTextureRect().getMaxX() < 0) {
+			int limiter = (int)winSize.width + tree[b0]->getTextureRect().getMaxX();
+			int randomTree = cocos2d::RandomHelper::random_int(limiter, (limiter * 2));
+			tree[b0]->setPositionX(randomTree);
+		}
+		else {
+			tree[b0]->setPositionX(tree[b0]->getPositionX() + treeSpeed);
+		}
 
 	// Tracks
 	float trackSpeed = 0.5 * GameManager::sharedGameManager()->getIncomingSpeed();
 	if (delta > 1) initTracksPositions();
 	else trackSpeed = GameManager::sharedGameManager()->getIncomingSpeed() * delta;
-	track1->setPositionX(track1->getPositionX() + trackSpeed);
-	track2->setPositionX(track2->getPositionX() + trackSpeed);
-	track3->setPositionX(track3->getPositionX() + trackSpeed);
-	track4->setPositionX(track4->getPositionX() + trackSpeed);
-	track5->setPositionX(track5->getPositionX() + trackSpeed);
-	track6->setPositionX(track6->getPositionX() + trackSpeed);
-	// Check if track is offscreen, if so, move sky image to the end of second sky image
-	if (track1->getPositionX() + track1->getTextureRect().getMaxX() < 0) {
-		track1->setPositionX(track4->getTextureRect().getMaxX() + (track4->getPosition().x));
-		track2->setPositionX(track5->getTextureRect().getMaxX() + (track5->getPosition().x));
-		track3->setPositionX(track6->getTextureRect().getMaxX() + (track6->getPosition().x));
-	}
-	else if (track4->getPositionX() + track4->getTextureRect().getMaxX() < 0) {
-		track4->setPositionX(track1->getTextureRect().getMaxX() + (track1->getPosition().x));
-		track5->setPositionX(track2->getTextureRect().getMaxX() + (track2->getPosition().x));
-		track6->setPositionX(track3->getTextureRect().getMaxX() + (track3->getPosition().x));
+	for (int b0 = 0; b0 < 6; b0++)
+	{
+		track[b0]->setPositionX(track[b0]->getPositionX() + trackSpeed);
+		// Check if track is offscreen, if so, move track to the end of second track
+		if (track[b0]->getPositionX() + track[b0]->getTextureRect().getMaxX() < 0) {
+			if (b0 < 3){
+				track[0]->setPositionX(track[3]->getTextureRect().getMaxX() + (track[3]->getPosition().x));
+				track[1]->setPositionX(track[4]->getTextureRect().getMaxX() + (track[4]->getPosition().x));
+				track[2]->setPositionX(track[5]->getTextureRect().getMaxX() + (track[5]->getPosition().x));
+			}
+			else
+			{
+				track[3]->setPositionX(track[0]->getTextureRect().getMaxX() + (track[0]->getPosition().x));
+				track[4]->setPositionX(track[1]->getTextureRect().getMaxX() + (track[1]->getPosition().x));
+				track[5]->setPositionX(track[2]->getTextureRect().getMaxX() + (track[2]->getPosition().x));
+			}
+		}
 	}
 }
 
 void HelloWorld::initTracksPositions()
 {
-	track1->setPosition(Vec2(888.0f, 108.0f));
-	track2->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 2)));
-	track3->setPosition(Vec2(888.0f, track1->getPositionY() + (track1->getPositionY() * 4)));
-	track4->setPosition(Vec2((track1->getPosition().x + track1->getTextureRect().getMaxX()), track1->getPositionY()));
-	track5->setPosition(Vec2((track2->getPosition().x + track2->getTextureRect().getMaxX()), (track1->getPositionY() * 3)));
-	track6->setPosition(Vec2((track3->getPosition().x + track3->getTextureRect().getMaxX()), (track1->getPositionY() * 5)));
+	track[0]->setPosition(Vec2(888.0f, 108.0f));
+	track[1]->setPosition(Vec2(888.0f, track[0]->getPositionY() + (track[0]->getPositionY() * 2)));
+	track[2]->setPosition(Vec2(888.0f, track[0]->getPositionY() + (track[0]->getPositionY() * 4)));
+	track[3]->setPosition(Vec2((track[0]->getPosition().x + track[0]->getTextureRect().getMaxX()), track[0]->getPositionY()));
+	track[4]->setPosition(Vec2((track[1]->getPosition().x + track[1]->getTextureRect().getMaxX()), (track[0]->getPositionY() * 3)));
+	track[5]->setPosition(Vec2((track[2]->getPosition().x + track[2]->getTextureRect().getMaxX()), (track[0]->getPositionY() * 5)));
 }
 
 void HelloWorld::StartButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
 {
-		CCLOG("I touched the start, and I liked it! %d", type);
+		CCLOG("bloodbath started %d", type);
 
 		if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
 		{
@@ -577,7 +510,7 @@ void HelloWorld::StartButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEvent
 
 void HelloWorld::CreditsButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventType type)
 {
-	CCLOG("But what if there's an after-credits sequence? %d", type);
+	CCLOG("crediting started %d", type);
 
 	if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
 	{
@@ -592,15 +525,13 @@ void HelloWorld::MuteButtonPressed(Ref *sender, cocos2d::ui::Widget::TouchEventT
 		if (muted == false) {
 			muted = true;
 			Mute_Button->setBright(false);
-
-			CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-			CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
+			NoiseManager::sharedNoiseManager()->PauseBGM();
+			NoiseManager::sharedNoiseManager()->PauseSFX();
 		}
 		else if (muted == true) {
 			muted = false;
 			Mute_Button->setBright(true);
-
-			CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+			NoiseManager::sharedNoiseManager()->ResumeBGM();
 		}
 	}
 }
@@ -635,10 +566,10 @@ void HelloWorld::StartMainMenu()
 {
 	scene = 1;
 
-	auto startMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 471.0f)); // Take half a second to move off screen.
+	auto startMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 471.0f)); // Take half a second to move on screen.
 	Start_Button->runAction(startMoveTo);
 
-	auto creditsMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 249.0f)); // Take half a second to move off screen.
+	auto creditsMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 249.0f)); // Take half a second to move on screen.
 	Credits_Button->runAction(creditsMoveTo);
 }
 
@@ -711,6 +642,9 @@ void HelloWorld::EndGame()
 	// Reset Speeds
 	GameManager::sharedGameManager()->resetSpeeds();
 
+	// Reset Health
+	GameManager::sharedGameManager()->resetHealth();
+
 	// Reset all objects to the default position
 	initCocosElements();
 
@@ -721,7 +655,8 @@ void HelloWorld::StartCredits()
 {
 	auto winSize = Director::getInstance()->getVisibleSize();
 	scene = 3;
-
+	for (int b0 = 0; b0 < 6; b0++) track[b0]->runAction(FadeOut::create(0.5f));
+	for (int b0 = 0; b0 < 8; b0++) tree[b0]->runAction(FadeOut::create(0.25f));
 	//Set up credit text
 	Credit_Text->setPosition(Vec2(840.0f, 0.0f));
 	Credit_Text->setVisible(true);
@@ -736,24 +671,10 @@ void HelloWorld::StartCredits()
 
 void HelloWorld::EndCredits()
 {
-	// Start smoothly fading the filter back to menu opacity (50% - 127 unsigned char)
-	int currOpac = Black_Filter->getOpacity();
-
-	if (currOpac >= 127) {	// 255 because opacity is stored as an unsigned char
-		int nextOpac = currOpac - 5;
-
-		// Check that currOpac will not fall below 127 next update
-		if (nextOpac > 127) {
-			Black_Filter->setOpacity(nextOpac);
-		}
-		else {
-			Black_Filter->setOpacity(127);
-
-			// Transition complete, remove stray elements and start menu scene
-			Credit_Text->setVisible(false);
-			StartMainMenu();
-		}
-	}
+	for (int b0 = 0; b0 < 6; b0++) track[b0]->runAction(FadeIn::create(0.5f));
+	for (int b0 = 0; b0 < 8; b0++) tree[b0]->runAction(FadeIn::create(0.75f));
+	Credit_Text->setVisible(false);
+	StartMainMenu();
 }
 
 bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
@@ -765,6 +686,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 		touchPos = convertToNodeSpace(touchPos);
 
 		initialTouchPos = touchPos;
+		inTouch = true;
 		return true;
 	}
 	else {
@@ -775,6 +697,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 void HelloWorld::onTouchEnded(cocos2d::Touch*, cocos2d::Event*)
 {
 	if (GameManager::sharedGameManager()->getIsGameLive() == true) {
+		inTouch = false;
 		if (touchMoved == true)	// Deal with a touch-slide
 		{
 			int minimumMoved = 200;	// 200px must have been moved across to make Bob change lanes
@@ -801,6 +724,7 @@ void HelloWorld::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
 {
 	if (GameManager::sharedGameManager()->getIsGameLive() == true) {
 		touchMoved = true;
+		inTouch = false; // can't behead from a slide
 
 		// Keep updating the final coords until this method is no longer called
 		Point touchPos = touch->getLocationInView();

@@ -21,25 +21,13 @@ private:
 	cocos2d::ui::Button*	Credits_Button;
 
 	// Backgrounds
-	cocos2d::Sprite*		track1;
-	cocos2d::Sprite*		track2;
-	cocos2d::Sprite*		track3;
-	cocos2d::Sprite*		track4;
-	cocos2d::Sprite*		track5;
-	cocos2d::Sprite*		track6;
+	cocos2d::Sprite*		track[6];
 	cocos2d::Sprite*		sky1;
 	cocos2d::Sprite*		sky2;
 	cocos2d::Sprite*		mountain1;
 	cocos2d::Sprite*		mountain2;
 	cocos2d::Sprite*		mountain3;
-	cocos2d::Sprite*		tree1;
-	cocos2d::Sprite*		tree2;
-	cocos2d::Sprite*		tree3;
-	cocos2d::Sprite*		tree4;
-	cocos2d::Sprite*		tree5;
-	cocos2d::Sprite*		tree6;
-	cocos2d::Sprite*		tree7;
-	cocos2d::Sprite*		tree8;
+	cocos2d::Sprite*		tree[8];
 
 	// Translucent Colour Blocks
 	cocos2d::Sprite*		Black_Filter;	// 50% Opacity
@@ -58,6 +46,7 @@ private:
 	cocos2d::ui::Button*	Mute_Button;
 	cocos2d::Sprite*		UI_Background;
 	cocos2d::ui::Text*		score;
+	cocos2d::ui::Text*		healthmeter;
 
 	// Pause
 	cocos2d::ui::Button*    Resume_Button;
@@ -69,8 +58,10 @@ private:
 
 	// Touch Events
 	bool touchMoved;
+	bool inTouch;
 	cocos2d::Vec2 initialTouchPos;
 	cocos2d::Vec2 finalTouchPos;
+
 public:
 	cocos2d::Vector<Dog*> dogs;
 
@@ -93,6 +84,7 @@ public:
 	void updateCredits(float);
 	void updateParallaxBackground(float);
 	void updateDogs(float);
+	Dog* newDog();
 
 	// Deal with touches.
 	virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);

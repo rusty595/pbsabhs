@@ -44,10 +44,8 @@ void Player::update(float deltaTime)
 
 void Player::setOffscreenPos(Sprite* player)
 {
-	//laneTwoY = laneTwoY;
 	int boundingBoxWidth = player->getBoundingBox().size.width;
 	float x = 0.0f - (0.5f * boundingBoxWidth);
-	//float x = 200.0f;
 	float y = GameManager::sharedGameManager()->laneY[1];
 	player->setPosition(Vec2(x, y));
 }
@@ -79,7 +77,7 @@ bool Player::isReady(Sprite* player)
 	}
 }
 
-void Player::moveUpLane(Sprite* player) 
+void Player::moveUpLane(Sprite* player)
 {
 	if (currentLane == 0) {
 		// Bottom Lane
@@ -91,7 +89,7 @@ void Player::moveUpLane(Sprite* player)
 	}
 	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
-	if (!NoiseManager::sharedNoiseManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/up.wav"); NoiseManager::sharedNoiseManager()->isSoundEffectPlaying = true; NoiseManager::sharedNoiseManager()->currSFlength = 0.095; }
+	NoiseManager::sharedNoiseManager()->PlaySFX((char*)"up");
 }
 
 void Player::moveDownLane(Sprite* player)
@@ -106,7 +104,7 @@ void Player::moveDownLane(Sprite* player)
 	}
 	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
-	if (!NoiseManager::sharedNoiseManager()->isSoundEffectPlaying){ CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Resources/Audio/dn.wav"); NoiseManager::sharedNoiseManager()->isSoundEffectPlaying = true; NoiseManager::sharedNoiseManager()->currSFlength = 0.09; }
+	NoiseManager::sharedNoiseManager()->PlaySFX((char*)"dn");
 }
 
 Player::Player()

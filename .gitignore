@@ -20,16 +20,6 @@ profile
 xcuserdata
 .idea/*
 
-# Visual Studio
-*.sdf
-*.opensdf
-proj.win32/Debug.win32/*
-OGLdpf.log
-*.suo
-
-# Windows
-*humbs.db
-
 # Cocoa pods
 *.old
 Pods/*
@@ -58,7 +48,13 @@ out/
 *.tgz
 *.gtgz
 
-#Visual Studio files that are not likely needed, SDF files and debug folder
-*opensdf
-*sdf
-**/Debug.win32/
+# Visual Studio
+*.sdf
+*.opensdf
+proj.win32/Debug.win32/*
+OGLdpf.log
+*.suo
+*.pdb
+
+# Windows
+*humbs.db
