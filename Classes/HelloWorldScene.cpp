@@ -60,11 +60,11 @@ bool HelloWorld::init()
 	muted = false;
 	auto b0 = cocos2d::RandomHelper::random_int(0, 65535);
 	if (b0 != 0){
-		NoiseManager::sharedNoiseManager()->PlayBGM("dogs");
+		NoiseManager::sharedNoiseManager()->PlayBGM((char*)"dogs");
 	}
 	else
 	{
-		NoiseManager::sharedNoiseManager()->PlayBGM("no");
+		NoiseManager::sharedNoiseManager()->PlayBGM((char*)"no");
 	}
 
 	this->scheduleUpdate();

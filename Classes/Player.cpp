@@ -44,7 +44,7 @@ void Player::update(float deltaTime)
 
 void Player::setOffscreenPos(Sprite* player)
 {
-	int boundingBoxWidth = player->boundingBox().size.width;
+	int boundingBoxWidth = player->getBoundingBox().size.width;
 	float x = 0.0f - (0.5f * boundingBoxWidth);
 	float y = GameManager::sharedGameManager()->laneY[1];
 	player->setPosition(Vec2(x, y));
@@ -89,7 +89,7 @@ void Player::moveUpLane(Sprite* player)
 	}
 	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
-	NoiseManager::NoiseManager().PlaySFX("up");
+	NoiseManager::sharedNoiseManager()->PlaySFX((char*)"up");
 }
 
 void Player::moveDownLane(Sprite* player)
@@ -104,7 +104,7 @@ void Player::moveDownLane(Sprite* player)
 	}
 	auto moveTo = MoveTo::create(0.25f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[currentLane])); // Take half a second to move into position.
 	player->runAction(moveTo);
-	NoiseManager::NoiseManager().PlaySFX("dn");
+	NoiseManager::sharedNoiseManager()->PlaySFX((char*)"dn");
 }
 
 Player::Player()
