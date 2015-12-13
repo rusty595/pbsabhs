@@ -18,6 +18,7 @@ private:
 	float	skyMultiplier;
 	float	mountainMultiplier;
 	float	treeMultiplier;
+
 public:
 	float laneY[3];
 	int health = 3;
