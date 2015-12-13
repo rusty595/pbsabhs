@@ -20,6 +20,7 @@ private:
 	float	treeMultiplier;
 public:
 	float laneY[3];
+	int health = 3;
 
 	~GameManager();
 	static GameManager* sharedGameManager();
@@ -39,4 +40,5 @@ public:
 	float getIncomingSpeed();
 
 	void resetSpeeds();
+	void resetHealth(){ health = 3; }
 };
