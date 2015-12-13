@@ -60,6 +60,7 @@ public:
 		scene->addChild(head);
 		head->setTexture("Resources/Sprites/Dogs/heads/" + dog + ".png");
 		head->setPosition(body->getPositionX() + headoffset.x, body->getPositionY() + headoffset.y);
+		head->setRotation(0);
 		headx = headoffset.x;
 		if (dog.compare("abyssinianwirehairedtripe") == 0) { head->setAnchorPoint(Vec2(0, 1)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() + 32); }
 		else if (dog.compare("skye") == 0) { head->setAnchorPoint(Vec2(0, 0)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() - body->getTextureRect().size.height); }
@@ -75,6 +76,7 @@ public:
 		else if (BobLane == currentLane && x <= Bob && !dead && x > 150.0f) kill(behead);
 		if (beheaded)
 		{
+			if (head->getRotation()>-180.0f) head->setPositionY(head->getPositionY() - 1); 
 			head->setRotation(head->getRotation() - 1);
 		}
 		else if (dead){ head->setPositionY(head->getPositionY() - 1); }
