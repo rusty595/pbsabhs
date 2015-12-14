@@ -30,11 +30,11 @@ private:
 			beheaded = behead;
 			
 			if (!beheaded) {
-				NoiseManager::NoiseManager().PlaySFX((char*)"chord");
+				NoiseManager::sharedNoiseManager()->PlaySFX((char*)"chord");
 				ScoreManager::sharedScoreManager()->addToScore(score);
 			}
 			else if (beheaded) {
-				NoiseManager::NoiseManager().PlaySFX((char*)"sound240");
+				NoiseManager::sharedNoiseManager()->PlaySFX((char*)"sound240");
 				ScoreManager::sharedScoreManager()->addToScore(score*1.75);
 			}
 		}
