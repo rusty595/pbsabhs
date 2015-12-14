@@ -21,6 +21,8 @@ private:
 
 public:
 	float laneY[3];
+
+	// Health
 	int health = 3;
 
 	~GameManager();
@@ -40,6 +42,11 @@ public:
 	float getTreeSpeed();
 	float getIncomingSpeed();
 
+	void addToHealth(int health);
+	void subtractFromHealth(int health);
+	int getHealth() { return health; };
+
+	// Reset Methods
 	void resetSpeeds();
 	void resetHealth(){ health = 3; }
 };

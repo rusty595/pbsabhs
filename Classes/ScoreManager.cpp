@@ -129,15 +129,10 @@ void ScoreManager::storeHighscoreToFile(int highScore)
 		value += StringUtils::format("\n<data>");
 		value += StringUtils::format("\n\t<highscore>%d</highscore>", highScore);
 		value += StringUtils::format("\n</data>");
-		//std::string value = StringUtils::format("%d", highScore);
 
 		fputs(value.c_str(), fp);
 		fclose(fp);
 	}
-
-	
-
-
 }
 
 int ScoreManager::getHighscoreFromFile()

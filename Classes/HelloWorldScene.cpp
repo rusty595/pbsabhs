@@ -147,6 +147,8 @@ void HelloWorld::initNodes()
 	Resume_Button = static_cast<ui::Button*>(rootNode->getChildByName("Resume_Button"));
 	Exit_Button = static_cast<ui::Button*>(rootNode->getChildByName("Exit_Button"));
 
+	Logo = (Sprite*)rootNode->getChildByName("Logo");
+
 	Pause_Score = (ui::Text*)rootNode->getChildByName("Pause_Score");
 	Pause_Highscore = (ui::Text*)rootNode->getChildByName("Pause_Highscore");
 	score = (ui::Text*)UINode->getChildByName("Score");
@@ -189,12 +191,16 @@ void HelloWorld::initCocosElements()
 	Credits_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::CreditsButtonPressed, this));
 	Start_Button->setPosition(Vec2(winSize.width + Start_Button->getBoundingBox().getMaxX(), Start_Button->getPositionY()));
 	Credits_Button->setPosition(Vec2(winSize.width + Credits_Button->getBoundingBox().getMaxX(), Credits_Button->getPositionY()));
+	Logo->setPosition(Vec2(0 - Logo->getBoundingBox().getMaxX(), Logo->getPositionY()));
 
 	auto startMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 471.0f)); // Take half a second to move off screen.
 	Start_Button->runAction(startMoveTo);
 
 	auto creditsMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 249.0f)); // Take half a second to move off screen.
 	Credits_Button->runAction(creditsMoveTo);
+
+	auto logoMoveTo = MoveTo::create(0.5, Vec2(winSize.width / 2, winSize.height / 2));
+	Logo->runAction(logoMoveTo);
 
 	Mute_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::MuteButtonPressed, this));
 	Pause_Button->setPosition(Vec2(63.0f, 1025.5f));
@@ -595,6 +601,9 @@ void HelloWorld::StartGame()
 
 	auto creditsMoveTo = MoveTo::create(0.5, Vec2(winSize.width + Credits_Button->getBoundingBox().getMaxX(), Credits_Button->getPositionY())); // Take half a second to move off screen.
 	Credits_Button->runAction(creditsMoveTo);
+
+	auto logoMoveTo = MoveTo::create(0.5, Vec2(0 - Logo->getBoundingBox().getMaxX(), Logo->getPositionY()));
+	Logo->runAction(logoMoveTo);
 
 	Mute_Button->setVisible(false);
 	inTouch = false;

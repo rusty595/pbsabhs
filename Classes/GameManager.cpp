@@ -140,6 +140,16 @@ float GameManager::getIncomingSpeed()
 	return speed;
 }
 
+void addToHealth(int health)
+{
+	//TODO
+}
+
+void subtractFromHealth(int health)
+{
+	//TODO
+}
+
 void GameManager::resetSpeeds()
 {
 	secondCheck = 0;
