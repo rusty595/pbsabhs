@@ -19,10 +19,11 @@ private:
 	float	mountainMultiplier;
 	float	treeMultiplier;
 
-	// Health
-	int health = 3;
 public:
 	float laneY[3];
+
+	// Health
+	int health = 3;
 
 	~GameManager();
 	static GameManager* sharedGameManager();

@@ -33,6 +33,7 @@ private:
 	cocos2d::Sprite*		Black_Filter;	// 50% Opacity
 
 	// Text
+	cocos2d::Sprite*		Logo;
 	cocos2d::ui::Text*		Credit_Text;
 	cocos2d::ui::Text*		Pause_Score;
 	cocos2d::ui::Text*		Pause_Highscore;
