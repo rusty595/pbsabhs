@@ -17,8 +17,8 @@ void AppDelegate::initGLContextAttrs()
 {
     //set OpenGL context attributions,now can only set six attributions:
     //red,green,blue,alpha,depth,stencil
-    GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
-
+    //GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
+	GLContextAttrs glContextAttrs = { 6, 6, 6, 1, 18, 8 };
     GLView::setGLContextAttrs(glContextAttrs);
 }
 
@@ -35,7 +35,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->getOpenGLView()->setDesignResolutionSize(1776, 1080, ResolutionPolicy::EXACT_FIT);
 
     // turn on display FPS
-    director->setDisplayStats(true);
+    //director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
