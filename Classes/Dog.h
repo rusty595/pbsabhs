@@ -62,7 +62,7 @@ public:
 		head->setPosition(body->getPositionX() + headoffset.x, body->getPositionY() + headoffset.y);
 		head->setRotation(0);
 		headx = headoffset.x;
-		if (dog.compare("abyssinianwirehairedtripe") == 0) { head->setAnchorPoint(Vec2(0, 1)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() + 32); }
+		if (dog.compare("abyssinianwirehairedtripe") == 0) { head->setAnchorPoint(Vec2(0, 0)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() - 72); }
 		else if (dog.compare("skye") == 0) { head->setAnchorPoint(Vec2(0, 0)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() - body->getTextureRect().size.height); }
 		score = Score;
 	}
@@ -71,13 +71,18 @@ public:
 
 	bool destroy = false; // whether to reset the dog or not
 
-	void update(int BobLane, bool behead){ x--; if (x < -256) destroy = true; body->setPositionX(x); head->setPositionX(x + headx);
+	void update(int BobLane, bool behead, float delta){
+		float s = 0.5 * GameManager::sharedGameManager()->getIncomingSpeed();
+		if (delta < 1) s = GameManager::sharedGameManager()->getIncomingSpeed() * delta;
+		x+=s; 
+		//x--;
+		if (x < -256) destroy = true; body->setPositionX(x); head->setPositionX(x + headx);
 		if (BobLane == currentLane && x < Bob + 100 && !dead && x > Bob && behead) kill(behead);
 		else if (BobLane == currentLane && x <= Bob && !dead && x > 150.0f) kill(behead);
 		if (beheaded)
 		{
-			if (head->getRotation()>-180.0f) head->setPositionY(head->getPositionY() - 1); 
-			head->setRotation(head->getRotation() - 1);
+			if (head->getRotation()<-180.0f) head->setPositionY(head->getPositionY() - 1); 
+			if (head->getRotation()>-270.0f) head->setRotation(head->getRotation() - 1);
 		}
 		else if (dead){ head->setPositionY(head->getPositionY() - 1); }
 	}
@@ -96,7 +101,7 @@ public:
 		head->setPosition(body->getPositionX() + headoffset.x, body->getPositionY() + headoffset.y);
 		head->setRotation(0);
 		headx = headoffset.x;
-		if (dog.compare("abyssinianwirehairedtripe") == 0) { head->setAnchorPoint(Vec2(0.0f, 1.0f)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() + 32); }
+		if (dog.compare("abyssinianwirehairedtripe") == 0) { head->setAnchorPoint(Vec2(0.0f, 0.0f)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() - 72); }
 		else if (dog.compare("skye") == 0) { head->setAnchorPoint(Vec2(0.0f, 0.0f)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() - body->getTextureRect().size.height); }
 		score = Score;
 	}
