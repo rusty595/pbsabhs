@@ -42,6 +42,10 @@
             <Image Name="kuredito1.png" />
             <Image Name="Button_Normal.png" />
             <Image Name="Button_Press.png" />
+            <Image Name="continyuu.png" />
+            <Image Name="continyuu1.png" />
+            <Image Name="egujitto.png" />
+            <Image Name="egujitto1.png" />
           </Folder>
           <Folder Name="UI">
             <Image Name="PauseButtonPressed.png" />

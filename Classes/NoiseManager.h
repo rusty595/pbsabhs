@@ -4,22 +4,27 @@
 #include "cocostudio/CocoStudio.h"
 #include "SimpleAudioEngine.h"
 #include "editor-support/cocostudio/cccomaudio.h"
+#include <stdio.h>
+#include <iostream>
 
 class NoiseManager
 {
-	NoiseManager(){};
 	static NoiseManager* instance;
 
 	// SFX
 	float timeSinceEffectStart = 0.0f;
-
-public:
 	bool isSoundEffectPlaying = false;
 	float currSFlength;
 
+public:
 	void updateSFXState(float delta);
-	void Play(char*);
+	void PlaySFX(char*);
+	void PlayBGM(char*);
+	void PauseBGM();
+	void PauseSFX();
+	void ResumeBGM();
 
-	~NoiseManager();
+	NoiseManager(){};
+	~NoiseManager(){};
 	static NoiseManager* sharedNoiseManager();
 };

@@ -7,7 +7,7 @@ GameManager::GameManager()
 	isGameLive = false;
 	isGamePaused = false;
 	secondCheck = 0.0f;
-	playerSpeed = 0.0f;
+	playerSpeed = 1000.0f;
 	skyMultiplier = 0.002f;
 	mountainMultiplier = 0.04f;
 	treeMultiplier = 0.4f;

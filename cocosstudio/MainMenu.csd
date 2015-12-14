@@ -47,7 +47,7 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Resume_Button" ActionTag="-1890875245" Tag="6" IconVisible="False" HorizontalEdge="BothEdge" LeftMargin="588.0000" RightMargin="588.0000" TopMargin="533.5162" BottomMargin="396.4838" TouchEnable="True" FontSize="48" ButtonText="Resume Game" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+          <AbstractNodeData Name="Resume_Button" ActionTag="-1890875245" Tag="6" IconVisible="False" HorizontalEdge="BothEdge" LeftMargin="588.0000" RightMargin="588.0000" TopMargin="533.5162" BottomMargin="396.4838" TouchEnable="True" FontSize="48" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="570" Scale9Height="128" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
             <Size X="600.0000" Y="150.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="888.0000" Y="471.4838" />
@@ -57,12 +57,12 @@
             <PreSize X="0.3378" Y="0.1389" />
             <TextColor A="255" R="65" G="65" B="70" />
             <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
-            <PressedFileData Type="Normal" Path="Resources/Buttons/Button_Press.png" Plist="" />
-            <NormalFileData Type="Normal" Path="Resources/Buttons/Button_Normal.png" Plist="" />
+            <PressedFileData Type="Normal" Path="Resources/Buttons/continyuu1.png" Plist="" />
+            <NormalFileData Type="Normal" Path="Resources/Buttons/continyuu.png" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Exit_Button" ActionTag="261604584" Tag="7" IconVisible="False" HorizontalEdge="BothEdge" LeftMargin="588.0000" RightMargin="588.0000" TopMargin="755.5172" BottomMargin="174.4828" TouchEnable="True" FontSize="48" ButtonText="Exit" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+          <AbstractNodeData Name="Exit_Button" ActionTag="261604584" Tag="7" IconVisible="False" HorizontalEdge="BothEdge" LeftMargin="588.0000" RightMargin="588.0000" TopMargin="755.5172" BottomMargin="174.4828" TouchEnable="True" FontSize="48" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="570" Scale9Height="128" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
             <Size X="600.0000" Y="150.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="888.0000" Y="249.4828" />
@@ -72,8 +72,8 @@
             <PreSize X="0.3378" Y="0.1389" />
             <TextColor A="255" R="65" G="65" B="70" />
             <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
-            <PressedFileData Type="Normal" Path="Resources/Buttons/Button_Press.png" Plist="" />
-            <NormalFileData Type="Normal" Path="Resources/Buttons/Button_Normal.png" Plist="" />
+            <PressedFileData Type="Normal" Path="Resources/Buttons/egujitto1.png" Plist="" />
+            <NormalFileData Type="Normal" Path="Resources/Buttons/egujitto.png" Plist="" />
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>

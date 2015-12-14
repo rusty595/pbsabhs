@@ -167,7 +167,6 @@ int ScoreManager::getHighscoreFromFile()
 						tempHighScore += currLine.at(i);
 					}
 
-					//highScore = stoi(tempHighScore);
 					highScore = strtod(tempHighScore.c_str(), nullptr);
 				}
 			}
@@ -180,29 +179,6 @@ int ScoreManager::getHighscoreFromFile()
 	}
 
 	return highScore;
-	//std::string contents;
-	//std::stringstream ss;
-
-	//FILE *fp = fopen(path.c_str(), "r");
-	//char buf[500] = { 0 };
-
-	//if (!fp) {
-	//	CCLOG("The file cannot be opened in %s", path.c_str());
-	//	return 0;
-	//}
-
-	//fgets(buf, 50, fp);
-	//CCLOG("Content Read %s", buf);
-
-	//ss << buf; ss >> contents;	// Move char into a stringstream, into a string
-
-	//int found = contents.find("<highscore>");
-
-	//int highscore = atoi(buf);
-
-	//fclose(fp);
-
-	//return highscore;
 }
 
 std::string ScoreManager::getFilePath()
