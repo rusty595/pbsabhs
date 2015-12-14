@@ -211,7 +211,7 @@ void HelloWorld::initCocosElements()
 	score->setPosition(Vec2(winSize.width - 40.0f, winSize.height - 45.0f));
 	healthmeter->setString(StringUtils::format("%d", GameManager::sharedGameManager()->health));
 	healthmeter->setVisible(false);
-	healthmeter->setPosition(Vec2(winSize.width - 400.0f, winSize.height - 45.0f));
+	healthmeter->setPosition(Vec2(winSize.width - 260.0f, winSize.height - 45.0f));
 	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nDog Handler:\n Sam Head\n\nDocumentation:\n David Smith\n\n");
 	Credit_Text->setAnchorPoint(Vec2(0.5f, 1.0f));
 	Credit_Text->setVisible(false);
@@ -279,6 +279,7 @@ void HelloWorld::updateGame(float delta)
 			}
 		}
 		else {
+			player->update(delta, player_sprite);
 			if (player->isReady(player_sprite) == true) {
 				GameManager::sharedGameManager()->setIsGameLive(true);
 				score->setVisible(true);
@@ -299,9 +300,11 @@ void HelloWorld::updateGame(float delta)
 		if (GameManager::sharedGameManager()->getIsGamePaused() == false) {
 			if (GameManager::sharedGameManager()->getPlayerRunning() == true) {
 				GameManager::sharedGameManager()->incrementSpeed(delta);
+				player->update(delta, player_sprite);
 			}
 			else {
 				GameManager::sharedGameManager()->setPlayerRunning(true);
+				player->update(delta, player_sprite);
 			}
 
 			// Score
@@ -366,7 +369,7 @@ void HelloWorld::updateDogs(float delta)
 	}
 	for (int i = 0; i < (GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)-1; i++) {
 		Dog* d0 = dogs.at(i);
-		d0->update(player->currentLane, inTouch);
+		d0->update(player->currentLane, inTouch, delta);
 		// if dog has gone offscreen, renew its existence
 		if (d0->destroy) { int b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % 4 == 0) d0->reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f), 20); else if (b0 % 4 == 1) d0->reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f), 20); else if (b0 % 4 == 2) d0->reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f), 20); else if (b0 % 4 == 3) d0->reset(b0 % 3, "beagle", Vec2(-32.0f, 12.0f), 20); }
 	}
@@ -375,7 +378,7 @@ void HelloWorld::updateDogs(float delta)
 Dog* HelloWorld::newDog()
 {
 	int b0 = cocos2d::RandomHelper::random_int(0, 65535);
-	int range = (int)(GameManager::sharedGameManager()->getPlayerSpeed() / 1000) + 3;
+	int range = (int)(GameManager::sharedGameManager()->getPlayerSpeed() / 1000) + 2;
 	if (b0 % range == 0) { Dog* sausage = new Dog(b0 % 3, "dachs", this, Vec2(-32.0f, 32.0f), 20); return sausage; }
 	else if (b0 % range == 1) { Dog* gnob = new Dog(b0 % 3, "abyssinianwirehairedtripe", this, Vec2(-32.0f, 32.0f), 20); return gnob; }
 	else if (b0 % range == 2) { Dog* pollux = new Dog(b0 % 3, "skye", this, Vec2(-64.0f, 0.0f), 20); return pollux; }
@@ -471,20 +474,29 @@ void HelloWorld::updateParallaxBackground(float delta)
 	for (int b0 = 0; b0 < 6; b0++)
 	{
 		track[b0]->setPositionX(track[b0]->getPositionX() + trackSpeed);
+		/*
 		// Check if track is offscreen, if so, move track to the end of second track
 		if (track[b0]->getPositionX() + track[b0]->getTextureRect().getMaxX() < 0) {
 			if (b0 < 3){
-				track[0]->setPositionX(track[3]->getTextureRect().getMaxX() + (track[3]->getPosition().x));
-				track[1]->setPositionX(track[4]->getTextureRect().getMaxX() + (track[4]->getPosition().x));
-				track[2]->setPositionX(track[5]->getTextureRect().getMaxX() + (track[5]->getPosition().x));
+				track[b0]->setPositionX(track[b0+3]->getTextureRect().getMaxX() + (track[b0+3]->getPosition().x));
 			}
 			else
 			{
-				track[3]->setPositionX(track[0]->getTextureRect().getMaxX() + (track[0]->getPosition().x));
-				track[4]->setPositionX(track[1]->getTextureRect().getMaxX() + (track[1]->getPosition().x));
-				track[5]->setPositionX(track[2]->getTextureRect().getMaxX() + (track[2]->getPosition().x));
+				track[b0]->setPositionX(track[b0-3]->getTextureRect().getMaxX() + (track[b0-3]->getPosition().x));
 			}
 		}
+		*/
+	}
+	// Check if track is offscreen, if so, move track to the end of second track
+	if (track[0]->getPositionX() + track[0]->getTextureRect().getMaxX() < 0) {
+		track[0]->setPositionX(track[3]->getTextureRect().getMaxX() + (track[3]->getPosition().x));
+		track[1]->setPositionX(track[4]->getTextureRect().getMaxX() + (track[4]->getPosition().x));
+		track[2]->setPositionX(track[5]->getTextureRect().getMaxX() + (track[5]->getPosition().x));
+	}
+	else if (track[3]->getPositionX() + track[3]->getTextureRect().getMaxX() < 0) {
+		track[3]->setPositionX(track[0]->getTextureRect().getMaxX() + (track[0]->getPosition().x));
+		track[4]->setPositionX(track[1]->getTextureRect().getMaxX() + (track[1]->getPosition().x));
+		track[5]->setPositionX(track[2]->getTextureRect().getMaxX() + (track[2]->getPosition().x));
 	}
 }
 
@@ -585,6 +597,7 @@ void HelloWorld::StartGame()
 	Credits_Button->runAction(creditsMoveTo);
 
 	Mute_Button->setVisible(false);
+	inTouch = false;
 }
 
 void HelloWorld::PauseGame()

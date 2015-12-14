@@ -9,7 +9,9 @@ private:
 	const float fixedX = 217.0f;
 	// Player Data
 	cocos2d::Vec2		pos;
-
+	// Animation data
+	float timeSinceLastFrame;
+	int currFrame=0;
 	// Game data
 	bool gameStarting;
 public:
@@ -22,7 +24,7 @@ public:
 	virtual bool init() override;
 	static Player* create();
 
-	void update(float);
+	void update(float,cocos2d::Sprite* player);
 
 	void setOffscreenPos(cocos2d::Sprite* player);
 	void moveIntoStartPos(cocos2d::Sprite* player);
