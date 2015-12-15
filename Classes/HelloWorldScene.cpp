@@ -190,10 +190,10 @@ void HelloWorld::initCocosElements()
 	Credits_Button->setPosition(Vec2(winSize.width + Credits_Button->getBoundingBox().getMaxX(), Credits_Button->getPositionY()));
 	Logo->setPosition(Vec2(0 - Logo->getBoundingBox().getMaxX(), Logo->getPositionY()));
 
-	auto startMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 471.0f)); // Take half a second to move off screen.
+	auto startMoveTo = MoveTo::create(0.5, Vec2(1431.0f, 471.0f)); // Take half a second to move off screen.
 	Start_Button->runAction(startMoveTo);
 
-	auto creditsMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 249.0f)); // Take half a second to move off screen.
+	auto creditsMoveTo = MoveTo::create(0.5, Vec2(1431.0f, 249.0f)); // Take half a second to move off screen.
 	Credits_Button->runAction(creditsMoveTo);
 
 	auto logoMoveTo = MoveTo::create(0.5, Vec2(winSize.width / 2, winSize.height / 2));
@@ -591,10 +591,10 @@ void HelloWorld::StartMainMenu()
 {
 	scene = 1;
 
-	auto startMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 471.0f)); // Take half a second to move on screen.
+	auto startMoveTo = MoveTo::create(0.5, Vec2(1431.0f, 471.0f)); // Take half a second to move on screen.
 	Start_Button->runAction(startMoveTo);
 
-	auto creditsMoveTo = MoveTo::create(0.5, Vec2(1280.0f, 249.0f)); // Take half a second to move on screen.
+	auto creditsMoveTo = MoveTo::create(0.5, Vec2(1431.0f, 249.0f)); // Take half a second to move on screen.
 	Credits_Button->runAction(creditsMoveTo);
 }
 
