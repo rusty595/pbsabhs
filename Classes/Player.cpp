@@ -41,7 +41,7 @@ bool Player::init()
 void Player::update(float deltaTime, Sprite* player)
 {
 	timeSinceLastFrame += deltaTime;
-	if (timeSinceLastFrame > pow(GameManager::sharedGameManager()->getPlayerSpeed(),-1)*100.0f)
+	if (timeSinceLastFrame > 30.0f / GameManager::sharedGameManager()->getPlayerSpeed())
 	{
 		timeSinceLastFrame = 0;
 		currFrame++;

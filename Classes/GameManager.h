@@ -32,6 +32,7 @@ public:
 	bool getIsGameLive();
 	void setIsGamePaused(bool);
 	bool getIsGamePaused();
+	bool getIsPlayerDead();
 
 	void incrementSpeed(float delta);
 	void setPlayerRunning(bool running);
