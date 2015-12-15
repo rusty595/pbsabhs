@@ -50,6 +50,11 @@ void Player::update(float deltaTime, Sprite* player)
 	}
 }
 
+void Player::setGameStarting(bool b)
+{
+	gameStarting = b;
+}
+
 void Player::setOffscreenPos(Sprite* player)
 {
 	int boundingBoxWidth = player->getBoundingBox().size.width;
@@ -67,7 +72,7 @@ void Player::moveIntoStartPos(Sprite* player)
 			auto moveTo = MoveTo::create(1.0f, Vec2(fixedX, GameManager::sharedGameManager()->laneY[1]+32)); // Take a second to move into position.
 			player->runAction(moveTo);
 
-			gameStarting = true;
+			setGameStarting(true);
 		}
 	}
 }
@@ -76,7 +81,7 @@ bool Player::isReady(Sprite* player)
 {
 	int currX = player->getPositionX();
 	if (currX == fixedX) {
-		gameStarting = false;
+		setGameStarting(false);
 
 		return true;
 	}

@@ -36,6 +36,11 @@ bool HelloWorld::init()
 	scene = 1;
 	UIMoving = false;
 
+	// Initialise player class
+	player->create();
+	player = Player::create();
+	this->addChild(player);
+
 	//TOUCHES
 	initTouchListeners();
 
@@ -44,13 +49,6 @@ bool HelloWorld::init()
 
 	//COCOS ELEMENTS
 	initCocosElements();
-
-	// Initialise player class
-	player->create();
-	player = Player::create();
-	this->addChild(player);
-	player->setOffscreenPos(player_sprite);
-	player_sprite->setVisible(true);
 
 	// Audio
 	muted = false;
@@ -225,6 +223,9 @@ void HelloWorld::initCocosElements()
 	Pause_Score->setVisible(false);
 	Pause_Highscore->setString(StringUtils::format("%d", 0));
 	Pause_Highscore->setVisible(false);
+
+	player->setOffscreenPos(player_sprite);
+	player_sprite->setVisible(true);
 }
 
 void HelloWorld::update(float delta)
@@ -267,7 +268,6 @@ void HelloWorld::updateMenu(float delta)
 void HelloWorld::updateGame(float delta)
 {
 	if (GameManager::sharedGameManager()->getIsGameLive() == false) {
-
 		if (Black_Filter->getOpacity() != 0) {
 			// Start smoothly fading the filter to 0 opacity
 			int currOpac = Black_Filter->getOpacity();
@@ -285,7 +285,9 @@ void HelloWorld::updateGame(float delta)
 			}
 		}
 		else {
+			GameManager::sharedGameManager()->setPlayerRunning(true);
 			player->update(delta, player_sprite);
+
 			if (player->isReady(player_sprite) == true) {
 				GameManager::sharedGameManager()->setIsGameLive(true);
 				score->setVisible(true);
@@ -309,7 +311,7 @@ void HelloWorld::updateGame(float delta)
 				player->update(delta, player_sprite);
 			}
 			else {
-				GameManager::sharedGameManager()->setPlayerRunning(true);
+				//GameManager::sharedGameManager()->setPlayerRunning(true);
 				player->update(delta, player_sprite);
 			}
 
