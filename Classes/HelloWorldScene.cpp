@@ -380,11 +380,11 @@ void HelloWorld::updateGame(float delta)
 
 void HelloWorld::updateDogs(float delta)
 {
-	if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)
+	if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 300.0f*2.0f)
 	{
 		dogs.pushBack(newDog());
 	}
-	for (int i = 0; i < (GameManager::sharedGameManager()->getPlayerSpeed() / 1000.0f*2.0f)-1; i++) {
+	for (int i = 0; i < (GameManager::sharedGameManager()->getPlayerSpeed() / 300.0f*2.0f)-1; i++) {
 		Dog* d0 = dogs.at(i);
 		d0->update(player->currentLane, inTouch, delta);
 		// if dog has gone offscreen, renew its existence
@@ -395,7 +395,7 @@ void HelloWorld::updateDogs(float delta)
 Dog* HelloWorld::newDog()
 {
 	int b0 = cocos2d::RandomHelper::random_int(0, 65535);
-	int range = (int)(GameManager::sharedGameManager()->getPlayerSpeed() / 1000) + 2;
+	int range = (int)(GameManager::sharedGameManager()->getPlayerSpeed() / 100) + 2;
 	if (b0 % range == 0) { Dog* sausage = new Dog(b0 % 3, "dachs", this, Vec2(-32.0f, 32.0f), 20); return sausage; }
 	else if (b0 % range == 1) { Dog* gnob = new Dog(b0 % 3, "abyssinianwirehairedtripe", this, Vec2(-32.0f, 32.0f), 20); return gnob; }
 	else if (b0 % range == 2) { Dog* pollux = new Dog(b0 % 3, "skye", this, Vec2(-64.0f, 0.0f), 20); return pollux; }

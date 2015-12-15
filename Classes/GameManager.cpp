@@ -7,7 +7,7 @@ GameManager::GameManager()
 	isGameLive = false;
 	isGamePaused = false;
 	secondCheck = 0.0f;
-	playerSpeed = 1000.0f;
+	playerSpeed = 300.0f;
 	skyMultiplier = 0.002f;
 	mountainMultiplier = 0.04f;
 	treeMultiplier = 0.4f;
@@ -56,7 +56,7 @@ void GameManager::incrementSpeed(float delta)
 	// Every 5 seconds, increment speed by 0.1
 	if (secondCheck + delta > 5.0f) {
 		secondCheck = 0;
-		playerSpeed += 100.0f;
+		playerSpeed += 30.0f;
 	}
 	else {
 		secondCheck += delta;
@@ -69,13 +69,13 @@ void GameManager::setPlayerRunning(bool running)
 		resetSpeeds();
 	}
 	else if (running == true) {
-		playerSpeed = 1000.0f;
+		playerSpeed = 300.0f;
 	}
 }
 
 bool GameManager::getPlayerRunning()
 {
-	if (playerSpeed >= 1000.0f) {
+	if (playerSpeed >= 300.0f) {
 		return true;
 	}
 	else {
