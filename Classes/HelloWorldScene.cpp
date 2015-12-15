@@ -35,12 +35,7 @@ bool HelloWorld::init()
 	// Initialise Scene
 	scene = 1;
 	UIMoving = false;
-
-	// Initialise player class
-	player->create();
-	player = Player::create();
-	this->addChild(player);
-
+	
 	//TOUCHES
 	initTouchListeners();
 
@@ -151,6 +146,11 @@ void HelloWorld::initNodes()
 	addChild(healthmeter);
 
 	player_sprite = (Sprite*)playerNode->getChildByName("Player_Skin_1");
+
+	// Initialise player class
+	player->create(this);
+	player = Player::create(this);
+	this->addChild(player);
 
 	Black_Filter = (Sprite*)rootNode->getChildByName("Black_Filter");
 }
@@ -271,7 +271,6 @@ void HelloWorld::updateGame(float delta)
 		if (Black_Filter->getOpacity() != 0) {
 			// Start smoothly fading the filter to 0 opacity
 			int currOpac = Black_Filter->getOpacity();
-
 			if (currOpac >= 0) {
 				int nextOpac = currOpac - 5;
 
@@ -306,6 +305,7 @@ void HelloWorld::updateGame(float delta)
 	else {
 		// Updates for when game is live
 		if (GameManager::sharedGameManager()->getIsGamePaused() == false) {
+			score->setVisible(true);
 			if (GameManager::sharedGameManager()->getPlayerRunning() == true) {
 				GameManager::sharedGameManager()->incrementSpeed(delta);
 				player->update(delta, player_sprite);
@@ -319,9 +319,12 @@ void HelloWorld::updateGame(float delta)
 			// Use player speed as a multiplier
 			float multiplier = GameManager::sharedGameManager()->getPlayerSpeed() / 1000;
 			ScoreManager::sharedScoreManager()->addToScore(multiplier * delta);
-			//ScoreManager::sharedScoreManager()->resetScore();
+			//ScoreManager::sharedScoreManager()->resetScore();					//debug to check number of dogs in memory
 			//ScoreManager::sharedScoreManager()->addToScore(dogs.size());		//debug to check number of dogs in memory
 			score->setString(StringUtils::format("%d", ((int)ScoreManager::sharedScoreManager()->getScore())));
+
+			// Player's arm
+			if (inTouch) player->startArm();
 
 			// Dogs
 			//make dogs
@@ -354,6 +357,7 @@ void HelloWorld::updateGame(float delta)
 			}
 		}
 		else if (GameManager::sharedGameManager()->getIsGamePaused() == true) {
+			score->setVisible(false);
 			if (Black_Filter->getOpacity() != 127) {
 				// Start smoothly fading the filter to 127 opacity
 				int currOpac = Black_Filter->getOpacity();

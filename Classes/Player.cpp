@@ -6,9 +6,10 @@
 
 using namespace cocos2d;
 
-Player* Player::create()
+Player* Player::create(cocos2d::Layer*scene)
 {
-	Player* myNode = new Player();
+	Player* myNode = new Player(scene);
+	
 	if (myNode->init())
 	{
 		myNode->autorelease();
@@ -48,7 +49,21 @@ void Player::update(float deltaTime, Sprite* player)
 		if (currFrame > 7) currFrame = 0;
 		player->setTexture(StringUtils::format("Resources/Sprites/Bob/bodies/bob%d.png", currFrame).c_str());
 	}
+	arm->setPosition(player->getPositionX()-(28*4), player->getPositionY()+(27*4));
+	if (armcurrFrame > 0)
+	{
+		armtimeSinceLastFrame += deltaTime;
+		if (armtimeSinceLastFrame > 30.0f / GameManager::sharedGameManager()->getPlayerSpeed())
+		{
+			armtimeSinceLastFrame = 0;
+			arm->setTexture(StringUtils::format("Resources/Sprites/Bob/heads/sword%d.png", armcurrFrame).c_str());
+			armcurrFrame++;
+			if (armcurrFrame > 3) armcurrFrame = 0;
+		}
+	}
 }
+
+void Player::startArm() { if (armcurrFrame==0) armcurrFrame++; }
 
 void Player::setGameStarting(bool b)
 {
@@ -120,8 +135,12 @@ void Player::moveDownLane(Sprite* player)
 	NoiseManager::sharedNoiseManager()->PlaySFX((char*)"dn");
 }
 
-Player::Player()
+Player::Player(cocos2d::Layer*scene)
 {
+	arm = (Sprite*)cocos2d::CSLoader::createNode("Dog.csb")->getChildByName("Head");
+	addChild(arm);
+	arm->setPosition(2000, 0);
+	arm->setTexture(StringUtils::format("Resources/Sprites/Bob/heads/sword%d.png", armcurrFrame).c_str());
 }
 Player::~Player()
 {
