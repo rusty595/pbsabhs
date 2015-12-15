@@ -26,6 +26,7 @@ public:
 
 	void update(float,cocos2d::Sprite* player);
 
+	void setGameStarting(bool b);
 	void setOffscreenPos(cocos2d::Sprite* player);
 	void moveIntoStartPos(cocos2d::Sprite* player);
 	bool isReady(cocos2d::Sprite* player);
