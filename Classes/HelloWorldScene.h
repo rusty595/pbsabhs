@@ -86,7 +86,7 @@ public:
 	void updateCredits(float);
 	void updateParallaxBackground(float);
 	void updateDogs(float);
-	Dog* newDog();
+	Dog* newDog(int);
 
 	// Deal with touches.
 	virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
