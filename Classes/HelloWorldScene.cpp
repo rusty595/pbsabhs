@@ -148,6 +148,7 @@ void HelloWorld::initNodes()
 	Exit_Button = static_cast<ui::Button*>(rootNode->getChildByName("Exit_Button"));
 
 	Logo = (Sprite*)rootNode->getChildByName("Logo");
+	Game_Over = (Sprite*)rootNode->getChildByName("Game_Over"); // make a healthmeter ui::Text based on the score indicator
 
 	Pause_Score = (ui::Text*)rootNode->getChildByName("Pause_Score");
 	Pause_Highscore = (ui::Text*)rootNode->getChildByName("Pause_Highscore");
@@ -201,6 +202,9 @@ void HelloWorld::initCocosElements()
 
 	auto logoMoveTo = MoveTo::create(0.5, Vec2(winSize.width / 2, winSize.height / 2));
 	Logo->runAction(logoMoveTo);
+
+	//Game_Over->setVisible(false);
+	Game_Over->setPositionX(winSize.width + Game_Over->getBoundingBox().getMaxX());
 
 	Mute_Button->addTouchEventListener(CC_CALLBACK_2(HelloWorld::MuteButtonPressed, this));
 	Pause_Button->setPosition(Vec2(63.0f, 1025.5f));
@@ -328,6 +332,11 @@ void HelloWorld::updateGame(float delta)
 			// Health
 			healthmeter->setString(StringUtils::format("%d", GameManager::sharedGameManager()->health));
 
+			// Check death
+			if (GameManager::sharedGameManager()->getIsPlayerDead()) {
+				PauseGame();
+			}
+
 			// Filter
 			if (Black_Filter->getOpacity() != 0) {
 				// Start smoothly fading the filter to 0 opacity
@@ -363,6 +372,8 @@ void HelloWorld::updateGame(float delta)
 					}
 				}
 			}
+
+
 		}
 	}
 }
@@ -614,9 +625,19 @@ void HelloWorld::PauseGame()
 	auto winSize = Director::getInstance()->getVisibleSize();
 	GameManager::sharedGameManager()->setIsGamePaused(true);
 
-	auto resumeMoveTo = MoveTo::create(0.5, Vec2(winSize.width / 2, Resume_Button->getPositionY())); // Take half a second to move on screen.
-	Resume_Button->setVisible(true);
-	Resume_Button->runAction(resumeMoveTo);
+	if (!GameManager::sharedGameManager()->getIsPlayerDead()) {
+		auto resumeMoveTo = MoveTo::create(0.5, Vec2(winSize.width / 2, Resume_Button->getPositionY())); // Take half a second to move on screen.
+		Resume_Button->setVisible(true);
+		Resume_Button->runAction(resumeMoveTo);
+	}
+	else {
+		auto gameOverMoveTo = MoveTo::create(0.5, Vec2(winSize.width / 2, Game_Over->getPositionY())); // Take half a second to move on screen.
+		Game_Over->setVisible(true);
+		Game_Over->runAction(gameOverMoveTo);
+
+		// Submit Highscore
+		ScoreManager::sharedScoreManager()->compareScoreToHighscore();
+	}
 
 	auto exitMoveTo = MoveTo::create(0.5, Vec2(winSize.width / 2, Exit_Button->getPositionY())); // Take half a second to move on screen.
 	Exit_Button->setVisible(true);
@@ -654,9 +675,6 @@ void HelloWorld::EndGame()
 {
 	GameManager::sharedGameManager()->setIsGamePaused(false);
 	GameManager::sharedGameManager()->setIsGameLive(false);
-
-	// DEBUG
-	ScoreManager::sharedScoreManager()->compareScoreToHighscore();
 
 	// Abandon high score. Players are not rewarded for quitting
 	ScoreManager::sharedScoreManager()->resetScore();

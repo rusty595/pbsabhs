@@ -34,6 +34,7 @@ private:
 
 	// Text
 	cocos2d::Sprite*		Logo;
+	cocos2d::Sprite*		Game_Over;
 	cocos2d::ui::Text*		Credit_Text;
 	cocos2d::ui::Text*		Pause_Score;
 	cocos2d::ui::Text*		Pause_Highscore;

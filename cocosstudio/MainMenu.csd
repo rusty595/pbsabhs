@@ -127,6 +127,17 @@
             <FileData Type="Normal" Path="Resources/UI/title.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
+          <AbstractNodeData Name="Game_Over" ActionTag="1289616197" Tag="11" IconVisible="False" HorizontalEdge="BothEdge" LeftMargin="409.0000" RightMargin="409.0000" TopMargin="513.7100" BottomMargin="376.2900" ctype="SpriteObjectData">
+            <Size X="958.0000" Y="190.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="888.0000" Y="471.2900" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.5000" Y="0.4364" />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="Resources/UI/game_over.png" Plist="" />
+            <BlendFunc Src="770" Dst="771" />
+          </AbstractNodeData>
         </Children>
       </ObjectData>
     </Content>

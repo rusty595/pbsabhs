@@ -46,6 +46,11 @@ bool GameManager::getIsGamePaused()
 	return isGamePaused;
 }
 
+bool GameManager::getIsPlayerDead()
+{
+	return (health == 0);
+}
+
 void GameManager::incrementSpeed(float delta)
 {
 	// Every 5 seconds, increment speed by 0.1

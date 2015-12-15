@@ -54,6 +54,7 @@
             <Image Name="MutePressed.png" />
             <Image Name="MuteUnPressed.png" />
             <Image Name="title.png" />
+            <Image Name="game_over.png" />
           </Folder>
           <Audio Name="dogs.mp3" />
           <Audio Name="no.mp3" />
