@@ -106,6 +106,8 @@ public:
 		score = Score;
 	}
 
+	void reset(){ int b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % 4 == 0) reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f), 20); else if (b0 % 4 == 1) reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f), 20); else if (b0 % 4 == 2) reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f), 20); else if (b0 % 4 == 3) reset(b0 % 3, "beagle", Vec2(-32.0f, 12.0f), 20); }
+
 };
 
 class Obstacle : public Dog

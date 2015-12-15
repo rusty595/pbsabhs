@@ -2,10 +2,6 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-// Includes required for Pseudo Random Numbers
-#include <cstdlib>
-#include <ctime>
-
 
 USING_NS_CC;
 
@@ -687,6 +683,8 @@ void HelloWorld::EndGame()
 
 	// Reset all objects to the default position
 	initCocosElements();
+
+	for (int b0 = 0; b0 < dogs.size() - 1; b0++) dogs.at(b0)->reset();
 
 	scene = 1;
 }
