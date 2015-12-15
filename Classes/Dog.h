@@ -40,6 +40,7 @@ private:
 		}
 		else
 		{
+			if (score>-10) NoiseManager::sharedNoiseManager()->PlaySFX((char*)"sqsh"); else NoiseManager::sharedNoiseManager()->PlaySFX((char*)"criticalstop");
 			GameManager::sharedGameManager()->health--;
 		}
 	}
@@ -106,7 +107,7 @@ public:
 		score = Score;
 	}
 
-	void reset(){ int b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % 4 == 0) reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f), 20); else if (b0 % 4 == 1) reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f), 20); else if (b0 % 4 == 2) reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f), 20); else if (b0 % 4 == 3) reset(b0 % 3, "beagle", Vec2(-32.0f, 12.0f), 20); }
+	void reset(){ int b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % 6 == 0) reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f), 20); else if (b0 % 6 == 1) reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f), 20); else if (b0 % 6 == 2) reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f), 20); else if (b0 % 6 == 3) reset(b0 % 3, "beagle", Vec2(-32.0f, 12.0f), 20); else if (b0 % 6 == 4) reset(b0 % 3, "scot", Vec2(-64.0f, 8.0f), -10); else if (b0 % 6 == 5) reset(b0 % 3, "obstacle", Vec2(-32.0f, 32.0f), -5); }
 
 };
 
@@ -121,6 +122,6 @@ public:
 class ScottishTerrier : public Obstacle
 {
 public:
-	ScottishTerrier(int lane, cocos2d::Layer*scene) : Obstacle(lane, "scot", scene, Vec2(-64.0f, 8.0f)){};
+	ScottishTerrier(int lane, cocos2d::Layer*scene) : Obstacle(lane, "scot", scene, Vec2(-64.0f, 8.0f), -10){};
 	~ScottishTerrier(){};
 };
