@@ -380,9 +380,9 @@ void HelloWorld::updateGame(float delta)
 	}
 }
 
-void HelloWorld::updateDogs(float delta)
+void HelloWorld::updateDogs(float delta) // update all dogs, make more if necessary
 {
-	int range = (int)(GameManager::sharedGameManager()->getPlayerSpeed() / 150) + 1;
+	int range = (int)(GameManager::sharedGameManager()->getPlayerSpeed() / 150);
 	if (dogs.size() < GameManager::sharedGameManager()->getPlayerSpeed() / 300.0f*2.0f)
 	{
 		dogs.pushBack(newDog(range));
@@ -391,20 +391,14 @@ void HelloWorld::updateDogs(float delta)
 		Dog* d0 = dogs.at(i);
 		d0->update(player->currentLane, inTouch, delta);
 		// if dog has gone offscreen, renew its existence
-		if (d0->destroy) { int b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % range == 0) d0->reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f), 20); else if (b0 % range == 1) d0->reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f), 20); else if (b0 % range == 2) d0->reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f), 20); else if (b0 % range == 3) d0->reset(b0 % 3, "beagle", Vec2(-32.0f, 12.0f), 20); else if (b0 % range == 4) d0->reset(b0 % 3, "scot", Vec2(-64.0f, 8.0f), -10); else if (b0 % range == 5) d0->reset(b0 % 3, "obstacle", Vec2(-32.0f, 32.0f), -5); }
+		if (d0->destroy) { d0->reset(range); }
 	}
 }
 
-Dog* HelloWorld::newDog(int range)
+Dog* HelloWorld::newDog(int range) // makes a new dog in the given range
 {
 	int b0 = cocos2d::RandomHelper::random_int(0, 65535);
-	if (b0 % range == 0) { Dog* sausage = new Dog(b0 % 3, "dachs", this, Vec2(-32.0f, 32.0f), 20); return sausage; }
-	else if (b0 % range == 1) { Dog* gnob = new Dog(b0 % 3, "abyssinianwirehairedtripe", this, Vec2(-32.0f, 32.0f), 20); return gnob; }
-	else if (b0 % range == 2) { Dog* pollux = new Dog(b0 % 3, "skye", this, Vec2(-64.0f, 0.0f), 20); return pollux; }
-	else if (b0 % range == 3) { Dog* peanus = new Dog(b0 % 3, "beagle", this, Vec2(-32.0f, 12.0f), 20); return peanus; }
-	else if (b0 % range == 4) { ScottishTerrier* ofthejedi = new ScottishTerrier(b0 % 3, this); return ofthejedi; }
-	else if (b0 % range == 5) { Obstacle* tooz = new Obstacle(b0 % 3, this); return tooz; }
-	else return newDog(range); // keep trying until a dog is made successfully. prevents range-based dog generation bias.
+	return new Dog(b0 % 3, b0 % range, this);
 }
 
 void HelloWorld::updateCredits(float delta)
@@ -490,22 +484,7 @@ void HelloWorld::updateParallaxBackground(float delta)
 	float trackSpeed = 0.5 * GameManager::sharedGameManager()->getIncomingSpeed();
 	if (delta > 1) initTracksPositions();
 	else trackSpeed = GameManager::sharedGameManager()->getIncomingSpeed() * delta;
-	for (int b0 = 0; b0 < 6; b0++)
-	{
-		track[b0]->setPositionX(track[b0]->getPositionX() + trackSpeed);
-		/*
-		// Check if track is offscreen, if so, move track to the end of second track
-		if (track[b0]->getPositionX() + track[b0]->getTextureRect().getMaxX() < 0) {
-			if (b0 < 3){
-				track[b0]->setPositionX(track[b0+3]->getTextureRect().getMaxX() + (track[b0+3]->getPosition().x));
-			}
-			else
-			{
-				track[b0]->setPositionX(track[b0-3]->getTextureRect().getMaxX() + (track[b0-3]->getPosition().x));
-			}
-		}
-		*/
-	}
+	for (int b0 = 0; b0 < 6; b0++) track[b0]->setPositionX(track[b0]->getPositionX() + trackSpeed);
 	// Check if track is offscreen, if so, move track to the end of second track
 	if (track[0]->getPositionX() + track[0]->getTextureRect().getMaxX() < 0) {
 		track[0]->setPositionX(track[3]->getTextureRect().getMaxX() + (track[3]->getPosition().x));
@@ -694,7 +673,7 @@ void HelloWorld::EndGame()
 
 	player->setArmVisible(false);
 
-	for (int b0 = 0; b0 < dogs.size() - 1; b0++) dogs.at(b0)->reset();
+	for (int b0 = 0; b0 < dogs.size() - 1; b0++) { dogs.at(b0)->reset(); dogs.at(b0)->destroy = true; } // moves all dogs off screen and marks them to be reset with the current range before they reappear
 
 	scene = 1;
 }
