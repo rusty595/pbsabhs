@@ -58,12 +58,14 @@ void Player::update(float deltaTime, Sprite* player)
 			armtimeSinceLastFrame = 0;
 			arm->setTexture(StringUtils::format("Resources/Sprites/Bob/heads/sword%d.png", armcurrFrame).c_str());
 			armcurrFrame++;
-			if (armcurrFrame > 3) armcurrFrame = 0;
+			if (armcurrFrame > 4) armcurrFrame = 0;
 		}
 	}
 }
 
 void Player::startArm() { if (armcurrFrame==0) armcurrFrame++; }
+
+void Player::setArmVisible(bool v) { arm->setVisible(v); }
 
 void Player::setGameStarting(bool b)
 {

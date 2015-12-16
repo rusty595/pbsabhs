@@ -619,6 +619,8 @@ void HelloWorld::StartGame()
 	Logo->runAction(logoMoveTo);
 
 	Mute_Button->setVisible(false);
+	player->setArmVisible(true);
+	player->update(0, player_sprite);
 	inTouch = false;
 }
 
@@ -689,6 +691,8 @@ void HelloWorld::EndGame()
 
 	// Reset all objects to the default position
 	initCocosElements();
+
+	player->setArmVisible(false);
 
 	for (int b0 = 0; b0 < dogs.size() - 1; b0++) dogs.at(b0)->reset();
 

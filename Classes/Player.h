@@ -39,4 +39,5 @@ public:
 	void moveDownLane(cocos2d::Sprite* player);
 
 	void startArm();
+	void setArmVisible(bool);
 };
