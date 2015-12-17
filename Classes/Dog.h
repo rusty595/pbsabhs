@@ -4,12 +4,20 @@
 #include "cocostudio/CocoStudio.h"
 #include "NoiseManager.h"
 
+enum DOG{ DACHSUND, ABYSSINIANWIREHAIREDTRIPEHOUND, DALMATIAN, BEAGLE, DROPEAREDSKYETERRIER, SCOTTISHTERRIER, RETRIEVER, SUSPICIOUSOBSTACLE };
+
 class Dog : public cocos2d::Sprite
 {
 private:
+	// Dog data
+	static const int dogcount = 8;
+	std::string dog[dogcount];
+	cocos2d::Vec2 headoffset[dogcount];
+	int Score[dogcount];
+
 	// Lane data
 	int currentLane;
-	float Bob = 250.0f;
+	float Bob = 265.0f;
 
 	// Game data
 	bool beheaded = false;
@@ -50,29 +58,37 @@ private:
 	cocos2d::Sprite* head;
 
 public:
-	Dog(int lane, std::string dog, cocos2d::Layer*scene, cocos2d::Vec2 headoffset, int Score){
+	Dog(int lane, int d, cocos2d::Layer*scene) // make dog in this lane, with this type given by enum DOG, in this scene
+	{
+		std::string tmpdog[dogcount] = { "dachs", "abyssinianwirehairedtripe", "dalmatia", "beagle", "skye", "scot", "retriever" "obstacle" };
+		std::copy(tmpdog, tmpdog + dogcount, dog);
+		Vec2 tmpoffset[dogcount] = { Vec2(-32.0f, 32.0f), Vec2(-32.0f, -72.0f), Vec2(-64.0f, 32.0f), Vec2(-32.0f, 12.0f), Vec2(-64.0f, -160.0f), Vec2(-64.0f, 8.0f), Vec2(-64.0f, 32.0f), Vec2() };
+		std::copy(tmpoffset, tmpoffset + dogcount, headoffset);
+		int tmpscore[dogcount] = { 20, 20, 40, 20, 20, -10, 20, -5 };
+		std::copy(tmpscore, tmpscore + dogcount, Score);
+		
 		currentLane = lane;
 		layer = cocos2d::CSLoader::createNode("Dog.csb");
 		body = (Sprite*)layer->getChildByName("Body");
 		scene->addChild(body);
-		body->setTexture("Resources/Sprites/Dogs/bodies/" + dog + ".png");
+		body->setTexture("Resources/Sprites/Dogs/bodies/" + dog[d] + ".png");
 		body->setPosition(x, GameManager::sharedGameManager()->laneY[currentLane] + (body->getTextureRect().size.height / 2));
 		head = (Sprite*)layer->getChildByName("Head");
 		scene->addChild(head);
-		head->setTexture("Resources/Sprites/Dogs/heads/" + dog + ".png");
-		head->setPosition(body->getPositionX() + headoffset.x, body->getPositionY() + headoffset.y);
+		head->setTexture("Resources/Sprites/Dogs/heads/" + dog[d] + ".png");
+		head->setPosition(body->getPositionX() + headoffset[d].x, body->getPositionY() + headoffset[d].y);
 		head->setRotation(0);
-		headx = headoffset.x;
-		if (dog.compare("abyssinianwirehairedtripe") == 0) { head->setAnchorPoint(Vec2(0, 0)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() - 72); }
-		else if (dog.compare("skye") == 0) { head->setAnchorPoint(Vec2(0, 0)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() - body->getTextureRect().size.height); }
-		score = Score;
+		headx = headoffset[d].x;
+		if (dog[d].compare("abyssinianwirehairedtripe") == 0 || dog[d].compare("skye") == 0) { head->setAnchorPoint(Vec2(0, 0)); }
+		score = Score[d];
 	}
 	Dog(){}
 	~Dog(){}
 
 	bool destroy = false; // whether to reset the dog or not
 
-	void update(int BobLane, bool behead, float delta){
+	void update(int BobLane, bool behead, float delta)
+	{
 		float s = 0.5 * GameManager::sharedGameManager()->getIncomingSpeed();
 		if (delta < 1) s = GameManager::sharedGameManager()->getIncomingSpeed() * delta;
 		x+=s; 
@@ -88,40 +104,36 @@ public:
 		else if (dead){ head->setPositionY(head->getPositionY() - 1); }
 	}
 
-	void reset(int lane, std::string dog, cocos2d::Vec2 headoffset, int Score)
+	void reset(int lane, int d) // reset dog to be in this lane with this type (types from enum DOG)
 	{
 		destroy = false;
 		beheaded = false;
 		dead = false;
 		x = 2000;
 		currentLane = lane;
-		body->setTexture("Resources/Sprites/Dogs/bodies/" + dog + ".png");
+		body->setTexture("Resources/Sprites/Dogs/bodies/" + dog[d] + ".png");
 		body->setPosition(x, GameManager::sharedGameManager()->laneY[currentLane] + (body->getTextureRect().size.height / 2));
 		head->setAnchorPoint(Vec2(0.0f, 1.0f));
-		head->setTexture("Resources/Sprites/Dogs/heads/" + dog + ".png");
-		head->setPosition(body->getPositionX() + headoffset.x, body->getPositionY() + headoffset.y);
+		head->setTexture("Resources/Sprites/Dogs/heads/" + dog[d] + ".png");
+		head->setPosition(body->getPositionX() + headoffset[d].x, body->getPositionY() + headoffset[d].y);
 		head->setRotation(0);
-		headx = headoffset.x;
-		if (dog.compare("abyssinianwirehairedtripe") == 0) { head->setAnchorPoint(Vec2(0.0f, 0.0f)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() - 72); }
-		else if (dog.compare("skye") == 0) { head->setAnchorPoint(Vec2(0.0f, 0.0f)); head->setPositionX(body->getPositionX()); head->setPositionY(body->getPositionY() - body->getTextureRect().size.height); }
-		score = Score;
+		headx = headoffset[d].x;
+		if (dog[d].compare("abyssinianwirehairedtripe") == 0 || dog[d].compare("skye") == 0) { head->setAnchorPoint(Vec2(0, 0)); }
+		score = Score[d];
 	}
 
-	void reset(){ int b0 = cocos2d::RandomHelper::random_int(0, 65535); if (b0 % 6 == 0) reset(b0 % 3, "dachs", Vec2(-32.0f, 32.0f), 20); else if (b0 % 6 == 1) reset(b0 % 3, "abyssinianwirehairedtripe", Vec2(-32.0f, 32.0f), 20); else if (b0 % 6 == 2) reset(b0 % 3, "skye", Vec2(-64.0f, 0.0f), 20); else if (b0 % 6 == 3) reset(b0 % 3, "beagle", Vec2(-32.0f, 12.0f), 20); else if (b0 % 6 == 4) reset(b0 % 3, "scot", Vec2(-64.0f, 8.0f), -10); else if (b0 % 6 == 5) reset(b0 % 3, "obstacle", Vec2(-32.0f, 32.0f), -5); }
+	void reset(int range){ int b0 = cocos2d::RandomHelper::random_int(0, 65535); reset(b0 % 3, b0 % range); } // reset dog within given range
+	void reset(){ reset(2); } // reset dog using initial range
 
 };
 
-class Obstacle : public Dog
-{
-public:
-	Obstacle(int lane, cocos2d::Layer*scene, int scoreoverride = -5) :Dog(lane, "obstacle", scene, Vec2(-32.0f, 32.0f), scoreoverride){};
-	Obstacle(int lane, std::string textureoverride, cocos2d::Layer*scene, cocos2d::Vec2 headoffset, int scoreoverride = -5) :Dog(lane, textureoverride, scene, headoffset, scoreoverride){};
-	~Obstacle(){};
-};
 
-class ScottishTerrier : public Obstacle
-{
-public:
-	ScottishTerrier(int lane, cocos2d::Layer*scene) : Obstacle(lane, "scot", scene, Vec2(-64.0f, 8.0f), -10){};
-	~ScottishTerrier(){};
-};
+
+// DO NOT USE THESE CLASSES, PASS THE DESIRED ENUM DOG TO Dog()
+class Obstacle : public Dog { public: Obstacle(int lane, cocos2d::Layer*scene) :Dog(lane, SUSPICIOUSOBSTACLE, scene){}; Obstacle(int lane, int override, cocos2d::Layer*scene) :Dog(lane, override, scene){}; ~Obstacle(){}; };
+class ScottishTerrier : public Obstacle { public: ScottishTerrier(int lane, cocos2d::Layer*scene) : Obstacle(lane, SCOTTISHTERRIER, scene){}; ~ScottishTerrier(){}; };
+class Dachshund : public Dog { public: Dachshund(int lane, cocos2d::Layer*scene) :Dog(lane, DACHSUND, scene){}; ~Dachshund(){}; };
+class AbyssinianWireHairedTripeHound : public Dog { public: AbyssinianWireHairedTripeHound(int lane, cocos2d::Layer*scene) :Dog(lane, ABYSSINIANWIREHAIREDTRIPEHOUND, scene){  }; ~AbyssinianWireHairedTripeHound(){} };
+class SkyeTerrier : public Dog { public: SkyeTerrier(int lane, cocos2d::Layer*scene) :Dog(lane, DROPEAREDSKYETERRIER, scene){}; ~SkyeTerrier(){}; };
+class Beagle : public Dog { public: Beagle(int lane, cocos2d::Layer*scene) :Dog(lane, BEAGLE, scene){}; ~Beagle(){} };
+class Dalmatian : public Dog { public: Dalmatian(int lane, cocos2d::Layer*scene) :Dog(lane, DALMATIAN, scene){}; ~Dalmatian(){} };

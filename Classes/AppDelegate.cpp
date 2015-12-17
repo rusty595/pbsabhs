@@ -17,7 +17,6 @@ void AppDelegate::initGLContextAttrs()
 {
     //set OpenGL context attributions,now can only set six attributions:
     //red,green,blue,alpha,depth,stencil
-    //GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
 	GLContextAttrs glContextAttrs = { 6, 6, 6, 1, 18, 8 };
     GLView::setGLContextAttrs(glContextAttrs);
 }
@@ -27,12 +26,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::createWithRect("Puppy Backlogue Slaughter: A Bob Hobbs Simulator", Rect(0, 0, 1776, 1080));
-		//glview = GLViewImpl::createWithFullScreen("Puppy Backlogue Slaughter: A Bob Hobbs Simulator");
+        //glview = GLViewImpl::createWithRect("Puppy Backlogue Slaughter: A Bob Hobbs Simulator", Rect(0, 0, 1776, 1080));
+		glview = GLViewImpl::createWithFullScreen("Puppy Backlogue Slaughter: A Bob Hobbs Simulator");
         director->setOpenGLView(glview);
     }
 
-    director->getOpenGLView()->setDesignResolutionSize(1776, 1080, ResolutionPolicy::EXACT_FIT);
+    director->getOpenGLView()->setDesignResolutionSize(1776, 1080, ResolutionPolicy::SHOW_ALL);
 
     // turn on display FPS
     //director->setDisplayStats(true);

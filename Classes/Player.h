@@ -12,17 +12,21 @@ private:
 	// Animation data
 	float timeSinceLastFrame;
 	int currFrame=0;
+	//Arm data
+	float armtimeSinceLastFrame;
+	int armcurrFrame = 0;
+	cocos2d::Sprite* arm;
 	// Game data
 	bool gameStarting;
 public:
 	// Lane data
 	int currentLane;
 
-	Player();
+	Player(cocos2d::Layer*scene);
 	~Player();
 
 	virtual bool init() override;
-	static Player* create();
+	static Player* create(cocos2d::Layer*scene);
 
 	void update(float,cocos2d::Sprite* player);
 
@@ -33,4 +37,7 @@ public:
 
 	void moveUpLane(cocos2d::Sprite* player);
 	void moveDownLane(cocos2d::Sprite* player);
+
+	void startArm();
+	void setArmVisible(bool);
 };
