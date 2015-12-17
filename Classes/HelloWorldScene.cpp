@@ -216,7 +216,14 @@ void HelloWorld::initCocosElements()
 	healthmeter->setString(StringUtils::format("%d", GameManager::sharedGameManager()->health));
 	healthmeter->setVisible(false);
 	healthmeter->setPosition(Vec2(winSize.width - 260.0f, winSize.height - 45.0f));
-	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\nDog Handler:\n Sam Head\n\nDocumentation:\n David Smith\n\n");
+	Credit_Text->setString("Programmers:\n David Smith\n Sam Head\n\n"
+		"Dog Handler:\n Sam Head\n\n"
+		"Art Director:\n Sam Head\n\n"
+		"Background Artist:\n David Smith\n\n"
+		"Bobster Blade Art:\n Silverbolt (tSR user) & Sam Head\n\n"
+		"Documentation:\n David Smith\n\n"
+		"Music:\n Background Music - Joerock@exrock.com & Sam Head\n\n"
+		"Sounds:\n David Smith, McKinney Sound & Public Domain");
 	Credit_Text->setAnchorPoint(Vec2(0.5f, 1.0f));
 	Credit_Text->setVisible(false);
 	Pause_Score->setString(StringUtils::format("%d", 0));
@@ -726,25 +733,27 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 void HelloWorld::onTouchEnded(cocos2d::Touch*, cocos2d::Event*)
 {
 	if (GameManager::sharedGameManager()->getIsGameLive() == true) {
-		inTouch = false;
-		if (touchMoved == true)	// Deal with a touch-slide
-		{
-			int minimumMoved = 200;	// 200px must have been moved across to make Bob change lanes
-			float diffX = finalTouchPos.x - initialTouchPos.x;
-			float diffY = finalTouchPos.y - initialTouchPos.y;
+		if (!GameManager::sharedGameManager()->getIsGamePaused()) {
+			inTouch = false;
+			if (touchMoved == true)	// Deal with a touch-slide
+			{
+				int minimumMoved = 200;	// 200px must have been moved across to make Bob change lanes
+				float diffX = finalTouchPos.x - initialTouchPos.x;
+				float diffY = finalTouchPos.y - initialTouchPos.y;
 
-			if (diffY > minimumMoved) {
-				player->moveUpLane(player_sprite);
-			}
-			else if (diffY < (-1 * minimumMoved)) {
-				player->moveDownLane(player_sprite);
-			}
-			else {
-				// Nothing happens, player did not slide enough
-			}
+				if (diffY > minimumMoved) {
+					player->moveUpLane(player_sprite);
+				}
+				else if (diffY < (-1 * minimumMoved)) {
+					player->moveDownLane(player_sprite);
+				}
+				else {
+					// Nothing happens, player did not slide enough
+				}
 
-			// Reset touch
-			touchMoved = false;
+				// Reset touch
+				touchMoved = false;
+			}
 		}
 	}
 }
