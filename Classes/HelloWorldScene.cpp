@@ -223,7 +223,7 @@ void HelloWorld::initCocosElements()
 		"Bobster Blade Art:\n Silverbolt (tSR user) & Sam Head\n\n"
 		"Documentation:\n David Smith\n\n"
 		"Music:\n Background Music - Joerock@exrock.com & Sam Head\n\n"
-		"Sounds:\n David Smith, McKinney Sound & Public Domain");
+		"Sounds:\n David Smith, Sam Head, McKinney Sound & Public Domain");
 	Credit_Text->setAnchorPoint(Vec2(0.5f, 1.0f));
 	Credit_Text->setVisible(false);
 	Pause_Score->setString(StringUtils::format("%d", 0));
