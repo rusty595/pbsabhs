@@ -4,7 +4,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "NoiseManager.h"
 
-enum DOG{ DACHSUND, ABYSSINIANWIREHAIREDTRIPEHOUND, DALMATIAN, BEAGLE, DROPEAREDSKYETERRIER, SCOTTISHTERRIER, RETRIEVER, SUSPICIOUSOBSTACLE };
+enum DOG{ DACHSUND, ABYSSINIANWIREHAIREDTRIPEHOUND, DALMATIAN, SCOTTISHTERRIER, BEAGLE, DROPEAREDSKYETERRIER, RETRIEVER, SUSPICIOUSOBSTACLE };
 
 class Dog : public cocos2d::Sprite
 {
@@ -60,11 +60,11 @@ private:
 public:
 	Dog(int lane, int d, cocos2d::Layer*scene) // make dog in this lane, with this type given by enum DOG, in this scene
 	{
-		std::string tmpdog[dogcount] = { "dachs", "abyssinianwirehairedtripe", "dalmatia", "beagle", "skye", "scot", "retrieve", "obstacle" };
+		std::string tmpdog[dogcount] = { "dachs", "abyssinianwirehairedtripe", "dalmatia", "scot", "beagle", "skye", "retrieve", "obstacle" };
 		std::copy(tmpdog, tmpdog + dogcount, dog);
-		Vec2 tmpoffset[dogcount] = { Vec2(-32.0f, 32.0f), Vec2(-32.0f, -72.0f), Vec2(-64.0f, 32.0f), Vec2(-32.0f, 12.0f), Vec2(-64.0f, -160.0f), Vec2(-64.0f, 8.0f), Vec2(-64.0f, 32.0f), Vec2(0,2000.0f) };
+		Vec2 tmpoffset[dogcount] = { Vec2(-32.0f, 32.0f), Vec2(-32.0f, -72.0f), Vec2(-64.0f, 32.0f), Vec2(-64.0f, 8.0f), Vec2(-32.0f, 12.0f), Vec2(-64.0f, -160.0f), Vec2(-64.0f, 32.0f), Vec2(0,2000.0f) };
 		std::copy(tmpoffset, tmpoffset + dogcount, headoffset);
-		int tmpscore[dogcount] = { 20, 20, 40, 20, 20, -10, 20, -5 };
+		int tmpscore[dogcount] = { 20, 20, 40, -10, 20, 20, 20, -5 };
 		std::copy(tmpscore, tmpscore + dogcount, Score);
 		
 		currentLane = lane;
