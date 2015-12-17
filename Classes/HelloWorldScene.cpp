@@ -726,25 +726,27 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 void HelloWorld::onTouchEnded(cocos2d::Touch*, cocos2d::Event*)
 {
 	if (GameManager::sharedGameManager()->getIsGameLive() == true) {
-		inTouch = false;
-		if (touchMoved == true)	// Deal with a touch-slide
-		{
-			int minimumMoved = 200;	// 200px must have been moved across to make Bob change lanes
-			float diffX = finalTouchPos.x - initialTouchPos.x;
-			float diffY = finalTouchPos.y - initialTouchPos.y;
+		if (!GameManager::sharedGameManager()->getIsGamePaused()) {
+			inTouch = false;
+			if (touchMoved == true)	// Deal with a touch-slide
+			{
+				int minimumMoved = 200;	// 200px must have been moved across to make Bob change lanes
+				float diffX = finalTouchPos.x - initialTouchPos.x;
+				float diffY = finalTouchPos.y - initialTouchPos.y;
 
-			if (diffY > minimumMoved) {
-				player->moveUpLane(player_sprite);
-			}
-			else if (diffY < (-1 * minimumMoved)) {
-				player->moveDownLane(player_sprite);
-			}
-			else {
-				// Nothing happens, player did not slide enough
-			}
+				if (diffY > minimumMoved) {
+					player->moveUpLane(player_sprite);
+				}
+				else if (diffY < (-1 * minimumMoved)) {
+					player->moveDownLane(player_sprite);
+				}
+				else {
+					// Nothing happens, player did not slide enough
+				}
 
-			// Reset touch
-			touchMoved = false;
+				// Reset touch
+				touchMoved = false;
+			}
 		}
 	}
 }
