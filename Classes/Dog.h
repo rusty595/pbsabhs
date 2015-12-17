@@ -38,17 +38,17 @@ private:
 			beheaded = behead;
 			
 			if (!beheaded) {
-				NoiseManager::sharedNoiseManager()->PlaySFX((char*)"chord");
+				NoiseManager::sharedNoiseManager()->PlaySFX((char*)"ding");
 				ScoreManager::sharedScoreManager()->addToScore(score);
 			}
 			else if (beheaded) {
-				NoiseManager::sharedNoiseManager()->PlaySFX((char*)"sound240");
+				NoiseManager::sharedNoiseManager()->PlaySFX((char*)"wilhelm");
 				ScoreManager::sharedScoreManager()->addToScore(score*1.75);
 			}
 		}
 		else
 		{
-			if (score>-10) NoiseManager::sharedNoiseManager()->PlaySFX((char*)"sqsh"); else NoiseManager::sharedNoiseManager()->PlaySFX((char*)"criticalstop");
+			if (score>-10) NoiseManager::sharedNoiseManager()->PlaySFX((char*)"sqsh"); else NoiseManager::sharedNoiseManager()->PlaySFX((char*)"scot");
 			GameManager::sharedGameManager()->health--;
 		}
 	}
