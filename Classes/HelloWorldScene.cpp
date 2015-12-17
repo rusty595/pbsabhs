@@ -222,13 +222,8 @@ void HelloWorld::initCocosElements()
 		"Background Artist:\n David Smith\n\n"
 		"Bobster Blade Art:\n Silverbolt (tSR user) & Sam Head\n\n"
 		"Documentation:\n David Smith\n\n"
-		"Music:\n dogs - Joerock@exrock.com & Sam Head\n"
-		"Sounds:\n sqsh - http://www.freesfx.co.uk/users/mckinneysound/ \n"
-		" chord - Microsoft\n"
-		" critical stop - Microsoft\n"
-		" sound240 - Pinball (Win95+ Edition)\n"
-		" up - David Smith\n"
-		" down - David Smith\n");
+		"Music:\n Background Music - Joerock@exrock.com & Sam Head\n\n"
+		"Sounds:\n David Smith, McKinney Sound & Public Domain");
 	Credit_Text->setAnchorPoint(Vec2(0.5f, 1.0f));
 	Credit_Text->setVisible(false);
 	Pause_Score->setString(StringUtils::format("%d", 0));
